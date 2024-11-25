@@ -19,6 +19,12 @@
     <Filter Include="02.Device">
       <UniqueIdentifier>{a9fb107f-bc62-4bd5-821e-978f5e85b4e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.Layer">
+      <UniqueIdentifier>{8f9ae9b3-382e-42bf-8037-e4f8036bf889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject">
+      <UniqueIdentifier>{39e5317c-f51d-4b76-9ce2-83b66dd68f2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -43,6 +49,12 @@
       <Filter>02.Device</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Layer.h">
+      <Filter>04.Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>03.GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,6 +70,12 @@
       <Filter>02.Device</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Layer.cpp">
+      <Filter>04.Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>03.GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

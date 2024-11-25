@@ -1,8 +1,12 @@
 #pragma once
 
 // C++ STL
+#include <string>
+using std::string;
 #include <array>
 using std::array;
+#include <vector>
+using std::vector;
 
 // DirectX 11
 #include <d3d11.h>
