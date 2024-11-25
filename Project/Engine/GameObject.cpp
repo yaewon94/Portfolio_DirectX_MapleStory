@@ -2,10 +2,13 @@
 #include "GameObject.h"
 #include "LevelManager.h"
 #include "Layer.h"
+#include "Transform.h"
 
 GameObject::GameObject(const string& name)
 	: m_name(name), m_layerIdx(0)
 {
+	AddComponent<Transform>();
+
 	// 현재 레벨에 등록
 	LevelManager::GetInstance()->AddObject(this);
 }
