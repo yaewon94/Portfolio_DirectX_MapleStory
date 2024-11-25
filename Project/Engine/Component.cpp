@@ -6,6 +6,11 @@ Component::Component(GameObject* const owner)
 {
 }
 
+Component::Component(const Component& origin, GameObject* const newOwner) 
+	: m_owner(newOwner)
+{
+}
+
 Component::~Component()
 {
 	m_owner = nullptr;

@@ -36,7 +36,7 @@ GameObject& GameObject::operator=(const GameObject& other)
 	m_layerIdx = other.m_layerIdx;
 	for (const auto& pair : other.m_componentMap)
 	{
-		m_componentMap.insert(make_pair(pair.first, pair.second->Clone()));
+		m_componentMap.insert(make_pair(pair.first, pair.second->Clone(this)));
 	}
 
 	return *this;
