@@ -14,6 +14,8 @@ ConstBuffer::~ConstBuffer()
 
 int ConstBuffer::Create(UINT size)
 {
+	m_buffer.Reset();
+
 #ifdef _DEBUG
 	if (size % 16 != 0) assert(nullptr);
 #endif // _DEBUG

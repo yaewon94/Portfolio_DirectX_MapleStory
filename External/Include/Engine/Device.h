@@ -1,4 +1,5 @@
 #pragma once
+#include "ConstBuffer.h"
 
 enum class RASTERIZER_TYPE : byte
 {
@@ -41,6 +42,8 @@ private:
     array<ComPtr<ID3D11SamplerState>, (size_t)SAMPLER_TYPE::COUNT_END> m_sampler;
     array<ComPtr<ID3D11BlendState>, (size_t)BLEND_TYPE::COUNT_END> m_bs;
     array<ComPtr<ID3D11DepthStencilState>, (size_t)DEPTH_STENCIL_TYPE::COUNT_END> m_ds;
+
+    array<ConstBuffer*, (size_t)CONST_BUFFER_TYPE::COUNT_END> m_constBuffers;
 
     D3D11_VIEWPORT m_viewport;
 

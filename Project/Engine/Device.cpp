@@ -1,15 +1,25 @@
 #include "pch.h"
 #include "Device.h"
 #include "Engine.h"
+#include "Transform.h"
 
 Device::Device() 
     : m_viewport{}
+    , m_constBuffers{}
 {
 }
 
 
 Device::~Device()
 {
+    for (auto buffer : m_constBuffers)
+    {
+        if (buffer != nullptr)
+        {
+            delete buffer;
+            buffer = nullptr;
+        }
+    }
 }
 
 int Device::Init()
@@ -291,6 +301,13 @@ int Device::Init()
             MessageBoxA(nullptr, "CreateDepthStencilState(NO TEST NO WRITE) is failed", "Initialize Device is failed", MB_OK);
             return E_FAIL;
         }
+    }
+
+    // 상수 버퍼 생성
+    {
+        size_t index = (size_t)CONST_BUFFER_TYPE::TRANSFORM;
+        m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
+        if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Transform)))) return E_FAIL;
     }
 
     // viewport 설정

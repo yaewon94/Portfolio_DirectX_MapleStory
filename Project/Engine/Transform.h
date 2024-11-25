@@ -1,6 +1,16 @@
 #pragma once
 #include "Component.h"
 
+struct CB_Transform
+{
+	Matrix	matWorld;
+	Matrix	matView;
+	Matrix	matProj;
+
+	Matrix	matWV; // world * view
+	Matrix	matWVP; // world * view * projection
+};
+
 // 게임오브젝트 좌표, 크기, 각도 정보
 class Transform final : public Component
 {
