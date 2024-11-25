@@ -12,6 +12,7 @@ public:
 	GameObject(const GameObject& origin);
 	~GameObject();
 	GameObject& operator=(const GameObject& other);
+	virtual GameObject* Clone() final { return new GameObject(*this); }
 
 public:
 	const string& GetName() { return m_name; }
