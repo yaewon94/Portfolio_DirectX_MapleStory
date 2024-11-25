@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Level.h"
 #include "Layer.h"
+#include "GameObject.h"
 
 Level::Level(const string& name) 
 	: m_name(name)
@@ -14,12 +15,12 @@ Level::Level(const Level& origin)
 
 Level::~Level()
 {
-	for (auto layer : m_layers)
+	for (auto& pair : m_layerMap)
 	{
-		if (layer != nullptr)
+		if (pair.second != nullptr)
 		{
-			delete layer;
-			layer = nullptr;
+			delete pair.second;
+			pair.second = nullptr;
 		}
 	}
 }
@@ -27,9 +28,9 @@ Level::~Level()
 Level& Level::operator=(const Level& other)
 {
 	m_name = other.m_name;
-	for (auto layer : other.m_layers)
+	for (const auto& pair : other.m_layerMap)
 	{
-		m_layers.push_back(layer->Clone());
+		m_layerMap.insert(make_pair(pair.first, pair.second->Clone()));
 	}
 
 	return *this;
@@ -37,24 +38,47 @@ Level& Level::operator=(const Level& other)
 
 void Level::Init()
 {
-	for (auto layer : m_layers)
+	// TEST /////////////////////////////////////////////////////////
+	GameObject* obj = new GameObject("Player");
+	/////////////////////////////////////////////////////////////////
+
+	for (const auto& pair : m_layerMap)
 	{
-		layer->Init();
+		pair.second->Init();
 	}
 }
 
 void Level::Tick()
 {
-	for (auto layer : m_layers)
+	for (const auto& pair : m_layerMap)
 	{
-		layer->Tick();
+		pair.second->Tick();
 	}
 }
 
 void Level::FinalTick()
 {
-	for (auto layer : m_layers)
+	for (const auto& pair : m_layerMap)
 	{
-		layer->FinalTick();
+		pair.second->FinalTick();
+	}
+}
+
+void Level::AddObject(GameObject* const obj)
+{
+#ifdef _DEBUG
+	if (obj->GetLayer() > MAX_LAYER) assert(nullptr);
+#endif // _DEBUG
+
+	map<UINT, Layer*>::const_iterator iter = m_layerMap.find(obj->GetLayer());
+
+	if (iter != m_layerMap.end())
+	{
+		iter->second->AddObject(obj);
+	}
+	else
+	{
+		m_layerMap.insert(make_pair(obj->GetLayer(), new Layer(obj->GetLayer())));
+		m_layerMap.find(obj->GetLayer())->second->AddObject(obj);
 	}
 }

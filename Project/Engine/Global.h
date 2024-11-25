@@ -7,6 +7,9 @@ using std::string;
 using std::array;
 #include <vector>
 using std::vector;
+#include <map>
+using std::map;
+using std::make_pair;
 
 // DirectX 11
 #include <d3d11.h>

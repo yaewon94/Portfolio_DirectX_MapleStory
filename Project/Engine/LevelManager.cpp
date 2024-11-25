@@ -29,3 +29,14 @@ void LevelManager::Tick()
 	m_curLevel->Tick();
 	m_curLevel->FinalTick();
 }
+
+void LevelManager::AddObject(GameObject* const obj)
+{
+	if (m_curLevel == nullptr)
+	{
+		MessageBoxA(nullptr, "Current Level is nullptr", "Add Object is failed", MB_OK);
+		return;
+	}
+
+	m_curLevel->AddObject(obj);
+}

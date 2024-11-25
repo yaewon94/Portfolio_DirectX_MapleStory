@@ -1,5 +1,7 @@
 #pragma once
 
+class GameObject;
+
 // 레벨 관리 클래스
 class LevelManager final : public Singleton<LevelManager>
 {
@@ -11,4 +13,7 @@ private:
 public:
 	int Init();
 	void Tick();
+
+public:
+	void AddObject(GameObject* const obj);
 };
