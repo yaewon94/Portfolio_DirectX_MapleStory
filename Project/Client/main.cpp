@@ -7,6 +7,7 @@
 #include <crtdbg.h>
 
 #include <Engine/Engine.h>
+#include <Engine/Device.h>
 
 // 전역 변수:
 HINSTANCE g_hInst;                                // 현재 인스턴스입니다.
@@ -41,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // Engine 초기화
     if (FAILED(Engine::GetInstance()->Init(g_hwnd)))
     {
-        return FALSE;
+        return E_FAIL;
     }
 
     // 메세지 루프
@@ -61,6 +62,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             Engine::GetInstance()->Progress();
+            Device::GetInstance()->Present();
         }
     }
 

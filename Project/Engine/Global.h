@@ -1,5 +1,9 @@
 #pragma once
 
+// C++ STL
+#include <array>
+using std::array;
+
 // DirectX 11
 #include <d3d11.h>
 #include <d3dcompiler.h>

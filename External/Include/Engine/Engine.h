@@ -16,8 +16,11 @@ private:
 
 public:
 	HWND GetMainWnd() const { return m_hMainWnd; }
+	Vec2 GetResolution() const { return m_resolution; }
 
 public:
 	int Init(HWND hwnd);
 	void Progress();
 };
+
+#define RESOLUTION Engine::GetInstance()->GetResolution()

@@ -16,6 +16,9 @@
     <Filter Include="00.Header\DirectX">
       <UniqueIdentifier>{94eaae4f-ac1b-4e32-934a-469e032f3b25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Device">
+      <UniqueIdentifier>{a9fb107f-bc62-4bd5-821e-978f5e85b4e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -36,6 +39,9 @@
     <ClInclude Include="Global.h">
       <Filter>00.Header</Filter>
     </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>02.Device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>01.Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>02.Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
