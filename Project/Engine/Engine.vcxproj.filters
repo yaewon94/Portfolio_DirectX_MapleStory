@@ -112,6 +112,7 @@
     <ClCompile Include="ConstBuffer.cpp">
       <Filter>02.Device</Filter>
     </ClCompile>
+    <ClCompile Include="extern.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

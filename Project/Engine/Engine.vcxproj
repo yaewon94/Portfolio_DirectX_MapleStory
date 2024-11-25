@@ -186,6 +186,7 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="extern.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Level.cpp" />

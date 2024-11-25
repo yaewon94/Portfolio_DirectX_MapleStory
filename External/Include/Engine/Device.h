@@ -53,7 +53,9 @@ public:
 
     ComPtr<ID3D11RasterizerState> GetRasterizerState(RASTERIZER_TYPE type) const { return m_rs.at((size_t)type); }
     ComPtr<ID3D11BlendState> GetBlendState(BLEND_TYPE type) const { return m_bs.at((size_t)type); }
-    ComPtr<ID3D11DepthStencilState> GetDepthStencilState(DEPTH_STENCIL_TYPE type) { return m_ds.at((size_t)type); }
+    ComPtr<ID3D11DepthStencilState> GetDepthStencilState(DEPTH_STENCIL_TYPE type) const { return m_ds.at((size_t)type); }
+
+    ConstBuffer* const GetConstBuffer(CONST_BUFFER_TYPE type) const { return m_constBuffers.at((size_t)type); }
 
 public:
     int Init();

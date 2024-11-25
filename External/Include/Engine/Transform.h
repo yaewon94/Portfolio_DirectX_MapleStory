@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+// 상수버퍼 연동 구조체
 struct CB_Transform
 {
 	Matrix	matWorld;
@@ -10,6 +11,8 @@ struct CB_Transform
 	Matrix	matWV; // world * view
 	Matrix	matWVP; // world * view * projection
 };
+
+extern CB_Transform g_tr;
 
 // 게임오브젝트 좌표, 크기, 각도 정보
 class Transform final : public Component

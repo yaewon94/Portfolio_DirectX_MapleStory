@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Transform.h"
+#include "Device.h"
+#include "ConstBuffer.h"
 
 Transform::Transform(GameObject* const owner) 
 	: Component(owner)
@@ -15,7 +17,6 @@ Transform::Transform(const Transform& origin, GameObject* const newOwner)
 
 Transform::~Transform()
 {
-
 }
 
 void Transform::FinalTick()
@@ -32,4 +33,12 @@ void Transform::FinalTick()
 
 void Transform::Binding()
 {
+	ConstBuffer* cb = Device::GetInstance()->GetConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
+
+	g_tr.matWorld = m_matWorld;
+	g_tr.matWV = g_tr.matWorld * g_tr.matView;
+	g_tr.matWVP = g_tr.matWV * g_tr.matProj;
+
+	cb->SetData(&g_tr);
+	cb->Binding();
 }
