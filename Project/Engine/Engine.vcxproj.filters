@@ -42,6 +42,7 @@
     <ClInclude Include="Device.h">
       <Filter>02.Device</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +57,7 @@
     <ClCompile Include="Device.cpp">
       <Filter>02.Device</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
