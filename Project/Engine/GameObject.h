@@ -1,11 +1,13 @@
 #pragma once
 #include "Entity.h"
+#include "Component.h"
 
 class GameObject final : public Entity
 {
 private:
 	string m_name;
 	UINT m_layerIdx;
+	map<COMPONENT_TYPE, Component*> m_componentMap;
 
 public:
 	GameObject(const string& name);
