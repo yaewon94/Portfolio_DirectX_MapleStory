@@ -25,6 +25,9 @@
     <Filter Include="03.GameObject">
       <UniqueIdentifier>{39e5317c-f51d-4b76-9ce2-83b66dd68f2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.Level">
+      <UniqueIdentifier>{71d7fb0b-0a1a-4999-9cde-7bf025ec1670}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -55,6 +58,12 @@
     <ClInclude Include="GameObject.h">
       <Filter>03.GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>05.Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>05.Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,6 +84,12 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>03.GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>05.Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>05.Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
