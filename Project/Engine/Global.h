@@ -10,6 +10,8 @@ using std::vector;
 #include <map>
 using std::map;
 using std::make_pair;
+#include <unordered_map>
+using std::unordered_map;
 
 // DirectX 11
 #include <d3d11.h>
