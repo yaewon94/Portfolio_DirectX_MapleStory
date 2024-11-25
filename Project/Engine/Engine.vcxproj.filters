@@ -70,6 +70,12 @@
     <ClInclude Include="Component.h">
       <Filter>06.Component</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>06.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBuffer.h">
+      <Filter>02.Device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,6 +105,12 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>06.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>06.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBuffer.cpp">
+      <Filter>02.Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
