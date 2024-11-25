@@ -35,12 +35,24 @@ Layer& Layer::operator=(const Layer& other)
 
 void Layer::Init()
 {
+	for (auto obj : m_objs)
+	{
+		obj->Init();
+	}
 }
 
 void Layer::Tick()
 {
+	for (auto obj : m_objs)
+	{
+		obj->Tick();
+	}
 }
 
 void Layer::FinalTick()
 {
+	for (auto obj : m_objs)
+	{
+		obj->FinalTick();
+	}
 }
