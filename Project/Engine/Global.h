@@ -33,6 +33,15 @@ typedef DirectX::SimpleMath::Vector3 Vec3;
 typedef DirectX::SimpleMath::Vector4 Vec4;
 typedef DirectX::SimpleMath::Matrix Matrix;
 
+// DirectxTex
+#include <DirectxTex/DirectXTex.h>
+
+#ifdef _DEBUG
+#pragma comment(lib, "DirectxTex\\DirectXTex_debug")
+#else
+#pragma comment(lib, "DirectxTex\\DirectXTex")
+#endif
+
 // ComPtr
 #include <wrl.h>
 using namespace Microsoft::WRL;

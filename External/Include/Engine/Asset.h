@@ -4,7 +4,7 @@
 // 에셋 타입
 enum class ASSET_TYPE : byte
 {
-    MESH, MATERIAL, GRAPHIC_SHADER
+    MESH, MATERIAL, GRAPHIC_SHADER, TEXTURE
 };
 
 #define ASSET_TYPE_DCL(type) public:\
@@ -24,6 +24,9 @@ private:
 protected:
     Asset(const string& Key, const string& relativePath);
     ~Asset();
+
+public:
+    virtual int Load() { return S_OK; }
 
 public:
     inline virtual ASSET_TYPE GetType() = 0;
