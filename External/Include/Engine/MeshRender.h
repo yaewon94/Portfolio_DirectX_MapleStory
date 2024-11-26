@@ -17,7 +17,7 @@ public:
 	MeshRender(const MeshRender& origin, GameObject* const newOwner);
 	~MeshRender();
 
-public:
+private: // GameObject : RenderComponent* 를 통해 호출
 	virtual void Render() final;
 
 public:
