@@ -3,6 +3,7 @@
 // C++ STL
 #include <string>
 using std::string;
+using std::wstring;
 #include <array>
 using std::array;
 #include <vector>

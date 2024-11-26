@@ -3,6 +3,7 @@
 #include "Device.h"
 #include "AssetManager.h"
 #include "LevelManager.h"
+#include "PathManager.h"
 
 Vec2 resolution_type_arr[] = {Vec2(1920, 1080)};
 
@@ -37,6 +38,7 @@ int Engine::Init(HWND hwnd)
 	if (FAILED(Device::GetInstance()->Init())) return E_FAIL;
 
 	// Manager 클래스들 초기화
+	PathManager::GetInstance()->Init();
 	if (FAILED(AssetManager::GetInstance()->Init())) return E_FAIL;
 	if (FAILED(LevelManager::GetInstance()->Init())) return E_FAIL;
 
