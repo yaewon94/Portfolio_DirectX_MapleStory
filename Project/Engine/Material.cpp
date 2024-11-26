@@ -11,31 +11,21 @@ Material::Material(const string& Key, const string& relativePath)
 {
 }
 
-Material::Material(const Material& origin) 
+Material::Material(SharedPtr<Material> origin)
 	: Asset("", "")
+	, m_origin(origin)
+	, m_shader(origin->m_shader)
+	, m_cb(origin->m_cb)
+	, m_texMap()
 {
-	*this = origin;
+	for (const auto& pair : origin->m_texMap)
+	{
+		m_texMap.insert(make_pair(pair.first, pair.second));
+	}
 }
 
 Material::~Material()
 {
-	m_origin = nullptr;
-	m_shader = nullptr;
-	m_texMap.clear();
-}
-
-Material& Material::operator=(const Material& other)
-{
-	m_origin = const_cast<Material*>(&other);
-	m_shader = other.m_shader;
-	m_cb = other.m_cb;
-
-	for (const auto& pair : other.m_texMap)
-	{
-		m_texMap.insert(make_pair(pair.first, pair.second));
-	}
-
-	return *this;
 }
 
 void Material::Binding()
@@ -62,9 +52,9 @@ void Material::Binding()
 	m_shader->Binding();
 }
 
-Texture* const Material::GetTexture(TEXTURE_PARAM type) const
+SharedPtr<Texture> Material::GetTexture(TEXTURE_PARAM type) const
 {
-	map <TEXTURE_PARAM, Texture*>::const_iterator iter = m_texMap.find(type);
+	map <TEXTURE_PARAM, SharedPtr<Texture>>::const_iterator iter = m_texMap.find(type);
 	if (iter != m_texMap.end())
 	{
 		return iter->second;
@@ -76,7 +66,7 @@ Texture* const Material::GetTexture(TEXTURE_PARAM type) const
 	}
 }
 
-void Material::SetTextureParam(TEXTURE_PARAM type, Texture* const texture)
+void Material::SetTextureParam(TEXTURE_PARAM type, SharedPtr<Texture> texture)
 {
 	auto iter = m_texMap.find(type);
 

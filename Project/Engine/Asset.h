@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "SharedPtr.h"
 
 // 에셋 타입
 enum class ASSET_TYPE : byte
@@ -12,7 +13,7 @@ enum class ASSET_TYPE : byte
 								inline virtual ASSET_TYPE GetType() final { return Type; }
 
 // 텍스처, 애니메이션, 사운드 등 리소스
-class Asset : public Entity
+class Asset : public Entity, public IPtrReleasable
 {
     NO_COPY_MOVE(Asset);
     friend class AssetManager;
@@ -38,6 +39,5 @@ public:
 
 private:
     // delete
-    // Material 에셋같은 경우는 Clone() 사용할거라 final로 선언 안함
-    virtual Entity* Clone() override { return nullptr; }
+    virtual Entity* Clone() final { return nullptr; }
 };

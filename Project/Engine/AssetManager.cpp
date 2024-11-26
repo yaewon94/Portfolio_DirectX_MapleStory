@@ -10,24 +10,13 @@ AssetManager::AssetManager()
 
 AssetManager::~AssetManager()
 {
-	for (auto& assetTypePair : m_assetMap)
-	{
-		for (auto& assetPair : assetTypePair.second)
-		{
-			if (assetPair.second != nullptr)
-			{
-				delete assetPair.second;
-				assetPair.second = nullptr;
-			}
-		}
-	}
 }
 
 int AssetManager::Init()
 {
 	// 기본 Mesh 생성
 	{
-		Mesh* mesh = nullptr;
+		SharedPtr<Mesh> mesh = nullptr;
 
 		// 사각형
 		{
@@ -59,13 +48,11 @@ int AssetManager::Init()
 				return E_FAIL;
 			}
 		}
-
-		mesh = nullptr;
 	}
 
 	// 기본 Graphic Shader 생성
 	{
-		GraphicShader* shader = nullptr;
+		SharedPtr<GraphicShader> shader = nullptr;
 
 		// 기본 2D 셰이더
 		{
@@ -76,14 +63,12 @@ int AssetManager::Init()
 			if (FAILED(shader->CreateVertexShader("VS_Std2D"))) return E_FAIL;
 			if (FAILED(shader->CreatePixelShader("PS_Std2D"))) return E_FAIL;
 		}
-
-		shader = nullptr;
 	}
 
 	// 기본 Material 생성
 	{
-		Material* mtrl = nullptr;
-		GraphicShader* shader = nullptr;
+		SharedPtr<Material> mtrl = nullptr;
+		SharedPtr<GraphicShader> shader = nullptr;
 
 		// 기본 2D
 		{
@@ -95,8 +80,6 @@ int AssetManager::Init()
 			}
 			mtrl->SetShader(shader);
 		}
-		mtrl = nullptr;
-		shader = nullptr;
 	}
 
 	return S_OK;

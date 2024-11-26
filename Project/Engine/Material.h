@@ -2,6 +2,8 @@
 #include "Asset.h"
 #include "Texture.h"
 
+class GraphicShader;
+
 // 상수버퍼 연동 구조체
 struct CB_Material
 {
@@ -16,32 +18,31 @@ struct CB_Material
 // 재질 에셋
 class Material final : public Asset
 {
+	NO_COPY_MOVE(Material);
 	ASSET_TYPE_DCL(ASSET_TYPE::MATERIAL)
 
 private:
-	Material* m_origin;	// 원본 재질을 가리키는 포인터
-	class GraphicShader* m_shader;
-	map<TEXTURE_PARAM, Texture*> m_texMap;
+	SharedPtr<Material> m_origin;	// 원본 재질을 가리키는 포인터
+	SharedPtr<GraphicShader> m_shader;
+	map<TEXTURE_PARAM, SharedPtr<Texture>> m_texMap;
 	CB_Material m_cb;
 
 public:
 	Material(const string& Key, const string& relativePath);
-	Material(const Material& origin);
+	Material(SharedPtr<Material> origin);
 	~Material();
-	Material& operator=(const Material& other);
-	virtual Material* Clone() final { return new Material(*this); }
 
 public:
 	void Binding();
 
 public:
-	const Material* const GetOrigin() const { return m_origin; }
+	SharedPtr<Material> GetOrigin() const { return m_origin; }
 
-	GraphicShader* const GetShader() const { return m_shader; }
-	void SetShader(GraphicShader* const shader) { m_shader = shader; }
+	SharedPtr<GraphicShader> GetShader() const { return m_shader; }
+	void SetShader(SharedPtr<GraphicShader> shader) { m_shader = shader; }
 
-	Texture* const GetTexture(TEXTURE_PARAM type) const;
-	void SetTextureParam(TEXTURE_PARAM type, Texture* const texture);
+	SharedPtr<Texture> GetTexture(TEXTURE_PARAM type) const;
+	void SetTextureParam(TEXTURE_PARAM type, SharedPtr<Texture> texture);
 
 	// 레퍼런스를 통해 수정 가능
 	CB_Material& GetConstBuffer() { return m_cb; }
