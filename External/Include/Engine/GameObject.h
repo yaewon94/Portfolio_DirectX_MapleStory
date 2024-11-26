@@ -72,6 +72,10 @@ public:
 			}
 			m_renderComponent = component = new T(this);
 		}
+		else
+		{
+			component = new T(this);
+		}
 
 		m_componentMap.insert(make_pair(T::Type, component));
 		return component;
@@ -98,6 +102,10 @@ private:
 #endif // _DEBUG
 			clone = origin->Clone(this);
 			m_renderComponent = (RenderComponent*)clone;
+		}
+		else
+		{
+			clone = origin->Clone(this);
 		}
 
 		m_componentMap.insert(make_pair(clone->GetType(), clone));
