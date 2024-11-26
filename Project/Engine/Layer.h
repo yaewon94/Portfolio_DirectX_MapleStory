@@ -1,6 +1,14 @@
 #pragma once
 #include "Entity.h"
 
+typedef byte LAYER_TYPE;
+#define MAX_LAYER 32
+
+// LAYER_TYPE 들을 비트연산자로 조합한 값
+// MAX_LAYER가 32이므로 32비트 양의정수 타입인 UINT로 설정함
+typedef UINT LAYER_TYPES;
+#define ALL_LAYER_TYPES 0xffffffff
+
 class GameObject;
 
 // 게임오브젝트의 렌더링 순서, 렌더링 여부 등을 결정
@@ -9,11 +17,11 @@ class Layer final : public Entity
 	friend class Level;
 
 private:
-	UINT m_idx;
+	LAYER_TYPE m_idx;
 	vector<GameObject*> m_objs;
 
 private:
-	Layer(UINT index);
+	Layer(LAYER_TYPE index);
 	Layer(const Layer& origin);
 	~Layer();
 	Layer& operator=(const Layer& other);
@@ -25,7 +33,5 @@ private:
 	void FinalTick();
 
 private:
-	void AddObject(GameObject* const obj);
+	void RegisterObject(GameObject* const obj);
 };
-
-#define MAX_LAYER 32

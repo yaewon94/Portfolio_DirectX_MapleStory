@@ -1,16 +1,31 @@
 #pragma once
 #include "Entity.h"
+#include "Layer.h"
 #include "Component.h"
 #include "RenderComponent.h"
 
 class Transform;
 
+// 게임오브젝트 동적할당/해제 접근제한을 위한 인터페이스
+class IGameObjectDynamicAllocation
+{
+	friend class Layer;
+	friend class LevelManager;
+
+protected:
+	virtual ~IGameObjectDynamicAllocation() {}
+	void* operator new(size_t size) { return ::operator new(size); }
+	void* operator new[](size_t) = delete;
+	void operator delete(void* ptr) { ::operator delete(ptr); }
+	void operator delete[](void*) = delete;
+};
+
 // 게임오브젝트
-class GameObject final : public Entity
+class GameObject final : public Entity, public IGameObjectDynamicAllocation
 {
 private:
 	string m_name;
-	UINT m_layerIdx;
+	LAYER_TYPE m_layerIdx;
 	map<COMPONENT_TYPE, Component*> m_componentMap;
 
 	// 빠른 접근을 위한 필드
@@ -34,7 +49,7 @@ public:
 	const string& GetName() const { return m_name; }
 	void SetName(const string& name) { m_name = name; }
 
-	UINT GetLayer() const { return m_layerIdx; }
+	LAYER_TYPE GetLayer() const { return m_layerIdx; }
 	void SetLayer(UINT layer);
 
 	Transform* const GetTransform() const { return m_tr; }

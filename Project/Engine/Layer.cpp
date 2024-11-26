@@ -2,7 +2,7 @@
 #include "Layer.h"
 #include "GameObject.h"
 
-Layer::Layer(UINT index) 
+Layer::Layer(LAYER_TYPE index) 
 	: m_idx(index)
 {
 }
@@ -60,7 +60,7 @@ void Layer::FinalTick()
 	}
 }
 
-void Layer::AddObject(GameObject* const obj)
+void Layer::RegisterObject(GameObject* const obj)
 {
 #ifdef _DEBUG
 	if (obj->GetLayer() != m_idx) assert(nullptr);

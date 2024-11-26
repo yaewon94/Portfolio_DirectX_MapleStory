@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "LevelManager.h"
-#include "Layer.h"
 #include "Transform.h"
 
 GameObject::GameObject(const string& name)
@@ -10,7 +9,7 @@ GameObject::GameObject(const string& name)
 	AddComponent<Transform>();
 
 	// 현재 레벨에 등록
-	LevelManager::GetInstance()->AddObject(this);
+	LevelManager::GetInstance()->RegisterObject(this);
 }
 
 GameObject::GameObject(const GameObject& origin) 
@@ -18,7 +17,7 @@ GameObject::GameObject(const GameObject& origin)
 	*this = origin;
 
 	// 현재 레벨에 등록
-	LevelManager::GetInstance()->AddObject(this);
+	LevelManager::GetInstance()->RegisterObject(this);
 }
 
 GameObject::~GameObject()

@@ -30,7 +30,7 @@ void LevelManager::Tick()
 	m_curLevel->FinalTick();
 }
 
-void LevelManager::AddObject(GameObject* const obj)
+void LevelManager::RegisterObject(GameObject* const obj)
 {
 	if (m_curLevel == nullptr)
 	{
@@ -38,5 +38,5 @@ void LevelManager::AddObject(GameObject* const obj)
 		return;
 	}
 
-	m_curLevel->AddObject(obj);
+	m_curLevel->RegisterObject(obj);
 }

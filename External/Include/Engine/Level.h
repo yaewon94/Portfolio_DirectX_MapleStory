@@ -1,7 +1,8 @@
 #pragma once
 #include "Entity.h"
 
-class Layer;
+#include "Layer.h"
+
 class GameObject;
 
 // 게임 레벨(==scene) 클래스
@@ -11,7 +12,7 @@ class Level : public Entity
 
 private:
 	string m_name;
-	map<UINT, Layer*> m_layerMap;
+	map<LAYER_TYPE, Layer*> m_layerMap;
 
 private:
 	Level(const string& name);
@@ -26,5 +27,5 @@ private:
 	virtual void FinalTick();
 
 private:
-	void AddObject(GameObject* const obj);
+	void RegisterObject(GameObject* const obj);
 };
