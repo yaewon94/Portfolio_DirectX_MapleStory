@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
+#include "RenderComponent.h"
 
 class Transform;
 
@@ -14,6 +15,7 @@ private:
 
 	// 빠른 접근을 위한 필드
 	Transform* m_tr;
+	RenderComponent* m_renderComponent;
 
 public:
 	GameObject(const string& name);
@@ -43,7 +45,6 @@ public:
 		const auto iter = m_componentMap.find(T::Type);
 		if (iter == m_componentMap.end()) return nullptr;
 
-		if (T::Type == COMPONENT_TYPE::TRANSFORM) return m_tr;
 		else return (T*)(iter->second);
 	}
 
@@ -56,10 +57,24 @@ public:
 			return nullptr;
 		}
 
-		m_componentMap.insert(make_pair(T::Type, new T(this)));
-		if (T::Type == COMPONENT_TYPE::TRANSFORM) m_tr = (Transform*)(m_componentMap.find(COMPONENT_TYPE::TRANSFORM)->second);
+		T* component = nullptr;
 
-		return GetComponent<T>();
+		if constexpr (T::Type == COMPONENT_TYPE::TRANSFORM)
+		{
+			m_tr = component = new T(this);
+		}
+		else if constexpr (std::is_base_of_v<RenderComponent, T>)
+		{
+			if (m_renderComponent != nullptr)
+			{
+				MessageBox(nullptr, L"이미 같은 상위타입의 컴포넌트가 존재합니다", L"컴포넌트 추가 실패", MB_OK);
+				return (T*)m_renderComponent;
+			}
+			m_renderComponent = component = new T(this);
+		}
+
+		m_componentMap.insert(make_pair(T::Type, component));
+		return component;
 	}
 	
 private:
@@ -69,8 +84,22 @@ private:
 		if (m_componentMap.find(origin->GetType()) != m_componentMap.end()) assert(nullptr);
 #endif // _DEBUG
 
-		m_componentMap.insert(make_pair(origin->GetType(), origin->Clone(this)));
+		Component* clone = nullptr;
 
-		if (origin->GetType() == COMPONENT_TYPE::TRANSFORM) m_tr = (Transform*)(m_componentMap.find(COMPONENT_TYPE::TRANSFORM)->second);
+		if (origin->GetType() == COMPONENT_TYPE::TRANSFORM)
+		{
+			clone = origin->Clone(this);
+			m_tr = (Transform*)clone;
+		}
+		else if (dynamic_cast<RenderComponent*>(clone) != nullptr)
+		{
+#ifdef _DEBUG
+			if (m_renderComponent != nullptr) assert(nullptr);
+#endif // _DEBUG
+			clone = origin->Clone(this);
+			m_renderComponent = (RenderComponent*)clone;
+		}
+
+		m_componentMap.insert(make_pair(clone->GetType(), clone));
 	}
 };

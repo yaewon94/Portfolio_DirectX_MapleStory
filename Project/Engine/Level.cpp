@@ -36,10 +36,12 @@ Level& Level::operator=(const Level& other)
 	return *this;
 }
 
+#include "MeshRender.h"
 void Level::Init()
 {
 	// TEST /////////////////////////////////////////////////////////
 	GameObject* obj = new GameObject("Player");
+	obj->AddComponent<MeshRender>();
 	/////////////////////////////////////////////////////////////////
 
 	for (const auto& pair : m_layerMap)

@@ -7,7 +7,7 @@
 GameObject::GameObject(const string& name)
 	: m_name(name), m_layerIdx(0)
 {
-	m_tr = AddComponent<Transform>();
+	AddComponent<Transform>();
 
 	// 현재 레벨에 등록
 	LevelManager::GetInstance()->AddObject(this);
@@ -69,6 +69,7 @@ void GameObject::FinalTick()
 
 void GameObject::Render()
 {
+	m_renderComponent->Render();
 }
 
 void GameObject::SetLayer(UINT layer)

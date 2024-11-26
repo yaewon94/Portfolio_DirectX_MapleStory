@@ -16,6 +16,8 @@ public:
 	MeshRender(GameObject* const owner);
 	MeshRender(const MeshRender& origin, GameObject* const newOwner);
 	~MeshRender();
+	virtual MeshRender* Clone(GameObject* const newOwner) final { return new MeshRender(*this, newOwner); }
+
 
 public:
 	virtual void Render() final;
