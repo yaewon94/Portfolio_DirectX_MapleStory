@@ -2,12 +2,18 @@
 #include "Entity.h"
 #include "Component.h"
 
+class Transform;
+
+// 게임오브젝트
 class GameObject final : public Entity
 {
 private:
 	string m_name;
 	UINT m_layerIdx;
 	map<COMPONENT_TYPE, Component*> m_componentMap;
+
+	// 빠른 접근을 위한 필드
+	Transform* m_tr;
 
 public:
 	GameObject(const string& name);
@@ -29,11 +35,15 @@ public:
 	UINT GetLayer() const { return m_layerIdx; }
 	void SetLayer(UINT layer);
 
+	Transform* const GetTransform() const { return m_tr; }
+
 	template<typename T> requires std::derived_from<T, Component>
 	T* const GetComponent()
 	{
 		const auto iter = m_componentMap.find(T::Type);
 		if (iter == m_componentMap.end()) return nullptr;
+
+		if (T::Type == COMPONENT_TYPE::TRANSFORM) return m_tr;
 		else return (T*)(iter->second);
 	}
 
@@ -47,6 +57,20 @@ public:
 		}
 
 		m_componentMap.insert(make_pair(T::Type, new T(this)));
+		if (T::Type == COMPONENT_TYPE::TRANSFORM) m_tr = (Transform*)(m_componentMap.find(COMPONENT_TYPE::TRANSFORM)->second);
+
 		return GetComponent<T>();
+	}
+	
+private:
+	void AddComponent(Component* const origin)
+	{
+#ifdef _DEBUG
+		if (m_componentMap.find(origin->GetType()) != m_componentMap.end()) assert(nullptr);
+#endif // _DEBUG
+
+		m_componentMap.insert(make_pair(origin->GetType(), origin->Clone(this)));
+
+		if (origin->GetType() == COMPONENT_TYPE::TRANSFORM) m_tr = (Transform*)(m_componentMap.find(COMPONENT_TYPE::TRANSFORM)->second);
 	}
 };

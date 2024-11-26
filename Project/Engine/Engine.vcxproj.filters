@@ -31,6 +31,24 @@
     <Filter Include="06.Component">
       <UniqueIdentifier>{2164dabd-54eb-4411-837f-ae1ef11e1de1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.Component\RenderComponent">
+      <UniqueIdentifier>{4c1ac287-77e8-4c5b-9584-e2d9679c7b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.Asset">
+      <UniqueIdentifier>{1479ecd0-0f95-4d84-ba3d-ca9e370e8952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.Asset\Shader">
+      <UniqueIdentifier>{db425a8c-145c-4396-9adf-32068d44c277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Util">
+      <UniqueIdentifier>{4aa84d78-6cd0-4515-a08f-66c314e9860f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.HLSL">
+      <UniqueIdentifier>{7a46dc2f-85af-4f62-8f7d-e38117a0e9a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.HLSL\Header">
+      <UniqueIdentifier>{b465f84e-2e53-4151-b7fc-664c06c48834}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -76,6 +94,39 @@
     <ClInclude Include="ConstBuffer.h">
       <Filter>02.Device</Filter>
     </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>06.Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>07.Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>07.Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>07.Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>07.Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>07.Asset\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicShader.h">
+      <Filter>07.Asset\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>07.Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedPtr.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRender.h">
+      <Filter>06.Component\RenderComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -113,10 +164,48 @@
       <Filter>02.Device</Filter>
     </ClCompile>
     <ClCompile Include="extern.cpp" />
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>06.Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>07.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>07.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>07.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>07.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>07.Asset\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicShader.cpp">
+      <Filter>07.Asset\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>99.Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>07.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRender.cpp">
+      <Filter>06.Component\RenderComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
       <Filter>00.Header\DirectX</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Std2D.fx">
+      <Filter>98.HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="Global.fx">
+      <Filter>98.HLSL\Header</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

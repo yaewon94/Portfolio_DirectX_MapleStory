@@ -7,7 +7,7 @@
 GameObject::GameObject(const string& name)
 	: m_name(name), m_layerIdx(0)
 {
-	AddComponent<Transform>();
+	m_tr = AddComponent<Transform>();
 
 	// 현재 레벨에 등록
 	LevelManager::GetInstance()->AddObject(this);
@@ -31,6 +31,8 @@ GameObject::~GameObject()
 			pair.second = nullptr;
 		}
 	}
+
+	m_tr = nullptr;
 }
 
 GameObject& GameObject::operator=(const GameObject& other)
@@ -39,7 +41,7 @@ GameObject& GameObject::operator=(const GameObject& other)
 	m_layerIdx = other.m_layerIdx;
 	for (const auto& pair : other.m_componentMap)
 	{
-		m_componentMap.insert(make_pair(pair.first, pair.second->Clone(this)));
+		AddComponent(pair.second);
 	}
 
 	return *this;
