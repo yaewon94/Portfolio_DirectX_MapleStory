@@ -6,7 +6,7 @@ class GameObject;
 // 컴포넌트 타입
 enum class COMPONENT_TYPE : byte
 {
-	TRANSFORM, MESH_RENDER
+	TRANSFORM, CAMERA, MESH_RENDER
 };
 
 #define COMPONENT_TYPE_DCL(type) public:\
@@ -16,8 +16,14 @@ enum class COMPONENT_TYPE : byte
 // 게임오브젝트 동작에 관한 요소들의 최상위 클래스
 class Component : public Entity
 {
-	friend class GameObject;
 	NO_COPY_MOVE(Component);
+
+protected:
+	friend class GameObject;
+	void* operator new(size_t size) { return ::operator new(size); }
+	void* operator new[](size_t) = delete;
+	void operator delete(void* ptr) { ::operator delete(ptr); }
+	void operator delete[](void*) = delete;
 
 private:
 	GameObject* m_owner;
