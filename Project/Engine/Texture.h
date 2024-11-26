@@ -2,9 +2,9 @@
 #include "Asset.h"
 
 // Texture param (value : register number)
-enum class TEXTURE_PARAM : byte
+enum TEXTURE_PARAM : byte
 {
-
+	TEXTURE_PARAM_COUNT_END
 };
 
 // 텍스처 에셋

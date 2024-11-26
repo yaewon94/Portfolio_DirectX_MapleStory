@@ -2,6 +2,7 @@
 #include "Device.h"
 #include "Engine.h"
 #include "Transform.h"
+#include "Material.h"
 
 Device::Device() 
     : m_viewport{}
@@ -308,6 +309,10 @@ int Device::Init()
         size_t index = (size_t)CONST_BUFFER_TYPE::TRANSFORM;
         m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
         if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Transform)))) return E_FAIL;
+
+        index = (size_t)CONST_BUFFER_TYPE::MATERIAL;
+        m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::MATERIAL);
+        if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Material)))) return E_FAIL;
     }
 
     // viewport ¼³Á¤

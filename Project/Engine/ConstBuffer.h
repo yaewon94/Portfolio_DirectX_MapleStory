@@ -3,7 +3,7 @@
 
 enum class CONST_BUFFER_TYPE : byte
 {
-    TRANSFORM, COUNT_END
+    TRANSFORM, MATERIAL, COUNT_END
 };
 
 // 상수 버퍼

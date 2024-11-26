@@ -37,5 +37,7 @@ public:
     wstring GetFullPathW() const;
 
 private:
-    virtual Entity* Clone() final { return nullptr; } // delete
+    // delete
+    // Material 에셋같은 경우는 Clone() 사용할거라 final로 선언 안함
+    virtual Entity* Clone() override { return nullptr; }
 };
