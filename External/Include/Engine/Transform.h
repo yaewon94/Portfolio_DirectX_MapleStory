@@ -28,11 +28,12 @@ public:
 	Transform(GameObject* const owner);
 	Transform(const Transform& origin, GameObject* const newOwner);
 	~Transform();
-	virtual Transform* Clone(GameObject* const newOwner) final { return new Transform(*this, newOwner); }
-
 public:
 	virtual void FinalTick() final;
 
 public:
 	void Binding();
+
+private:
+	virtual Transform* Clone(GameObject* const newOwner) final { return new Transform(*this, newOwner); }
 };
