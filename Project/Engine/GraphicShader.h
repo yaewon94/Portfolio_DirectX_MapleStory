@@ -11,6 +11,9 @@ enum class SHADER_DOMAIN : byte
 // graphic shader
 class GraphicShader final : public Shader
 {
+    NO_COPY_MOVE(GraphicShader)
+    ASSET_TYPE_DCL(ASSET_TYPE::GRAPHIC_SHADER)
+
 private:
     ComPtr<ID3DBlob> m_vsBlob; // vertex shader
     ComPtr<ID3DBlob> m_gsBlob; // geometry shader
