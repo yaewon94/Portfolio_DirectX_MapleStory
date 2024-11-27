@@ -188,6 +188,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Script.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SharedPtr.h" />
     <ClInclude Include="SimpleMath.h" />
@@ -224,6 +225,7 @@ call EngineHeaderCopy.bat</Command>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Script.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
