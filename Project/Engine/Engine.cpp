@@ -42,7 +42,6 @@ int Engine::Init(HWND hwnd)
 	PathManager::GetInstance()->Init();
 	if (FAILED(AssetManager::GetInstance()->Init())) return E_FAIL;
 	if (FAILED(LevelManager::GetInstance()->Init())) return E_FAIL;
-	KeyManager::GetInstance()->Init();
 
 	return S_OK;
 }

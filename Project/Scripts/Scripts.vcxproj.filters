@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="windows">
+      <UniqueIdentifier>{628ab5a1-cbb1-45d2-90ae-e7e26db92e4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{1085005e-a717-4ea5-b60c-10ecf0c92d68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptManager.cpp" />
+  </ItemGroup>
+</Project>
