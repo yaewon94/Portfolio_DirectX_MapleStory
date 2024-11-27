@@ -21,12 +21,14 @@
     <ClInclude Include="targetver.h">
       <Filter>windows</Filter>
     </ClInclude>
+    <ClInclude Include="TestLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>windows</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

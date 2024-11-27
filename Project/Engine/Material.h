@@ -1,8 +1,7 @@
 #pragma once
 #include "Asset.h"
 #include "Texture.h"
-
-class GraphicShader;
+#include "GraphicShader.h"
 
 // 상수버퍼 연동 구조체
 struct CB_Material

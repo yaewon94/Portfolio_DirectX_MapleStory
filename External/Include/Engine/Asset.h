@@ -1,6 +1,5 @@
 #pragma once
 #include "Entity.h"
-#include "SharedPtr.h"
 
 // 에셋 타입
 enum class ASSET_TYPE : byte

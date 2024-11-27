@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "RenderComponent.h"
-#include "Material.h"
 
 RenderComponent::RenderComponent(GameObject* const owner) 
 	: Component(owner)

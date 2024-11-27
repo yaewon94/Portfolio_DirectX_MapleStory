@@ -37,23 +37,11 @@ Level& Level::operator=(const Level& other)
 	return *this;
 }
 
-#include "MeshRender.h"
-#include "AssetManager.h"
-#include "Mesh.h"
-#include "Material.h"
 void Level::Init()
 {
 	// 필수 오브젝트 추가
 	GameObject* obj = LevelManager::GetInstance()->CreateObject("Main Camera");
 	obj->AddComponent<Camera>();
-
-	// TEST /////////////////////////////////////////////////////////
-	{
-		GameObject* obj = LevelManager::GetInstance()->CreateObject("Player");
-		MeshRender* meshRender = obj->AddComponent<MeshRender>();
-		meshRender->SetMesh(AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh"));
-		meshRender->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
-	}
 
 	for (const auto& pair : m_layerMap)
 	{

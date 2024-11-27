@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Material.h"
 #include "Device.h"
-#include "GraphicShader.h"
 
 Material::Material(const string& Key, const string& relativePath) 
 	: Asset(Key, relativePath)

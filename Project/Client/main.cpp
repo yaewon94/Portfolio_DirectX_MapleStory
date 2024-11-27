@@ -9,6 +9,10 @@
 #include <Engine/Engine.h>
 #include <Engine/Device.h>
 
+#ifdef _DEBUG
+#include "TestLevel.h"
+#endif // _DEBUG
+
 // 전역 변수:
 HINSTANCE g_hInst;                                // 현재 인스턴스입니다.
 HWND g_hwnd;
@@ -62,6 +66,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             Engine::GetInstance()->Progress();
+#ifdef _DEBUG
+            CreateTestLevel();
+#endif // _DEBUG
             Device::GetInstance()->Present();
         }
     }

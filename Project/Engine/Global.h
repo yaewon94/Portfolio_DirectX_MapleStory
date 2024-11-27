@@ -47,4 +47,5 @@ typedef DirectX::SimpleMath::Matrix Matrix;
 using namespace Microsoft::WRL;
 
 // 커스텀 헤더파일
-#include "Singleton.h"
+#include "Singleton.h" // 싱글톤 클래스 정의
+#include "SharedPtr.h" // 공유 스마트포인터
