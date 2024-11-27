@@ -6,7 +6,7 @@ class GameObject;
 // 컴포넌트 타입
 enum class COMPONENT_TYPE : byte
 {
-	TRANSFORM, CAMERA, MESH_RENDER
+	TRANSFORM, CAMERA, MESH_RENDER, SCRIPT
 };
 
 #define COMPONENT_TYPE_DCL(type) public:\
