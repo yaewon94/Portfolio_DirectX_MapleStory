@@ -2,12 +2,6 @@
 #include "Shader.h"
 #include "Device.h"
 
-// shader domain (value : ·»´õ¸µ ¼ø¼­)
-enum class SHADER_DOMAIN : byte
-{
-    DOMAIN_OPAQUE, DOMAIN_MASK, DOMAIN_TRANSPARENT, DOMAIN_PARTICLE, DOMAIN_POST_PROCESS
-};
-
 // graphic shader
 class GraphicShader final : public Shader
 {
@@ -29,7 +23,6 @@ private:
     RASTERIZER_TYPE m_rsType;
     BLEND_TYPE m_bsType;
     DEPTH_STENCIL_TYPE m_dsType;
-    SHADER_DOMAIN m_domain;
 
 public:
     GraphicShader(const string& Key, const string& relativePath);
@@ -72,7 +65,4 @@ public:
 #endif // _DEBUG
         m_dsType = type;
     }
-
-    SHADER_DOMAIN GetShaderDomain() const { return m_domain; }
-    void SetShaderDomain(SHADER_DOMAIN domain) { m_domain = domain; }
 };

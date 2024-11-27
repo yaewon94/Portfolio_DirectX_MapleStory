@@ -30,6 +30,7 @@ Transform::~Transform()
 void Transform::Init()
 {
 	m_matWorld = XMMatrixIdentity();
+	m_isChangedValue |= IS_CHANGED_VALUE;
 }
 
 void Transform::FinalTick()

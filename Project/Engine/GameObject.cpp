@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "LevelManager.h"
+#include "RenderManager.h"
 #include "Transform.h"
 
 GameObject::GameObject(const string& name)
@@ -52,6 +53,9 @@ void GameObject::Init()
 	{
 		pair.second->Init();
 	}
+
+	// 메인카메라에 오브젝트 등록
+	if (m_renderComponent != nullptr) RenderManager::GetInstance()->AddObject(this);
 }
 
 void GameObject::Tick()
@@ -64,11 +68,6 @@ void GameObject::FinalTick()
 	{
 		pair.second->FinalTick();
 	}
-}
-
-void GameObject::Render()
-{
-	m_renderComponent->Render();
 }
 
 void GameObject::SetLayer(UINT layer)

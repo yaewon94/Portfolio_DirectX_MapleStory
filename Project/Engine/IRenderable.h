@@ -4,7 +4,7 @@
 class IRenderable
 {
 	//friend class T;
-	friend class GameObject;
+	friend class Camera;
 
 protected:
 	virtual ~IRenderable() {}

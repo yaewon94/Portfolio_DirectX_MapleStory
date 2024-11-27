@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Device.h"
 #include "Engine.h"
+#include "RenderManager.h"
 #include "Transform.h"
 #include "Material.h"
 
@@ -338,6 +339,8 @@ void Device::Present()
     CONTEXT->ClearDepthStencilView(m_dsView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 
     CONTEXT->OMSetRenderTargets(1, m_rtView.GetAddressOf(), m_dsView.Get());
+
+    RenderManager::GetInstance()->Render();
 
     m_swapChain->Present(0, 0);
 }

@@ -11,7 +11,6 @@ GraphicShader::GraphicShader(const string& Key, const string& relativePath)
 	, m_rsType(RASTERIZER_TYPE::CULL_BACK)
 	, m_bsType(BLEND_TYPE::DEFAULT)
 	, m_dsType(DEPTH_STENCIL_TYPE::LESS)
-	, m_domain(SHADER_DOMAIN::DOMAIN_OPAQUE)
 {
 }
 

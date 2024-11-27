@@ -43,7 +43,6 @@ public:
 	void Init();
 	void Tick();
 	void FinalTick();
-	void Render();
 
 public:
 	const string& GetName() const { return m_name; }
@@ -53,6 +52,7 @@ public:
 	void SetLayer(UINT layer);
 
 	Transform* const GetTransform() const { return m_tr; }
+	RenderComponent* const GetRenderComponent() const { return m_renderComponent; }
 
 	template<typename T> requires std::derived_from<T, Component>
 	T* const GetComponent()

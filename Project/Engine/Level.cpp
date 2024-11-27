@@ -44,8 +44,8 @@ Level& Level::operator=(const Level& other)
 void Level::Init()
 {
 	// 필수 오브젝트 추가
-	//GameObject* obj = LevelManager::GetInstance()->CreateObject("Main Camera");
-	//obj->AddComponent<Camera>();
+	GameObject* obj = LevelManager::GetInstance()->CreateObject("Main Camera");
+	obj->AddComponent<Camera>();
 
 	// TEST /////////////////////////////////////////////////////////
 	{
