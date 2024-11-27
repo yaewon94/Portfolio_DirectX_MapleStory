@@ -49,6 +49,9 @@
     <Filter Include="98.HLSL\Header">
       <UniqueIdentifier>{b465f84e-2e53-4151-b7fc-664c06c48834}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97.Render">
+      <UniqueIdentifier>{266586b6-45ab-4774-9ef8-d79e888dca80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -127,6 +130,15 @@
     <ClInclude Include="MeshRender.h">
       <Filter>06.Component\RenderComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>06.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
+      <Filter>97.Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>97.Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -193,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="MeshRender.cpp">
       <Filter>06.Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>06.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>97.Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,10 +2,10 @@
 #include "Entity.h"
 
 typedef byte LAYER_TYPE;
-#define MAX_LAYER 32
+#define MAX_LAYER 31
 
 // LAYER_TYPE 들을 비트연산자로 조합한 값
-// MAX_LAYER가 32이므로 32비트 양의정수 타입인 UINT로 설정함
+// 레이어 값 범위가 0~31 이므로 32비트 양의정수 타입인 UINT로 설정함
 typedef UINT LAYER_TYPES;
 #define ALL_LAYER_TYPES 0xffffffff
 
