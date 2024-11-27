@@ -21,6 +21,9 @@ public:
 public:
 	int Init(HWND hwnd);
 	void Progress();
+
+public:
+	bool IsFocused() const { return m_hMainWnd == GetFocus(); }
 };
 
 #define RESOLUTION Engine::GetInstance()->GetResolution()

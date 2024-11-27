@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Device.h"
 #include "AssetManager.h"
+#include "KeyManager.h"
 #include "LevelManager.h"
 #include "PathManager.h"
 
@@ -41,6 +42,7 @@ int Engine::Init(HWND hwnd)
 	PathManager::GetInstance()->Init();
 	if (FAILED(AssetManager::GetInstance()->Init())) return E_FAIL;
 	if (FAILED(LevelManager::GetInstance()->Init())) return E_FAIL;
+	KeyManager::GetInstance()->Init();
 
 	return S_OK;
 }
@@ -48,5 +50,6 @@ int Engine::Init(HWND hwnd)
 void Engine::Progress()
 {
 	// Manager 클래스들 Tick() 호출
+	KeyManager::GetInstance()->Tick();
 	LevelManager::GetInstance()->Tick();
 }
