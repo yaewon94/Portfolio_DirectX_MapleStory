@@ -19,6 +19,7 @@ class IKeyEvent
 
 protected:
 	virtual ~IKeyEvent() {}
+	virtual void OnKeyDown(KEY_CODE key) = 0;
 };
 
 typedef void (IKeyEvent::*KEY_CALLBACK)(KEY_CODE);
@@ -43,6 +44,8 @@ public:
 	void Tick();
 
 public:
+	// @KEY_CALLBACK : 반드시 IKeyEvent 메소드 오버라이딩한 것이어야 됨
+	// ex. Player::Move(KEY_CODE) 같은 IKeyEvent 클래스의 메소드가 아닌 것을 넣는 경우 오류남
 	void AddKey(KEY_CODE key, IKeyEvent* const instance, KEY_CALLBACK keyDownCallback)
 	{
 		m_keyMap.insert(make_pair(key, KeyInfo{KEY_STATE::NONE, instance, keyDownCallback}));

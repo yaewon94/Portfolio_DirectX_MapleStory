@@ -2,6 +2,8 @@
 #define _STD2D
 #include "Global.fx"
 
+#define DIRECTION g_float_0
+
 // Vertex Shader
 struct VS_IN
 {
@@ -42,6 +44,8 @@ VS_OUT VS_Std2D(VS_IN input)
 float4 PS_Std2D(VS_OUT vs) : SV_Target
 {
     float4 color = (float4) 0.f;
+    
+    vs.uv.x *= DIRECTION;
     
     if (g_bTex_0)
         color = g_tex_0.Sample(g_sampler0, vs.uv);

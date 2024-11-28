@@ -3,11 +3,10 @@
 #include "Device.h"
 #include "ConstBuffer.h"
 
-// 방향 단위벡터
-static const array<const Vec3, DIRECTION_TYPE_COUNT_END> UNIT_VEC 
-	= {Vec3(1.f, 0.f, 0.f)
+const array<const Vec3, DIRECTION_TYPE_COUNT_END> Transform::UNIT_VEC
+	= { Vec3(1.f, 0.f, 0.f)
 	, Vec3(0.f, 1.f, 0.f)
-	, Vec3(0.f, 0.f, 1.f)};
+	, Vec3(0.f, 0.f, 1.f) };
 
 Transform::Transform(GameObject* const owner) 
 	: Component(owner)

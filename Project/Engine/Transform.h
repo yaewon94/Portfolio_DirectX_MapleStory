@@ -26,6 +26,9 @@ class Transform final : public Component
 	NO_COPY_MOVE(Transform)
 	COMPONENT_TYPE_DCL(COMPONENT_TYPE::TRANSFORM)
 
+public:
+	static const array<const Vec3, DIRECTION_TYPE_COUNT_END> UNIT_VEC; // 방향 단위벡터
+
 private:
 	Vec3 m_localPos, m_localScale, m_localRotation;
 	Matrix m_matWorld;
@@ -58,6 +61,9 @@ public:
 public:
 	Vec3 GetLocalPos() const { return m_localPos; }
 	void SetLocalPos(const Vec3& pos) { m_localPos = pos; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalPosX(float x) { m_localPos.x = x; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalPosY(float y) { m_localPos.y = y; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalPosZ(float z) { m_localPos.z = z; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
 
 	Vec3 GetLocalScale() const { return m_localScale; }
 	void SetLocalScale(const Vec3& scale) { m_localScale = scale; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
