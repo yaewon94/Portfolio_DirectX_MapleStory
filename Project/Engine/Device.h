@@ -47,6 +47,8 @@ private:
 
     D3D11_VIEWPORT m_viewport;
 
+    float m_refreshRateDT; // 1.f / 초당 화면 갱신횟수
+
 public:
     ComPtr<ID3D11Device> GetDevice() const { return m_device; }
     ComPtr<ID3D11DeviceContext> GetContext() const { return m_context; }
@@ -60,6 +62,9 @@ public:
 public:
     int Init();
     void Present();
+
+public:
+    float GetRefreshRateDT() const { return m_refreshRateDT; }
 };
 
 #define DEVICE Device::GetInstance()->GetDevice()

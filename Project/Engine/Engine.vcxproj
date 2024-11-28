@@ -194,6 +194,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +229,7 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>

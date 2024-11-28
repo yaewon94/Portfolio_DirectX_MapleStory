@@ -5,6 +5,7 @@
 #include "KeyManager.h"
 #include "LevelManager.h"
 #include "PathManager.h"
+#include "TimeManager.h"
 
 Vec2 resolution_type_arr[] = {Vec2(1920, 1080)};
 
@@ -39,6 +40,7 @@ int Engine::Init(HWND hwnd)
 	if (FAILED(Device::GetInstance()->Init())) return E_FAIL;
 
 	// Manager 클래스들 초기화
+	TimeManager::GetInstance()->Init();
 	PathManager::GetInstance()->Init();
 	if (FAILED(AssetManager::GetInstance()->Init())) return E_FAIL;
 	if (FAILED(LevelManager::GetInstance()->Init())) return E_FAIL;
@@ -49,6 +51,7 @@ int Engine::Init(HWND hwnd)
 void Engine::Progress()
 {
 	// Manager 클래스들 Tick() 호출
+	TimeManager::GetInstance()->Tick();
 	KeyManager::GetInstance()->Tick();
 	LevelManager::GetInstance()->Tick();
 }

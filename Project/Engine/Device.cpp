@@ -8,6 +8,7 @@
 Device::Device() 
     : m_viewport{}
     , m_constBuffers{}
+    , m_refreshRateDT(0.f)
 {
 }
 
@@ -62,6 +63,7 @@ int Device::Init()
 
         Desc.BufferDesc.RefreshRate.Denominator = 1; // 화면 갱신 속도, 분모
         Desc.BufferDesc.RefreshRate.Numerator = 60;  // 화면 갱신 속도, 분자
+        m_refreshRateDT = (float)Desc.BufferDesc.RefreshRate.Denominator / (float)Desc.BufferDesc.RefreshRate.Numerator;
 
         Desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
         Desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;

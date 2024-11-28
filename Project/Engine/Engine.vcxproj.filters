@@ -145,6 +145,9 @@
     <ClInclude Include="Script.h">
       <Filter>06.Component</Filter>
     </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="Script.cpp">
       <Filter>06.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>99.Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
