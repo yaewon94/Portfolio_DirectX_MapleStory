@@ -49,6 +49,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return E_FAIL;
     }
 
+#ifdef _DEBUG
+    CreateTestLevel();
+#endif // _DEBUG
+
     // 메세지 루프
     while (true)
     {
@@ -66,9 +70,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             Engine::GetInstance()->Progress();
-#ifdef _DEBUG
-            CreateTestLevel();
-#endif // _DEBUG
             Device::GetInstance()->Present();
         }
     }
