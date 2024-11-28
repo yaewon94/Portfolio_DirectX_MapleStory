@@ -21,7 +21,7 @@ void KeyManager::Tick()
 			if (GetAsyncKeyState(key.first) & 0x8001)
 			{
 				key.second.state = KEY_STATE::DOWN;
-				(key.second.instance->*(key.second.keyDownCallback))(key.first);
+				key.second.instance->OnKeyDown(key.first);
 			}
 			// ¾È´­¸²
 			else

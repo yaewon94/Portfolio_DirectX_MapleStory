@@ -37,8 +37,9 @@ void Player::Init()
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
 
 	// KeyManager에 플레이어가 사용할 키값 등록
-	KeyManager::GetInstance()->AddKey(KEY_LEFT, this, (KEY_CALLBACK)&Player::OnKeyDown);
-	KeyManager::GetInstance()->AddKey(KEY_RIGHT, this, (KEY_CALLBACK)&Player::OnKeyDown);
+	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);
+	KeyManager::GetInstance()->AddKey(KEY_RIGHT, this);
+	//KeyManager::GetInstance()->AddKey(KEY_ALT, this);
 }
 
 void Player::OnKeyDown(KEY_CODE key)
@@ -53,6 +54,10 @@ void Player::OnKeyDown(KEY_CODE key)
 		SetMoveDirection(MOVE_DIRECTION::RIGHT);
 		Move();
 	}
+	/*else if (key == KEY_ALT)
+	{
+		Jump();
+	}*/
 }
 
 void Player::Move()
@@ -60,6 +65,10 @@ void Player::Move()
 	GetOwner()->GetTransform()->SetLocalPosX(GetOwner()->GetTransform()->GetLocalPos().x + m_moveDelta);
 	//GetOwner()->GetTransform()->SetLocalPosX(GetOwner()->GetTransform()->GetLocalPos().x + m_moveDelta * DT);
 }
+
+//void Player::Jump()
+//{
+//}
 
 void Player::SetMoveSpeed(float speed)
 {
