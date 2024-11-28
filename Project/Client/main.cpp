@@ -145,6 +145,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_SYSKEYDOWN:
+        switch (wParam)
+        {
+            case VK_MENU:
+                break;
+        }
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
