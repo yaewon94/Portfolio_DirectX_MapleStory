@@ -148,6 +148,9 @@
     <ClInclude Include="TimeManager.h">
       <Filter>99.Util</Filter>
     </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>06.Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,10 +233,16 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>99.Util</Filter>
     </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>06.Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
       <Filter>00.Header\DirectX</Filter>
+    </None>
+    <None Include="GameObject.inl">
+      <Filter>03.GameObject</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

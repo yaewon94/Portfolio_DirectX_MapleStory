@@ -35,7 +35,7 @@ private: // KeyManager : IKeyEvent* 를 통해 호출
 	
 private:
 	void Move();
-	//void Jump();
+	void Jump();
 
 public:
 	float GetMoveSpeed() const

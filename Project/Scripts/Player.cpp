@@ -4,7 +4,7 @@
 #include "Engine/MeshRender.h"
 #include "Engine/AssetManager.h"
 #include "Engine/Mesh.h"
-//#include "Engine/Rigidbody.h"
+#include "Engine/Rigidbody.h"
 #include "Engine/TimeManager.h"
 
 Player::Player(GameObject* const owner) 
@@ -32,7 +32,7 @@ void Player::Init()
 	// 인스턴스 공통 필드 초기화
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
-	//m_canJump = true;
+	m_canJump = true;
 
 	// 플레이어 기본 컴포넌트 추가
 	// render component
@@ -41,7 +41,7 @@ void Player::Init()
 	meshRender->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
 	// rigidbody
-	//m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
+	m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
 
 	// KeyManager에 플레이어가 사용할 키값 등록
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);
@@ -65,7 +65,7 @@ void Player::OnKeyDown(KEY_CODE key)
 	// 윈도우 프로시저에서 VK_MENU 처리 막음
 	else if (key == KEY_ALT)
 	{
-		//Jump();
+		Jump();
 	}
 }
 
@@ -75,12 +75,12 @@ void Player::Move()
 	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT);
 }
 
-//void Player::Jump()
-//{
-//	if (m_canJump)
-//	{
-//		m_canJump = false;
-//		m_rigidbody->UseGravity(true);
-//		m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower);
-//	}
-//}
+void Player::Jump()
+{
+	if (m_canJump)
+	{
+		m_canJump = false;
+		m_rigidbody->UseGravity(true);
+		m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower);
+	}
+}
