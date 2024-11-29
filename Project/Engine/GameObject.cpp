@@ -66,16 +66,6 @@ GameObject& GameObject::operator=(const GameObject& other)
 
 void GameObject::Init()
 {
-	for (const auto& pair : m_componentMap)
-	{
-		pair.second->Init();
-	}
-
-	for (Script* const script : m_scripts)
-	{
-		script->Init();
-	}
-
 	// 메인카메라에 오브젝트 등록
 	if (m_renderComponent != nullptr) RenderManager::GetInstance()->AddObject(this);
 }
@@ -99,4 +89,34 @@ void GameObject::FinalTick()
 	{
 		script->FinalTick();
 	}
+}
+
+void GameObject::AddComponent(Component* const origin)
+{
+#ifdef _DEBUG
+	if (origin->GetType() == COMPONENT_TYPE::SCRIPT) assert(nullptr); // = 연산자에서 바로 Clone() 호출해서 생성하기
+	if (m_componentMap.find(origin->GetType()) != m_componentMap.end()) assert(nullptr);
+#endif // _DEBUG
+
+	Component* clone = nullptr;
+
+	if (origin->GetType() == COMPONENT_TYPE::TRANSFORM)
+	{
+		clone = origin->Clone(this);
+		m_tr = (Transform*)clone;
+	}
+	else if (dynamic_cast<RenderComponent*>(clone) != nullptr)
+	{
+#ifdef _DEBUG
+		if (m_renderComponent != nullptr) assert(nullptr);
+#endif // _DEBUG
+		clone = origin->Clone(this);
+		m_renderComponent = (RenderComponent*)clone;
+	}
+	else
+	{
+		clone = origin->Clone(this);
+	}
+
+	m_componentMap.insert(make_pair(clone->GetType(), clone));
 }
