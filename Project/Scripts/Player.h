@@ -14,9 +14,12 @@ private:
 	};
 
 private:
-	float m_moveSpeed;
-	float m_moveDelta;
+	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
 	MOVE_DIRECTION m_moveDir;
+
+	class Rigidbody* m_rigidbody;
+	float m_jumpPower;
+	bool m_canJump;
 
 public:
 	Player(GameObject* const owner);
@@ -32,9 +35,26 @@ private: // KeyManager : IKeyEvent* 를 통해 호출
 	
 private:
 	void Move();
+	//void Jump();
 
 public:
-	void SetMoveSpeed(float speed);
+	float GetMoveSpeed() const
+	{ 
+		if (m_moveSpeed < 0.f) return m_moveSpeed * -1.f;
+		else return m_moveSpeed;
+	}
+	void SetMoveSpeed(float speed) { m_moveSpeed = speed; }
+
+	float GetJumpPower() const { return m_jumpPower; }
+	void SetJumpPower(float jumpPower)
+	{
+		if (jumpPower <= 0.f)
+		{
+			MessageBox(nullptr, L"점프력은 양수값만 가능합니다", L"ERROR", MB_OK);
+			return;
+		}
+		m_jumpPower = jumpPower;
+	}
 
 private:
 	void SetMoveDirection(MOVE_DIRECTION dir);
@@ -42,3 +62,5 @@ private:
 private:
 	virtual Player* Clone(GameObject* const newOwner) final { return new Player(*this, newOwner); }
 };
+
+#include "Player.inl"

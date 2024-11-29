@@ -1,17 +1,15 @@
 #include "pch.h"
 #include "Player.h"
-#include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/MeshRender.h"
 #include "Engine/AssetManager.h"
 #include "Engine/Mesh.h"
-#include "Engine/Material.h"
 //#include "Engine/Rigidbody.h"
-//#include "Engine/TimeManager.h"
+#include "Engine/TimeManager.h"
 
 Player::Player(GameObject* const owner) 
 	: Script(owner)
-	, m_moveSpeed(250.f)
+	, m_moveSpeed(300.f)
 	, m_jumpPower(500.f)
 {
 	Init();
@@ -73,8 +71,8 @@ void Player::OnKeyDown(KEY_CODE key)
 
 void Player::Move()
 {
-	//float posX = GetOwner()->GetTransform()->GetLocalPos().x;
-	//GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveDelta * DT);
+	float posX = GetOwner()->GetTransform()->GetLocalPos().x;
+	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT);
 }
 
 //void Player::Jump()
@@ -86,19 +84,3 @@ void Player::Move()
 //		m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower);
 //	}
 //}
-
-void Player::SetMoveSpeed(float speed)
-{
-	m_moveSpeed = speed;
-	//m_moveDelta = m_moveSpeed * Transform::UNIT_VEC[DIR_RIGHT].x;
-}
-
-void Player::SetMoveDirection(MOVE_DIRECTION dir)
-{
-	if (m_moveDir != dir)
-	{
-		m_moveDir = dir;
-		m_moveDelta *= -1.f;
-		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] *= -1.f;
-	}
-}

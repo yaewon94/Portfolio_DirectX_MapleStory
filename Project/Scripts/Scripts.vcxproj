@@ -184,6 +184,9 @@ call CodeGen.exe</Command>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Player.inl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

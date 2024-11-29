@@ -32,4 +32,9 @@
     </ClCompile>
     <ClCompile Include="ScriptManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Player.inl">
+      <Filter>Scripts</Filter>
+    </None>
+  </ItemGroup>
 </Project>
