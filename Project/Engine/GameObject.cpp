@@ -98,6 +98,30 @@ void GameObject::FinalTick()
 	}
 }
 
+void GameObject::OnCollisionEnter(GameObject* const other)
+{
+	for (const auto script : m_scripts)
+	{
+		script->OnCollisionEnter(other);
+	}
+}
+
+void GameObject::OnCollisionTick(GameObject* const other)
+{
+	for (const auto script : m_scripts)
+	{
+		script->OnCollisionTick(other);
+	}
+}
+
+void GameObject::OnCollisionExit(GameObject* const other)
+{
+	for (const auto script : m_scripts)
+	{
+		script->OnCollisionExit(other);
+	}
+}
+
 void GameObject::SetLayer(LAYER layer)
 {
 	if (m_renderComponent != nullptr)

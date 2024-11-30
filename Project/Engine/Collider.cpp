@@ -9,6 +9,7 @@
 #include "AssetManager.h"
 #include "Mesh.h"
 #define COLOR_DEFAULT Vec4(0.f, 1.f, 0.f, 1.f)
+#define COLOR_COLLISION Vec4(1.f, 0.f, 0.f, 1.f)
 #endif // _DEBUG
 
 Collider::Collider(GameObject* const owner) 
@@ -40,6 +41,7 @@ void Collider::Init()
 	// 콜라이더 영역 표시되도록 RenderManager에 등록
 	m_mesh = AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh_D");
 	m_material = AssetManager::GetInstance()->FindAsset<Material>("Debug_Material");
+	m_dbgColor = COLOR_DEFAULT;
 	RenderManager::GetInstance()->AddDebugRender(this);
 #endif // _DEBUG
 }
@@ -49,6 +51,28 @@ void Collider::FinalTick()
 	Matrix matScale = XMMatrixScaling(m_scale.x, m_scale.y, 1.f);
 	Matrix matTrans = XMMatrixTranslation(m_offset.x, m_offset.y, 0.f);
 	m_matWorld = matScale * matTrans * GetOwner()->GetTransform()->GetWorldMatrix();
+}
+
+void Collider::OnCollisionEnter(GameObject* const other)
+{
+#ifdef _DEBUG
+	m_dbgColor = COLOR_COLLISION;
+#endif // DEBUG
+
+	GetOwner()->OnCollisionEnter(other);
+}
+
+void Collider::OnCollisionTick(GameObject* const other)
+{
+	GetOwner()->OnCollisionTick(other);
+}
+
+void Collider::OnCollisionExit(GameObject* const other)
+{
+#ifdef _DEBUG
+	m_dbgColor = COLOR_DEFAULT;
+#endif // DEBUG
+	GetOwner()->OnCollisionExit(other);
 }
 
 void Collider::Render()
@@ -62,7 +86,7 @@ void Collider::Render()
 	cb->Binding();
 
 	// material 바인딩
-	m_material->GetConstBuffer().v4Arr[0] = COLOR_DEFAULT;
+	m_material->GetConstBuffer().v4Arr[0] = m_dbgColor;
 	m_material->Binding();
 
 	// 렌더링

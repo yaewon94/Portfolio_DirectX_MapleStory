@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "IDebugRenderable.h"
 
+class GameObject;
+
 // 게임오브젝트끼리 충돌을 판별하기 위한 컴포넌트
 #ifdef _DEBUG
 class Collider final : public Component, public IDebugRenderable
@@ -11,6 +13,7 @@ class Collider final : public Component
 {
 	NO_COPY_MOVE(Collider)
 	COMPONENT_TYPE_DCL(COMPONENT_TYPE::COLLIDER)
+	friend class CollisionManager;
 
 private:
 	Vec2 m_offset;
@@ -26,9 +29,13 @@ private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 	virtual void FinalTick() final;
 
-public:
+private: // CollisionManager에서 호출
+	void OnCollisionEnter(GameObject* const other);
+	void OnCollisionTick(GameObject* const other);
+	void OnCollisionExit(GameObject* const other);
 	const Matrix& GetWorldMatrix() const { return m_matWorld; }
 
+public:
 	Vec2 GetOffset() const { return m_offset; }
 	void SetOffset(Vec2 offset) { m_offset = offset; }
 
@@ -42,6 +49,7 @@ private: // GameObject::복사생성자 에서 호출
 private:
 	SharedPtr<class Material> m_material;
 	SharedPtr<class Mesh> m_mesh;
+	Vec4 m_dbgColor;
 	virtual void Render() final;
 #endif // _DEBUG
 };

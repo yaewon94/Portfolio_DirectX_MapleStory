@@ -148,12 +148,14 @@ void CollisionManager::ChangeCollisionState(GameObject* const a, GameObject* con
 		if (iter == m_collisionSet.end())
 		{
 			m_collisionSet.insert(id.ID);
-			// TODO : 콜백 호출
+			a->GetCollider()->OnCollisionEnter(b);
+			b->GetCollider()->OnCollisionEnter(a);
 		}
 		// 저번 프레임에 충돌한 경우
 		else
 		{
-			// TODO : 콜백 호출
+			a->GetCollider()->OnCollisionTick(b);
+			b->GetCollider()->OnCollisionTick(a);
 		}
 	}
 	// 이번 프레임에 충돌하지 않음
@@ -162,7 +164,8 @@ void CollisionManager::ChangeCollisionState(GameObject* const a, GameObject* con
 		// 저번 프레임에 충돌한 경우
 		if (iter != m_collisionSet.end())
 		{
-			// TODO : 콜백 호출
+			a->GetCollider()->OnCollisionExit(b);
+			b->GetCollider()->OnCollisionExit(a);
 			m_collisionSet.erase(id.ID);
 		}
 	}

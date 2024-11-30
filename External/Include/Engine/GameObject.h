@@ -51,6 +51,11 @@ public: // TODO : Test Level에서 테스트 이후 Level 클래스에서만 호출할 수 있게 �
 	void Tick();
 	void FinalTick();
 
+public: // TODO : Collider에서만 호출할 수 있게
+	void OnCollisionEnter(GameObject* const other);
+	void OnCollisionTick(GameObject* const other);
+	void OnCollisionExit(GameObject* const other);
+
 public:
 	const string& GetName() const { return m_name; }
 	void SetName(const string& name) { m_name = name; }
