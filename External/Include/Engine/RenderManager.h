@@ -28,7 +28,7 @@ private:
 	vector<IDebugRenderable*> m_dbgRenderList;
 
 public:
-	void AddDebugRender(IDebugRenderable* dbgRender)
+	void AddDebugRender(IDebugRenderable* const dbgRender)
 	{
 		for (auto _dbgRender : m_dbgRenderList)
 		{
@@ -36,6 +36,18 @@ public:
 		}
 
 		m_dbgRenderList.push_back(dbgRender);
+	}
+
+	void DeleteDebugRender(IDebugRenderable* const dbgRender)
+	{
+		for (vector<IDebugRenderable*>::const_iterator iter = m_dbgRenderList.begin(); iter != m_dbgRenderList.end(); ++iter)
+		{
+			if (dbgRender == *iter)
+			{
+				m_dbgRenderList.erase(iter);
+				return;
+			}
+		}
 	}
 #endif // _DEBUG
 };

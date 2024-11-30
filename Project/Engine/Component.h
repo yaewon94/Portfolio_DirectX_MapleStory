@@ -6,7 +6,7 @@ class GameObject;
 // 컴포넌트 타입
 enum class COMPONENT_TYPE : byte
 {
-	TRANSFORM, CAMERA, MESH_RENDER, RIGIDBODY, SCRIPT
+	TRANSFORM, CAMERA, MESH_RENDER, RIGIDBODY, COLLIDER, SCRIPT
 };
 
 #define COMPONENT_TYPE_DCL(type) public:\
@@ -39,7 +39,7 @@ protected:
 
 protected:
 	virtual void Init() {}
-	virtual void FinalTick() = 0;
+	virtual void FinalTick() {}
 
 protected:
 	GameObject* const GetOwner() { return m_owner; }

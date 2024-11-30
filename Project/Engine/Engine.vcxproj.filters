@@ -151,6 +151,12 @@
     <ClInclude Include="Rigidbody.h">
       <Filter>06.Component</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>06.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IDebugRenderable.h">
+      <Filter>97.Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -236,6 +242,9 @@
     <ClCompile Include="Rigidbody.cpp">
       <Filter>06.Component</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>06.Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -251,6 +260,9 @@
     </FxCompile>
     <FxCompile Include="Global.fx">
       <Filter>98.HLSL\Header</Filter>
+    </FxCompile>
+    <FxCompile Include="Debug.fx">
+      <Filter>98.HLSL</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
