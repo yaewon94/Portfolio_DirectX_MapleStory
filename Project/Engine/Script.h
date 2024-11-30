@@ -13,7 +13,7 @@ public:
 	Script(const Script& origin, GameObject* const newOwner);
 	~Script();
 
-private: // GameObject : Component* 를 통해 호출
+protected: // GameObject : Component* 를 통해 호출
 	virtual void Tick() {}
 	virtual void FinalTick() override {}
 

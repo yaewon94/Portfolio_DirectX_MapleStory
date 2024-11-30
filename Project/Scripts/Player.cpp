@@ -53,6 +53,24 @@ void Player::Init()
 	KeyManager::GetInstance()->AddKey(KEY_ALT, this);
 }
 
+void Player::OnCollisionEnter(GameObject* other)
+{
+	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
+	{
+		m_canJump = true;
+		m_rigidbody->UseGravity(false);
+	}
+}
+
+void Player::OnCollisionExit(GameObject* other)
+{
+	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
+	{
+		m_canJump = false;
+		m_rigidbody->UseGravity(true);
+	}
+}
+
 void Player::OnKeyDown(KEY_CODE key)
 {
 	if (key == KEY_LEFT)
