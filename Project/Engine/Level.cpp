@@ -83,6 +83,18 @@ void Level::FinalTick()
 	}
 }
 
+GameObject* const Level::FindObject(const UINT ID) const
+{
+	for (const auto& pair : m_objectMap)
+	{
+		for (auto obj : pair.second)
+		{
+			if (ID == obj->GetID()) return obj;
+		}
+	}
+	return nullptr;
+}
+
 void Level::RegisterObject(GameObject* const obj)
 {
 	auto iter = m_objectMap.find(obj->GetTag());

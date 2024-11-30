@@ -41,8 +41,8 @@ protected:
 	virtual void Init() {}
 	virtual void FinalTick() {}
 
-protected:
-	GameObject* const GetOwner() { return m_owner; }
+public:
+	GameObject* const GetOwner() const { return m_owner; }
 
 private:
 	virtual Entity* Clone() final { return nullptr; } // delete

@@ -19,26 +19,8 @@
     <Filter Include="02.Device">
       <UniqueIdentifier>{a9fb107f-bc62-4bd5-821e-978f5e85b4e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Layer">
-      <UniqueIdentifier>{8f9ae9b3-382e-42bf-8037-e4f8036bf889}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.GameObject">
       <UniqueIdentifier>{39e5317c-f51d-4b76-9ce2-83b66dd68f2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.Level">
-      <UniqueIdentifier>{71d7fb0b-0a1a-4999-9cde-7bf025ec1670}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.Component">
-      <UniqueIdentifier>{2164dabd-54eb-4411-837f-ae1ef11e1de1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.Component\RenderComponent">
-      <UniqueIdentifier>{4c1ac287-77e8-4c5b-9584-e2d9679c7b12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07.Asset">
-      <UniqueIdentifier>{1479ecd0-0f95-4d84-ba3d-ca9e370e8952}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07.Asset\Shader">
-      <UniqueIdentifier>{db425a8c-145c-4396-9adf-32068d44c277}</UniqueIdentifier>
     </Filter>
     <Filter Include="99.Util">
       <UniqueIdentifier>{4aa84d78-6cd0-4515-a08f-66c314e9860f}</UniqueIdentifier>
@@ -51,6 +33,24 @@
     </Filter>
     <Filter Include="97.Render">
       <UniqueIdentifier>{266586b6-45ab-4774-9ef8-d79e888dca80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Level">
+      <UniqueIdentifier>{71d7fb0b-0a1a-4999-9cde-7bf025ec1670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Component">
+      <UniqueIdentifier>{2164dabd-54eb-4411-837f-ae1ef11e1de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Component\RenderComponent">
+      <UniqueIdentifier>{4c1ac287-77e8-4c5b-9584-e2d9679c7b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Component\Collider">
+      <UniqueIdentifier>{7ef132a2-8439-4e17-82d4-91eedb6ab8d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Asset">
+      <UniqueIdentifier>{1479ecd0-0f95-4d84-ba3d-ca9e370e8952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Asset\Shader">
+      <UniqueIdentifier>{db425a8c-145c-4396-9adf-32068d44c277}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,62 +76,59 @@
       <Filter>02.Device</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Layer.h">
-      <Filter>04.Layer</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>03.GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>05.Level</Filter>
+      <Filter>04.Level</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
-      <Filter>05.Level</Filter>
+      <Filter>04.Level</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClInclude>
     <ClInclude Include="ConstBuffer.h">
       <Filter>02.Device</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>06.Component\RenderComponent</Filter>
+      <Filter>05.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="Asset.h">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>07.Asset\Shader</Filter>
+      <Filter>06.Asset\Shader</Filter>
     </ClInclude>
     <ClInclude Include="GraphicShader.h">
-      <Filter>07.Asset\Shader</Filter>
+      <Filter>06.Asset\Shader</Filter>
     </ClInclude>
     <ClInclude Include="PathManager.h">
       <Filter>99.Util</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClInclude>
     <ClInclude Include="SharedPtr.h">
       <Filter>99.Util</Filter>
     </ClInclude>
     <ClInclude Include="MeshRender.h">
-      <Filter>06.Component\RenderComponent</Filter>
+      <Filter>05.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClInclude>
     <ClInclude Include="IRenderable.h">
       <Filter>97.Render</Filter>
@@ -143,18 +140,27 @@
       <Filter>99.Util</Filter>
     </ClInclude>
     <ClInclude Include="Script.h">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>99.Util</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody.h">
-      <Filter>06.Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClInclude>
     <ClInclude Include="IDebugRenderable.h">
+      <Filter>97.Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>05.Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>05.Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectTag.h">
+      <Filter>03.GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderValues.h">
       <Filter>97.Render</Filter>
     </ClInclude>
   </ItemGroup>
@@ -172,60 +178,57 @@
       <Filter>02.Device</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Layer.cpp">
-      <Filter>04.Layer</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>03.GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
-      <Filter>05.Level</Filter>
+      <Filter>04.Level</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
-      <Filter>05.Level</Filter>
+      <Filter>04.Level</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="ConstBuffer.cpp">
       <Filter>02.Device</Filter>
     </ClCompile>
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="RenderComponent.cpp">
-      <Filter>06.Component\RenderComponent</Filter>
+      <Filter>05.Component\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="Asset.cpp">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>07.Asset\Shader</Filter>
+      <Filter>06.Asset\Shader</Filter>
     </ClCompile>
     <ClCompile Include="GraphicShader.cpp">
-      <Filter>07.Asset\Shader</Filter>
+      <Filter>06.Asset\Shader</Filter>
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
       <Filter>99.Util</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>07.Asset</Filter>
+      <Filter>06.Asset</Filter>
     </ClCompile>
     <ClCompile Include="MeshRender.cpp">
-      <Filter>06.Component\RenderComponent</Filter>
+      <Filter>05.Component\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>97.Render</Filter>
@@ -234,16 +237,19 @@
       <Filter>99.Util</Filter>
     </ClCompile>
     <ClCompile Include="Script.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>99.Util</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>06.Component</Filter>
+      <Filter>05.Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>05.Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

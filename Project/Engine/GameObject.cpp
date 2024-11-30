@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "GameObject.h"
 #include "LevelManager.h"
 #include "RenderManager.h"
 #include "Transform.h"
@@ -141,6 +140,11 @@ void GameObject::AddComponent(Component* const origin)
 #endif // _DEBUG
 		clone = origin->Clone(this);
 		m_renderComponent = (RenderComponent*)clone;
+	}
+	else if (origin->GetType() == COMPONENT_TYPE::COLLIDER)
+	{
+		clone = origin->Clone(this);
+		m_collider = (Collider*)clone;
 	}
 	else
 	{

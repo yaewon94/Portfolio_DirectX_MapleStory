@@ -13,6 +13,8 @@ using std::map;
 using std::make_pair;
 #include <unordered_map>
 using std::unordered_map;
+#include <unordered_set>
+using std::unordered_set;
 
 // DirectX 11
 #include <d3d11.h>

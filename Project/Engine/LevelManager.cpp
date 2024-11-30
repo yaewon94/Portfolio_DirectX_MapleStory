@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "LevelManager.h"
-#include "Level.h"
 
 LevelManager::LevelManager() 
 	: m_curLevel(nullptr)
@@ -28,14 +27,4 @@ void LevelManager::Tick()
 {
 	m_curLevel->Tick();
 	m_curLevel->FinalTick();
-}
-
-void LevelManager::RegisterObject(GameObject* const obj)
-{
-	m_curLevel->RegisterObject(obj);
-}
-
-void LevelManager::DeleteObject(GameObject* const obj)
-{
-	m_curLevel->DeleteObject(obj);
 }

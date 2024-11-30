@@ -168,6 +168,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="Device.h" />
@@ -182,16 +183,17 @@ call EngineHeaderCopy.bat</Command>
     </ClInclude>
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="KeyManager.h" />
-    <ClInclude Include="Layer.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshRender.h" />
+    <ClInclude Include="GameObjectTag.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="RenderValues.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="Shader.h" />
@@ -207,6 +209,7 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="Device.cpp" />
@@ -216,7 +219,6 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicShader.cpp" />
     <ClCompile Include="KeyManager.cpp" />
-    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />

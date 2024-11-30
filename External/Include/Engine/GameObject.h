@@ -7,6 +7,7 @@
 class Script;
 class Transform;
 class RenderComponent;
+class Collider;
 
 // 게임오브젝트 동적할당/해제 접근제한을 위한 인터페이스
 class IGameObjectDynamicAllocation
@@ -36,6 +37,7 @@ private:
 	// 빠른 접근을 위한 필드
 	Transform* m_tr;
 	RenderComponent* m_renderComponent;
+	Collider* m_collider;
 
 public:
 	GameObject(const string& name);
@@ -53,7 +55,7 @@ public:
 	const string& GetName() const { return m_name; }
 	void SetName(const string& name) { m_name = name; }
 
-	bool IsActive() const { m_isActive; }
+	bool IsActive() const { return m_isActive; }
 	void SetActive(bool isActive) { m_isActive = isActive; }
 
 	LAYER GetLayer() const { return m_layer; }
@@ -64,6 +66,7 @@ public:
 
 	Transform* const GetTransform() const { return m_tr; }
 	RenderComponent* const GetRenderComponent() const { return m_renderComponent; }
+	Collider* const GetCollider() const { return m_collider; }
 
 	template<typename T> requires std::derived_from<T, Component>
 	T* const GetComponent() const;

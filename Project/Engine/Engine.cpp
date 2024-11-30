@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Device.h"
 #include "AssetManager.h"
+#include "CollisionManager.h"
 #include "KeyManager.h"
 #include "LevelManager.h"
 #include "PathManager.h"
@@ -43,6 +44,7 @@ int Engine::Init(HWND hwnd)
 	TimeManager::GetInstance()->Init();
 	PathManager::GetInstance()->Init();
 	if (FAILED(AssetManager::GetInstance()->Init())) return E_FAIL;
+	CollisionManager::GetInstance()->Init();
 	if (FAILED(LevelManager::GetInstance()->Init())) return E_FAIL;
 
 	return S_OK;
@@ -54,4 +56,5 @@ void Engine::Progress()
 	TimeManager::GetInstance()->Tick();
 	KeyManager::GetInstance()->Tick();
 	LevelManager::GetInstance()->Tick();
+	CollisionManager::GetInstance()->Tick();
 }

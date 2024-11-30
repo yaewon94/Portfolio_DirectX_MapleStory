@@ -60,6 +60,10 @@ inline T* const GameObject::AddComponent()
 			}
 			m_renderComponent = component = new T(this);
 		}
+		else if constexpr (T::Type == COMPONENT_TYPE::COLLIDER)
+		{
+			m_collider = component = new T(this);
+		}
 		else
 		{
 			component = new T(this);

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Collider.h"
+#include "CollisionManager.h"
 #include "GameObject.h"
 #include "Transform.h"
 
@@ -26,7 +27,8 @@ Collider::Collider(const Collider& origin, GameObject* const newOwner)
 
 Collider::~Collider()
 {
-	// TODO : CollisionManager에서 제거
+	CollisionManager::GetInstance()->ResetCollisionState(GetOwner());
+
 #ifdef _DEBUG
 	RenderManager::GetInstance()->DeleteDebugRender(this);
 #endif // _DEBUG
@@ -34,8 +36,6 @@ Collider::~Collider()
 
 void Collider::Init()
 {
-	// TODO : CollisionManager에 등록
-
 #ifdef _DEBUG
 	// 콜라이더 영역 표시되도록 RenderManager에 등록
 	m_mesh = AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh_D");

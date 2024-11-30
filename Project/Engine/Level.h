@@ -26,6 +26,8 @@ private:
 	virtual void FinalTick();
 
 private:
+	GameObject* const FindObject(const UINT ID) const;
+	const vector<GameObject*>& GetObjects(OBJECT_TAG tag) const { return m_objectMap.find(tag)->second; }
 	void RegisterObject(GameObject* const obj);
 	void DeleteObject(GameObject* const obj);
 };
