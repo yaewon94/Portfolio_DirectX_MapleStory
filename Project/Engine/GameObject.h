@@ -41,7 +41,7 @@ public:
 	GameObject& operator=(const GameObject& other);
 	virtual GameObject* Clone() final { return new GameObject(*this); }
 
-public:
+public: // TODO : Test Level에서 테스트 이후 Level 클래스에서만 호출할 수 있게 바꿀것
 	void Init();
 	void Tick();
 	void FinalTick();

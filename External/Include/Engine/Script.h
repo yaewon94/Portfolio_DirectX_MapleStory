@@ -14,7 +14,7 @@ public:
 	~Script();
 
 private: // GameObject : Component* 를 통해 호출
-	virtual void Tick() = 0;
+	virtual void Tick() {}
 	virtual void FinalTick() override {}
 
 private:

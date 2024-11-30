@@ -19,6 +19,9 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="Ground.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -31,6 +34,9 @@
       <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="Ground.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Player.inl">

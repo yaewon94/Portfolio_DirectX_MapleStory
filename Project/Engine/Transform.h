@@ -59,6 +59,8 @@ public:
 	void Binding();
 
 public:
+	const Matrix& GetWorldMatrix() const { return m_matWorld; }
+
 	Vec3 GetLocalPos() const { return m_localPos; }
 	void SetLocalPos(const Vec3& pos) { m_localPos = pos; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
 	void SetLocalPosX(float x) { m_localPos.x = x; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
@@ -67,6 +69,9 @@ public:
 
 	Vec3 GetLocalScale() const { return m_localScale; }
 	void SetLocalScale(const Vec3& scale) { m_localScale = scale; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalScaleX(float x) { m_localScale.x = x; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalScaleY(float y) { m_localScale.y = y; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalScaleZ(float z) { m_localScale.z = z; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
 
 	Vec3 GetLocalRotation() const { return m_localRotation; }
 	void SetLocalRotation(const Vec3& rotation) { m_localRotation = rotation; m_isChangedValue |= ON_CHANGE_ROTATION; }
