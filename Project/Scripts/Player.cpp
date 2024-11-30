@@ -5,6 +5,7 @@
 #include "Engine/AssetManager.h"
 #include "Engine/Mesh.h"
 #include "Engine/Rigidbody.h"
+#include "Engine/Collider.h"
 #include "Engine/TimeManager.h"
 
 Player::Player(GameObject* const owner) 
@@ -30,6 +31,7 @@ Player::~Player()
 void Player::Init()
 {
 	// 인스턴스 공통 필드 초기화
+	GetOwner()->SetTag(OBJECT_TAG::PLAYER);
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
 	m_canJump = true;
@@ -42,6 +44,8 @@ void Player::Init()
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
 	// rigidbody
 	m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
+	// collider
+	GetOwner()->AddComponent<Collider>();
 
 	// KeyManager에 플레이어가 사용할 키값 등록
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);

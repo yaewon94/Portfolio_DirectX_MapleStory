@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Layer.h"
 #include "Component.h"
+#include "GameObjectTag.h"
 
 class Script;
 class Transform;
@@ -27,6 +28,7 @@ class GameObject final : public Entity, public IGameObjectDynamicAllocation
 private:
 	string m_name;
 	LAYER_TYPE m_layerIdx;
+	OBJECT_TAG m_tag;
 	map<COMPONENT_TYPE, Component*> m_componentMap;
 	vector<Script*> m_scripts;
 
@@ -62,6 +64,9 @@ public:
 
 		m_layerIdx = layer;
 	}
+
+	OBJECT_TAG GetTag() const { return m_tag; }
+	void SetTag(OBJECT_TAG tag) { m_tag = tag; }
 
 	Transform* const GetTransform() const { return m_tr; }
 	RenderComponent* const GetRenderComponent() const { return m_renderComponent; }

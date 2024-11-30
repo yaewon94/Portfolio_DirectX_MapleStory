@@ -6,7 +6,7 @@
 #include "Script.h"
 
 GameObject::GameObject(const string& name)
-	: m_name(name), m_layerIdx(0)
+	: m_name(name), m_layerIdx(0), m_tag(OBJECT_TAG::DEFAULT)
 {
 	AddComponent<Transform>();
 
@@ -50,6 +50,7 @@ GameObject& GameObject::operator=(const GameObject& other)
 {
 	m_name = other.m_name;
 	m_layerIdx = other.m_layerIdx;
+	m_tag = other.m_tag;
 
 	for (const auto& pair : other.m_componentMap)
 	{

@@ -21,5 +21,6 @@ Ground::~Ground()
 
 void Ground::Init()
 {
+	GetOwner()->SetTag(OBJECT_TAG::GROUND);
 	GetOwner()->AddComponent<Collider>();
 }
