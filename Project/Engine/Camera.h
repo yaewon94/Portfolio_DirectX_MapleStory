@@ -3,6 +3,7 @@
 #include "IRenderable.h"
 #include "Shader.h"
 #include "Layer.h"
+#include "Transform.h"
 
 // 카메라 투영 타입
 enum class PROJECTION_TYPE : byte
@@ -27,7 +28,7 @@ private:
 	// 직교투영 (PROJECTION_TYPE::ORTHOGRAPHIC)
 	float m_scale; // 투영 배율
 
-	array<vector<GameObject*>, SHADER_DOMAIN_COUNT_END> m_renderObjs;
+	array<map<LAYER_TYPE, vector<GameObject*>>, SHADER_DOMAIN_COUNT_END> m_renderObjs;
 
 	LAYER_TYPES m_layers; // 렌더링할 레이어 조합
 	PROJECTION_TYPE m_projType;	// 투영 타입
@@ -48,34 +49,54 @@ public:
 
 public:
 	PROJECTION_TYPE GetProjectionType() const { return m_projType; }
-	void SetProjectionType(PROJECTION_TYPE type) { m_projType = type; }
+	void SetProjectionType(PROJECTION_TYPE type)
+	{ 
+		m_projType = type;
+		CalcProjectionMatrix();
+	}
 
 	float GetNear() const { return m_near; }
 	void SetNear(float Near)
 	{
 		if (Near >= m_far) MessageBox(nullptr, L"near은 far보다 작아야 합니다", L"Change camera value is failed", MB_OK);
-		else m_near = Near;
+		else
+		{
+			m_near = Near;
+			CalcProjectionMatrix();
+		}
 	}
 
 	float GetFar() const { return m_far; }
 	void SetFar(float Far)
 	{
 		if (Far <= m_near) MessageBox(nullptr, L"far은 near보다 커야 합니다", L"Change camera value is failed", MB_OK);
-		else m_far = Far;
+		else
+		{
+			m_far = Far;
+			CalcProjectionMatrix();
+		}
 	}
 
 	float GetViewWidth() const { return m_viewWidth; }
 	void SetViewWidth(float width)
 	{
 		if (width <= 0.f) MessageBox(nullptr, L"width는 양수여야 합니다", L"Change camera value is failed", MB_OK);
-		else m_viewWidth = width;
+		else
+		{
+			m_viewWidth = width;
+			CalcProjectionMatrix();
+		}
 	}
 
 	float GetViewHeight() const { return m_viewHeight; }
 	void SetViewHeight(float height)
 	{
 		if (height <= 0.f) MessageBox(nullptr, L"height는 양수여야 합니다", L"Change camera value is failed", MB_OK);
-		else m_viewHeight = height;
+		else
+		{
+			m_viewHeight = height;
+			CalcProjectionMatrix();
+		}
 	}
 
 	float GetFieldOfView() const { return m_fov; }
@@ -85,6 +106,7 @@ public:
 		if (fov >= 0) fov %= 360;
 		else fov = (fov % -360) + 360;
 		m_fov = fov * XM_PI / 180.f;
+		CalcProjectionMatrix();
 	}
 
 	float GetScale() const { return m_scale; }
@@ -92,7 +114,11 @@ public:
 	void SetScale(float scale)
 	{
 		if (scale <= 0.f) MessageBox(nullptr, L"카메라 배율값은 양수여야 합니다", L"Change camera value is failed", MB_OK);
-		else m_scale = scale;
+		else
+		{
+			m_scale = scale;
+			CalcProjectionMatrix();
+		}
 	}
 
 	LAYER_TYPES GetRenderLayers() const { return m_layers; }
@@ -122,7 +148,17 @@ public:
 
 	byte GetPriority() const { return m_priority; }
 	void SetPriority(byte priority);
-
+	
 private:
+	void CalcProjectionMatrix()
+	{
+		if (m_projType == PROJECTION_TYPE::ORTHOGRAPHIC) g_tr.matProj = XMMatrixOrthographicLH((float)m_viewWidth / m_scale, (float)m_viewHeight / m_scale, m_near, m_far);
+		else if (m_projType == PROJECTION_TYPE::PERSPECTIVE) g_tr.matProj = XMMatrixPerspectiveFovLH(m_fov, m_viewHeight / m_viewWidth, m_near, m_far);
+#ifdef _DEBUG
+		else assert(nullptr);
+#endif // _DEBUG
+	}
+
+private: // GameObject::복사생성자 에서 호출
 	virtual Camera* Clone(GameObject* const newOwner) final { return new Camera(*this, newOwner); }
 };

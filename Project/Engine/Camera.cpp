@@ -3,7 +3,6 @@
 #include "Engine.h"
 #include "RenderManager.h"
 #include "GameObject.h"
-#include "Transform.h"
 #include "Material.h"
 
 Camera::Camera(GameObject* const owner) 
@@ -34,14 +33,6 @@ Camera::Camera(const Camera& origin, GameObject* const newOwner)
 
 Camera::~Camera()
 {
-	for (const auto& vec : m_renderObjs)
-	{
-		for (auto obj : vec)
-		{
-			obj = nullptr;
-		}
-	}
-
 	RenderManager::GetInstance()->DeleteCamera(this);
 }
 
@@ -49,6 +40,7 @@ void Camera::Init()
 {
 	// 카메라 등록
 	RenderManager::GetInstance()->AddCamera(this);
+	CalcProjectionMatrix();
 }
 
 void Camera::FinalTick()
@@ -67,38 +59,34 @@ void Camera::FinalTick()
 	matRot._31 = right.z; matRot._32 = up.z; matRot._33 = front.z;
 
 	g_tr.matView = matTrans * matRot;
-
-	// 투영행렬 계산
-	if (m_projType == PROJECTION_TYPE::ORTHOGRAPHIC)
-	{
-		g_tr.matProj = XMMatrixOrthographicLH((float)m_viewWidth/m_scale, (float)m_viewHeight/m_scale, m_near, m_far);
-	}
-	else // PROJECTION_TYPE::PERSPECTIVE
-	{
-		g_tr.matProj = XMMatrixPerspectiveFovLH(m_fov, m_viewHeight/m_viewWidth, m_near, m_far);
-	}
 }
 
 void Camera::Render()
 {
 	for (byte domain = 0; domain < SHADER_DOMAIN::DOMAIN_POST_PROCESS; ++domain)
 	{
-		for (auto obj : m_renderObjs[domain])
+		for (const auto& pair : m_renderObjs[domain])
 		{
-			if (m_layers & (1 << obj->GetLayer()))
+			if (m_layers & (1 << pair.first))
 			{
-				obj->GetRenderComponent()->Render();
+				for (auto obj : pair.second)
+				{
+					obj->GetRenderComponent()->Render();
+				}
 			}
 		}
 	}
 
 	// Post Process Domain Shader
-	for (auto obj : m_renderObjs[SHADER_DOMAIN::DOMAIN_POST_PROCESS])
+	for (const auto& pair : m_renderObjs[SHADER_DOMAIN::DOMAIN_POST_PROCESS])
 	{
-		if (m_layers & (1 << obj->GetLayer()))
+		if (m_layers & (1 << pair.first))
 		{
-			// TODO : RenderTarget 복사한 곳에 렌더링
-			obj->GetRenderComponent()->Render();
+			for (auto obj : pair.second)
+			{
+				// TODO : RenderTarget 복사한 곳에 렌더링하도록 구현
+				obj->GetRenderComponent()->Render();
+			}
 		}
 	}
 }
@@ -106,16 +94,34 @@ void Camera::Render()
 void Camera::AddRenderObject(GameObject* const obj)
 {
 	SHADER_DOMAIN domain = obj->GetRenderComponent()->GetMaterial()->GetShader()->GetShaderDomain();
-
 #ifdef _DEBUG
-	// 중복체크
-	for (auto _obj : m_renderObjs[(size_t)domain])
+	if (domain == SHADER_DOMAIN::DOMAIN_DEBUG)
 	{
-		if (_obj == obj) assert(nullptr);
+		MessageBox(nullptr, L"RenderManager::AddDebugRender() 를 통해 등록하세요", L"Camera::AddRenderObject() 실패", MB_OK);
+		return;
 	}
+	if (domain == SHADER_DOMAIN_COUNT_END) assert(nullptr);
 #endif // _DEBUG
 
-	m_renderObjs[(size_t)domain].push_back(obj);
+	auto iter = m_renderObjs[domain].find(obj->GetLayer());
+
+	if (iter != m_renderObjs[domain].end())
+	{
+#ifdef _DEBUG
+		// 중복체크
+		for (auto _obj : iter->second)
+		{
+			if (obj == _obj) assert(nullptr);
+		}
+#endif // _DEBUG
+
+		iter->second.push_back(obj);
+	}
+	else
+	{
+		m_renderObjs[domain].insert(make_pair(obj->GetLayer(), vector<GameObject*>()));
+		m_renderObjs[domain].find(obj->GetLayer())->second.push_back(obj);
+	}
 }
 
 void Camera::SetPriority(byte priority)
