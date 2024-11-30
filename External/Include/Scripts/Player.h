@@ -28,7 +28,6 @@ public:
 
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
-	virtual void Tick() final {}
 
 private: // KeyManager : IKeyEvent* 를 통해 호출
 	virtual void OnKeyDown(KEY_CODE key) final;

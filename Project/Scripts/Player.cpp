@@ -31,7 +31,7 @@ Player::~Player()
 void Player::Init()
 {
 	// 인스턴스 공통 필드 초기화
-	GetOwner()->SetTag(OBJECT_TAG::PLAYER);
+	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
 	m_canJump = true;
