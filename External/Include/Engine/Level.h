@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.h"
-#include "Layer.h"
+#include "GameObjectTag.h"
 
 class GameObject;
 
@@ -11,7 +11,7 @@ class Level : public Entity
 
 private:
 	string m_name;
-	map<LAYER_TYPE, Layer*> m_layerMap;
+	unordered_map<OBJECT_TAG, vector<GameObject*>> m_objectMap;
 
 private:
 	Level(const string& name);
@@ -27,4 +27,5 @@ private:
 
 private:
 	void RegisterObject(GameObject* const obj);
+	void DeleteObject(GameObject* const obj);
 };

@@ -17,4 +17,5 @@ public:
 	// 오브젝트 생성 후, 현재 레벨에 자동으로 등록됨
 	GameObject* const CreateObject(const string& name) { return new GameObject(name); }
 	void RegisterObject(GameObject* const obj);
+	void DeleteObject(GameObject* const obj);
 };

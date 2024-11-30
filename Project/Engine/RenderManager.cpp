@@ -100,3 +100,17 @@ void RenderManager::AddObject(GameObject* const obj, byte camPriority)
 		m_cams[camPriority]->AddRenderObject(obj);
 	}
 }
+
+void RenderManager::DeleteObject(GameObject* const obj, byte camPriority)
+{
+	if (camPriority >= m_cams.size())
+	{
+#ifdef _DEBUG
+		assert(nullptr);
+#elif
+		return;
+#endif // _DEBUG
+	}
+
+	m_cams[camPriority]->DeleteRenderObject(obj);
+}

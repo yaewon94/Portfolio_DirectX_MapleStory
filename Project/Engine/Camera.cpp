@@ -10,7 +10,6 @@ Camera::Camera(GameObject* const owner)
 	, m_projType(PROJECTION_TYPE::ORTHOGRAPHIC)
 	, m_near(1.f), m_far(500.f)
 	, m_viewWidth(RESOLUTION.x), m_viewHeight(RESOLUTION.y)
-	, m_layers(ALL_LAYER_TYPES)	// 모든 레이어 렌더링
 	, m_fov(XM_PI / 2.f)
 	, m_scale(1.f)
 	, m_priority(RenderManager::GetInstance()->GetCameraCount())
@@ -23,7 +22,6 @@ Camera::Camera(const Camera& origin, GameObject* const newOwner)
 	, m_projType(origin.m_projType)
 	, m_near(origin.m_near), m_far(origin.m_far)
 	, m_viewWidth(origin.m_viewWidth), m_viewHeight(origin.m_viewHeight)
-	, m_layers(origin.m_layers)
 	, m_fov(origin.m_fov)
 	, m_scale(origin.m_scale)
 	, m_priority(RenderManager::GetInstance()->GetCameraCount())
@@ -67,12 +65,9 @@ void Camera::Render()
 	{
 		for (const auto& pair : m_renderObjs[domain])
 		{
-			if (m_layers & (1 << pair.first))
+			for (auto obj : pair.second)
 			{
-				for (auto obj : pair.second)
-				{
-					obj->GetRenderComponent()->Render();
-				}
+				obj->GetRenderComponent()->Render();
 			}
 		}
 	}
@@ -80,15 +75,20 @@ void Camera::Render()
 	// Post Process Domain Shader
 	for (const auto& pair : m_renderObjs[SHADER_DOMAIN::DOMAIN_POST_PROCESS])
 	{
-		if (m_layers & (1 << pair.first))
+		for (auto obj : pair.second)
 		{
-			for (auto obj : pair.second)
-			{
-				// TODO : RenderTarget 복사한 곳에 렌더링하도록 구현
-				obj->GetRenderComponent()->Render();
-			}
+			// TODO : RenderTarget 복사한 곳에 렌더링하도록 구현
+			obj->GetRenderComponent()->Render();
 		}
 	}
+}
+
+void Camera::SetPriority(byte priority)
+{
+	if (m_priority == priority) return;
+	RenderManager::GetInstance()->DeleteCamera(this);
+	m_priority = priority;
+	RenderManager::GetInstance()->AddCamera(this);
 }
 
 void Camera::AddRenderObject(GameObject* const obj)
@@ -124,10 +124,28 @@ void Camera::AddRenderObject(GameObject* const obj)
 	}
 }
 
-void Camera::SetPriority(byte priority)
+void Camera::DeleteRenderObject(GameObject* const obj)
 {
-	if (m_priority == priority) return;
-	RenderManager::GetInstance()->DeleteCamera(this);
-	m_priority = priority;
-	RenderManager::GetInstance()->AddCamera(this);
+	SHADER_DOMAIN domain = obj->GetRenderComponent()->GetMaterial()->GetShader()->GetShaderDomain();
+
+#ifdef _DEBUG
+	if (domain >= SHADER_DOMAIN_COUNT_END) assert(nullptr);
+#endif // _DEBUG
+
+	auto mapiter = m_renderObjs[domain].find(obj->GetLayer());
+	if (mapiter != m_renderObjs[domain].end())
+	{
+		for (vector<GameObject*>::const_iterator iter = mapiter->second.begin(); iter != mapiter->second.end(); ++iter)
+		{
+			if (obj == *iter)
+			{
+				mapiter->second.erase(iter);
+				if (mapiter->second.empty()) m_renderObjs[domain].erase(mapiter);
+				return;
+			}
+		}
+	}
+#ifdef _DEBUG
+	else assert(nullptr);
+#endif // _DEBUG
 }

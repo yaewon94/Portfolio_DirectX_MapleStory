@@ -1,8 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "IRenderable.h"
+#include "RenderValues.h"
 #include "Shader.h"
-#include "Layer.h"
 #include "Transform.h"
 
 // 카메라 투영 타입
@@ -28,9 +28,8 @@ private:
 	// 직교투영 (PROJECTION_TYPE::ORTHOGRAPHIC)
 	float m_scale; // 투영 배율
 
-	array<map<LAYER_TYPE, vector<GameObject*>>, SHADER_DOMAIN_COUNT_END> m_renderObjs;
+	array<map<LAYER, vector<GameObject*>>, SHADER_DOMAIN_COUNT_END> m_renderObjs;
 
-	LAYER_TYPES m_layers; // 렌더링할 레이어 조합
 	PROJECTION_TYPE m_projType;	// 투영 타입
 	byte m_priority;	// 렌더링 순서
 
@@ -121,33 +120,11 @@ public:
 		}
 	}
 
-	LAYER_TYPES GetRenderLayers() const { return m_layers; }
-	void SetLayerOnOff(LAYER_TYPE layer)
-	{
-		LAYER_TYPES checkBit = 1 << layer;
-
-		// 등록된 레이어인 경우
-		if (m_layers & checkBit)
-		{
-			// ex. ???????1 & 00000001 => 00000001
-			// layer 비트반전 11111110
-			// ???????1 & 11111110 => #######0
-			// ? 비트에 위치한 레이어가 등록되어 있는 경우는 어차피 #값이 1이 나오고,
-			// 등록되어 있지 않은 경우는 #값이 0이 되므로 다른 레이어 값엔 영향을 주지 않음
-			m_layers &= ~checkBit;
-		}
-		// 등록되지 않은 경우
-		else
-		{
-			// ex. ???????0 | 00000001 => ???????1
-			m_layers |= checkBit;
-		}
-	}
-
-	void AddRenderObject(GameObject* const obj);
-
 	byte GetPriority() const { return m_priority; }
 	void SetPriority(byte priority);
+
+	void AddRenderObject(GameObject* const obj);
+	void DeleteRenderObject(GameObject* const obj);
 	
 private:
 	void CalcProjectionMatrix()

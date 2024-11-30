@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
-#include "Layer.h"
 #include "Component.h"
+#include "RenderValues.h"
 #include "GameObjectTag.h"
 
 class Script;
@@ -11,8 +11,8 @@ class RenderComponent;
 // 게임오브젝트 동적할당/해제 접근제한을 위한 인터페이스
 class IGameObjectDynamicAllocation
 {
-	friend class Layer;
 	friend class LevelManager;
+	friend class Level;
 
 protected:
 	virtual ~IGameObjectDynamicAllocation() {}
@@ -27,7 +27,8 @@ class GameObject final : public Entity, public IGameObjectDynamicAllocation
 {
 private:
 	string m_name;
-	LAYER_TYPE m_layerIdx;
+	bool m_isActive;
+	LAYER m_layer;
 	OBJECT_TAG m_tag;
 	map<COMPONENT_TYPE, Component*> m_componentMap;
 	vector<Script*> m_scripts;
@@ -52,21 +53,14 @@ public:
 	const string& GetName() const { return m_name; }
 	void SetName(const string& name) { m_name = name; }
 
-	LAYER_TYPE GetLayer() const { return m_layerIdx; }
-	void SetLayer(LAYER_TYPE layer)
-	{
-		if (layer > MAX_LAYER)
-		{
-			wstring msg = L"레이어 값은 " + std::to_wstring(MAX_LAYER) + L" 이하로만 설정할 수 있습니다";
-			MessageBox(nullptr, msg.c_str(), L"레이어 변경 실패", MB_OK);
-			return;
-		}
+	bool IsActive() const { m_isActive; }
+	void SetActive(bool isActive) { m_isActive = isActive; }
 
-		m_layerIdx = layer;
-	}
+	LAYER GetLayer() const { return m_layer; }
+	void SetLayer(LAYER layer);
 
 	OBJECT_TAG GetTag() const { return m_tag; }
-	void SetTag(OBJECT_TAG tag) { m_tag = tag; }
+	void SetTag(OBJECT_TAG tag);
 
 	Transform* const GetTransform() const { return m_tr; }
 	RenderComponent* const GetRenderComponent() const { return m_renderComponent; }

@@ -6,7 +6,7 @@
 #include "Script.h"
 
 GameObject::GameObject(const string& name)
-	: m_name(name), m_layerIdx(0), m_tag(OBJECT_TAG::DEFAULT)
+	: m_name(name), m_isActive(true), m_layer(0), m_tag(OBJECT_TAG::TAG_DEFAULT)
 {
 	AddComponent<Transform>();
 
@@ -49,7 +49,8 @@ GameObject::~GameObject()
 GameObject& GameObject::operator=(const GameObject& other)
 {
 	m_name = other.m_name;
-	m_layerIdx = other.m_layerIdx;
+	m_isActive = other.m_isActive;
+	m_layer = other.m_layer;
 	m_tag = other.m_tag;
 
 	for (const auto& pair : other.m_componentMap)
@@ -73,23 +74,50 @@ void GameObject::Init()
 
 void GameObject::Tick()
 {
-	for (Script* const script : m_scripts)
+	if (m_isActive)
 	{
-		script->Tick();
+		for (Script* const script : m_scripts)
+		{
+			script->Tick();
+		}
 	}
 }
 
 void GameObject::FinalTick()
 {
-	for (const auto& pair : m_componentMap)
+	if (m_isActive)
 	{
-		pair.second->FinalTick();
-	}
+		for (const auto& pair : m_componentMap)
+		{
+			pair.second->FinalTick();
+		}
 
-	for (Script* const script : m_scripts)
-	{
-		script->FinalTick();
+		for (Script* const script : m_scripts)
+		{
+			script->FinalTick();
+		}
 	}
+}
+
+void GameObject::SetLayer(LAYER layer)
+{
+	if (m_renderComponent != nullptr)
+	{
+		RenderManager::GetInstance()->DeleteObject(this);
+		m_layer = layer;
+		RenderManager::GetInstance()->AddObject(this);
+	}
+	else
+	{
+		m_layer = layer;
+	}
+}
+
+void GameObject::SetTag(OBJECT_TAG tag)
+{
+	LevelManager::GetInstance()->DeleteObject(this);
+	m_tag = tag;
+	LevelManager::GetInstance()->RegisterObject(this);
 }
 
 void GameObject::AddComponent(Component* const origin)

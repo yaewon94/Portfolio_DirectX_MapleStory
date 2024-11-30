@@ -16,12 +16,15 @@ Level::Level(const Level& origin)
 
 Level::~Level()
 {
-	for (auto& pair : m_layerMap)
+	for (const auto& pair : m_objectMap)
 	{
-		if (pair.second != nullptr)
+		for (auto obj : pair.second)
 		{
-			delete pair.second;
-			pair.second = nullptr;
+			if (obj != nullptr)
+			{
+				delete obj;
+				obj = nullptr;
+			}
 		}
 	}
 }
@@ -29,9 +32,15 @@ Level::~Level()
 Level& Level::operator=(const Level& other)
 {
 	m_name = other.m_name;
-	for (const auto& pair : other.m_layerMap)
+
+	for (const auto& pair : other.m_objectMap)
 	{
-		m_layerMap.insert(make_pair(pair.first, pair.second->Clone()));
+		if(m_objectMap.find(pair.first) == m_objectMap.end()) m_objectMap.insert(make_pair(pair.first, vector<GameObject*>()));
+		auto& vec = m_objectMap.find(pair.first)->second;
+		for (auto originObj : pair.second)
+		{
+			vec.push_back(originObj->Clone());
+		}
 	}
 
 	return *this;
@@ -43,43 +52,78 @@ void Level::Init()
 	GameObject* obj = LevelManager::GetInstance()->CreateObject("Main Camera");
 	obj->AddComponent<Camera>();
 
-	for (const auto& pair : m_layerMap)
+	for (const auto& pair : m_objectMap)
 	{
-		pair.second->Init();
+		for (const auto obj : pair.second)
+		{
+			obj->Init();
+		}
 	}
 }
 
 void Level::Tick()
 {
-	for (const auto& pair : m_layerMap)
+	for (const auto& pair : m_objectMap)
 	{
-		pair.second->Tick();
+		for (const auto obj : pair.second)
+		{
+			obj->Tick();
+		}
 	}
 }
 
 void Level::FinalTick()
 {
-	for (const auto& pair : m_layerMap)
+	for (const auto& pair : m_objectMap)
 	{
-		pair.second->FinalTick();
+		for (const auto obj : pair.second)
+		{
+			obj->FinalTick();
+		}
 	}
 }
 
 void Level::RegisterObject(GameObject* const obj)
 {
-#ifdef _DEBUG
-	if (obj->GetLayer() > MAX_LAYER) assert(nullptr);
-#endif // _DEBUG
+	auto iter = m_objectMap.find(obj->GetTag());
 
-	map<LAYER_TYPE, Layer*>::const_iterator iter = m_layerMap.find(obj->GetLayer());
-
-	if (iter != m_layerMap.end())
+	if (iter != m_objectMap.end())
 	{
-		iter->second->RegisterObject(obj);
+#ifdef _DEBUG
+		for (auto _obj : iter->second)
+		{
+			if (obj == _obj) assert(nullptr);	// 중복
+		}
+#endif // _DEBUG
+		iter->second.push_back(obj);
 	}
 	else
 	{
-		m_layerMap.insert(make_pair(obj->GetLayer(), new Layer(obj->GetLayer())));
-		m_layerMap.find(obj->GetLayer())->second->RegisterObject(obj);
+		m_objectMap.insert(make_pair(obj->GetTag(), vector<GameObject*>()));
+		m_objectMap.find(obj->GetTag())->second.push_back(obj);
 	}
+}
+
+void Level::DeleteObject(GameObject* const obj)
+{
+	auto mapiter = m_objectMap.find(obj->GetTag());
+	if (mapiter != m_objectMap.end())
+	{
+		for (auto veciter = mapiter->second.begin(); veciter != mapiter->second.end(); ++veciter)
+		{
+			if (obj == *veciter)
+			{
+				mapiter->second.erase(veciter);
+				if (mapiter->second.empty()) m_objectMap.erase(mapiter);
+				return;
+			}
+		}
+#ifdef _DEBUG
+		assert(nullptr); // 지우려는 오브젝트가 애초에 등록이 안되어있음
+#endif // _DEBUG
+
+	}
+#ifdef _DEBUG
+	else assert(nullptr); // 지우려는 오브젝트가 애초에 등록이 안되어있음
+#endif // _DEBUG
 }

@@ -32,11 +32,10 @@ void LevelManager::Tick()
 
 void LevelManager::RegisterObject(GameObject* const obj)
 {
-	if (m_curLevel == nullptr)
-	{
-		MessageBoxA(nullptr, "Current Level is nullptr", "Add Object is failed", MB_OK);
-		return;
-	}
-
 	m_curLevel->RegisterObject(obj);
+}
+
+void LevelManager::DeleteObject(GameObject* const obj)
+{
+	m_curLevel->DeleteObject(obj);
 }

@@ -22,6 +22,8 @@ public:
 
 	//@ (camPriority == 0) : main camera
 	void AddObject(GameObject* const obj, byte camPriority = 0);
+	//@ (camPriority == 0) : main camera
+	void DeleteObject(GameObject* const obj, byte camPriority = 0);
 
 #ifdef _DEBUG
 private:
