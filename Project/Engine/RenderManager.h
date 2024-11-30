@@ -1,4 +1,5 @@
 #pragma once
+#include "IDebugRenderable.h"
 
 class Camera;
 class GameObject;
@@ -19,6 +20,22 @@ public:
 	void AddCamera(Camera* const cam);
 	void DeleteCamera(Camera* const cam);
 
-	//@ camPriority == main camera
+	//@ (camPriority == 0) : main camera
 	void AddObject(GameObject* const obj, byte camPriority = 0);
+
+#ifdef _DEBUG
+private:
+	vector<IDebugRenderable*> m_dbgRenderList;
+
+public:
+	void AddDebugRender(IDebugRenderable* dbgRender)
+	{
+		for (auto _dbgRender : m_dbgRenderList)
+		{
+			if (dbgRender == _dbgRender) assert(nullptr);
+		}
+
+		m_dbgRenderList.push_back(dbgRender);
+	}
+#endif // _DEBUG
 };

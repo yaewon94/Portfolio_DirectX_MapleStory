@@ -12,6 +12,9 @@ RenderManager::~RenderManager()
 	{
 		cam = nullptr;
 	}
+
+	// IDebugRenderList* 는 Component* 로 변환될 수 있는 것들이기 때문에 (나중에 바뀔수도 있음)
+	// GameObject::소멸자에서 메모리 해제됨
 }
 
 void RenderManager::Render()
@@ -20,6 +23,13 @@ void RenderManager::Render()
 	{
 		cam->Render();
 	}
+
+#ifdef _DEBUG
+	for (auto dbgRender : m_dbgRenderList)
+	{
+		dbgRender->Render();
+	}
+#endif // _DEBUG
 }
 
 void RenderManager::AddCamera(Camera* const cam)
