@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "State.h"
 
-State::State()
+State::State() 
+	: m_fsm(nullptr)
 {
 }
 

@@ -172,6 +172,9 @@
     <ClInclude Include="State.h">
       <Filter>07.State</Filter>
     </ClInclude>
+    <ClInclude Include="FSM.h">
+      <Filter>05.Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -262,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>07.State</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>05.Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
