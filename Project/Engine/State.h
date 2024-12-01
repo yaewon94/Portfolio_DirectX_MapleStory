@@ -1,6 +1,11 @@
 #pragma once
 #include "Entity.h"
 
+enum class STATE_TYPE : byte
+{
+	IDLE
+};
+
 // 게임오브젝트의 상태
 class State : public Entity
 {

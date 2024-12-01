@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "FSM.h"
-#include "State.h"
 
 FSM::FSM(GameObject* const owner) 
 	: Component(owner)
@@ -43,9 +42,9 @@ void FSM::FinalTick()
 	m_curState->OnStateTick();
 }
 
-void FSM::ChangeState(const string& name)
+void FSM::ChangeState(STATE_TYPE type)
 {
-	unordered_map<string, State*>::const_iterator iter = m_stateMap.find(name);
+	unordered_map<STATE_TYPE, State*>::const_iterator iter = m_stateMap.find(type);
 	if (iter == m_stateMap.end())
 	{
 #ifdef _DEBUG
