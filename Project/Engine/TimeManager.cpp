@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "TimeManager.h"
 #include "Device.h"
+#ifdef _DEBUG
+#include "Engine.h"
+#endif // _DEBUG
+
 
 TimeManager::TimeManager()
 	: m_frequency{}
@@ -38,6 +42,9 @@ void TimeManager::Tick()
 
 	if (accTime >= 1.f)
 	{
+#ifdef _DEBUG
+		Engine::GetInstance()->SetText(std::to_string(m_fps).c_str());
+#endif // _DEBUG
 		accTime -= 1.f;
 		m_fps = 0;
 	}

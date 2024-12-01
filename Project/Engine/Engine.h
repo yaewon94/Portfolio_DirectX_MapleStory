@@ -24,6 +24,11 @@ public:
 
 public:
 	bool IsFocused() const { return m_hMainWnd == GetFocus(); }
+
+#ifdef _DEBUG
+public:
+	void SetText(const char* text) { SetWindowTextA(m_hMainWnd, text); }
+#endif // _DEBUG
 };
 
 #define RESOLUTION Engine::GetInstance()->GetResolution()
