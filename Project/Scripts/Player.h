@@ -19,10 +19,17 @@ private:
 	{
 		CAN_SINGLE_JUMP = 1,
 		IS_DOUBLE_JUMPED = CAN_SINGLE_JUMP << 1,
-		CAN_DOUBLE_JUMP = IS_DOUBLE_JUMPED << 1
+		CAN_DOUBLE_JUMP = IS_DOUBLE_JUMPED << 1,
+		//IS_KEYUP_PRESSED = CAN_DOUBLE_JUMP << 1
 	};
-	
 	typedef byte JUMP_STATES;
+
+	// KEY 관련 상태값
+	enum PLAYER_KEY_STATE : byte
+	{
+		IS_KEYUP_PRESSED = 1 // 윗점프 뿐만 아니라 포탈이동 등에도 쓰일 수 있으므로 JUMP_STATE 과는 별개의 타입으로 선언함
+	};
+	typedef byte PLAYER_KEY_STATES;
 
 private:
 	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
@@ -31,6 +38,7 @@ private:
 	class Rigidbody* m_rigidbody;
 	float m_jumpPower;
 	JUMP_STATES m_jumpStates;
+	PLAYER_KEY_STATES m_keyStates;
 	
 public:
 	Player(GameObject* const owner);

@@ -36,6 +36,7 @@ void Player::Init()
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
 	m_jumpStates = CAN_SINGLE_JUMP;
+	m_keyStates = 0;
 
 	// 플레이어 기본 컴포넌트 추가
 	// render component
@@ -52,6 +53,7 @@ void Player::Init()
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);
 	KeyManager::GetInstance()->AddKey(KEY_RIGHT, this);
 	KeyManager::GetInstance()->AddKey(KEY_ALT, this);
+	KeyManager::GetInstance()->AddKey(KEY_UP, this);
 }
 
 void Player::OnCollisionEnter(GameObject* other)
@@ -74,21 +76,27 @@ void Player::OnCollisionExit(GameObject* other)
 
 void Player::OnKeyDown(KEY_CODE key)
 {
-	if (key == KEY_LEFT)
+	switch (key)
 	{
+	case KEY_LEFT:
 		SetMoveDirection(MOVE_DIRECTION::LEFT);
 		Move();
-	}
-	else if (key == KEY_RIGHT)
-	{
+		break;
+	case KEY_RIGHT:
 		SetMoveDirection(MOVE_DIRECTION::RIGHT);
 		Move();
-	}
-	// 누르면 윈도우 메세지 루프 걸리는듯 Engine::Progress()가 멈춰버림
-	// 윈도우 프로시저에서 VK_MENU 처리 막음
-	else if (key == KEY_ALT)
-	{
+		break;
+	// 누르면 윈도우 메세지 루프 걸리는듯 Engine::Progress()가 멈춰버림 => 윈도우 프로시저에서 VK_MENU 처리 막는 코드 추가했음
+	case KEY_ALT:
 		Jump();
+		break;
+	case KEY_UP:
+		m_keyStates |= IS_KEYUP_PRESSED;
+		break;
+	default:
+#ifdef _DEBUG
+		assert(nullptr);
+#endif // _DEBUG
 	}
 }
 
@@ -97,6 +105,10 @@ void Player::OnKeyReleased(KEY_CODE key)
 	if (key == KEY_ALT)
 	{
 		if (!m_jumpStates) m_jumpStates = CAN_DOUBLE_JUMP;
+	}
+	else if (key == KEY_UP)
+	{
+		m_keyStates ^= ~IS_KEYUP_PRESSED; // TODO : 오류나는지 체크
 	}
 }
 
@@ -117,6 +129,7 @@ void Player::Jump()
 	else if(m_jumpStates & CAN_DOUBLE_JUMP)
 	{
 		m_jumpStates = IS_DOUBLE_JUMPED;
-		m_rigidbody->AddForce(Vec3(m_moveDir, 1.f, 0.f) * m_jumpPower);
+		if (m_keyStates & IS_KEYUP_PRESSED) m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower * 3.f);
+		else m_rigidbody->AddForce(Vec3(m_moveDir, 1.f, 0.f) * m_jumpPower);
 	}
 }

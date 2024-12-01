@@ -19,7 +19,7 @@ private:
 	struct KeyInfo
 	{
 		KEY_STATE state;
-		IKeyEvent* instance = nullptr;
+		IKeyEvent* instance = nullptr; // TODO : IKeyEvent* 하나당 여러개의 KEY_CODE 가지는 식으로 구조 변경 생각해보기
 	};
 
 private:
