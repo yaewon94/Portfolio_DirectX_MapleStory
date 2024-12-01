@@ -11,8 +11,8 @@ private:
 	class FSM* m_fsm;
 
 protected:
-	State();
-	State(const State& origin, FSM* const owner);
+	State(FSM* const fsm);
+	State(const State& origin, FSM* const newOwner);
 	~State();
 	virtual State* const Clone(FSM* const newOwner) = 0;
 
@@ -26,4 +26,10 @@ protected:
 
 private:
 	virtual Entity* Clone() final { return nullptr; } // delete
+
+protected:
+	void* operator new(size_t size) { return ::operator new(size); }
+	void* operator new[](size_t) = delete;
+	void operator delete(void* ptr) { ::operator delete(ptr); }
+	void operator delete[](void*) = delete;
 };

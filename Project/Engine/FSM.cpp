@@ -32,12 +32,7 @@ FSM::~FSM()
 
 void FSM::FinalTick()
 {
-	if (m_curState) m_curState->OnStateTick();
-}
-
-void FSM::AddState(const string& name, State* const state)
-{
-	if (state == nullptr)
+	if (m_curState == nullptr)
 	{
 #ifdef _DEBUG
 		assert(nullptr);
@@ -45,14 +40,7 @@ void FSM::AddState(const string& name, State* const state)
 		return;
 #endif // _DEBUG
 	}
-
-	if (m_stateMap.find(name) != m_stateMap.end())
-	{
-		MessageBox(nullptr, L"같은 이름의 state가 이미 존재합니다", L"상태 추가 실패", MB_OK);
-		return;
-	}
-	m_stateMap.insert(make_pair(name, state));
-	state->m_fsm = this;
+	m_curState->OnStateTick();
 }
 
 void FSM::ChangeState(const string& name)
