@@ -52,6 +52,9 @@
     <Filter Include="06.Asset\Shader">
       <UniqueIdentifier>{db425a8c-145c-4396-9adf-32068d44c277}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07.State">
+      <UniqueIdentifier>{bc6bbf3c-fa49-4a0d-89a3-054338d8ddd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -166,6 +169,9 @@
     <ClInclude Include="IKeyEvent.h">
       <Filter>99.Util</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>07.State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>05.Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>07.State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
