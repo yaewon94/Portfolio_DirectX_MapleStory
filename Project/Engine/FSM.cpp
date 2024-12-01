@@ -12,6 +12,10 @@ FSM::FSM(const FSM& origin, GameObject* const newOwner)
 	: Component(origin, newOwner)
 	, m_curState(nullptr)
 {
+	for (const auto& pair : origin.m_stateMap)
+	{
+		pair.second->Clone(this);
+	}
 }
 
 FSM::~FSM()
@@ -33,6 +37,15 @@ void FSM::FinalTick()
 
 void FSM::AddState(const string& name, State* const state)
 {
+	if (state == nullptr)
+	{
+#ifdef _DEBUG
+		assert(nullptr);
+#else
+		return;
+#endif // _DEBUG
+	}
+
 	if (m_stateMap.find(name) != m_stateMap.end())
 	{
 		MessageBox(nullptr, L"같은 이름의 state가 이미 존재합니다", L"상태 추가 실패", MB_OK);

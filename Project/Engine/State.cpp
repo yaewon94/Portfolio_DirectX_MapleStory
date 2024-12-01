@@ -6,6 +6,11 @@ State::State()
 {
 }
 
+State::State(const State& origin, FSM* const owner) 
+	: m_fsm(owner)
+{
+}
+
 State::~State()
 {
 }
