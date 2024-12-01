@@ -3,7 +3,7 @@
 
 enum class STATE_TYPE : byte
 {
-	IDLE
+	DEFAULT
 };
 
 // 게임오브젝트의 상태

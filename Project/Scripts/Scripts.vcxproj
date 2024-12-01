@@ -172,6 +172,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Ground.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerDefaultState.h" />
     <ClInclude Include="ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +185,7 @@ call CodeGen.exe</Command>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerDefaultState.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,12 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{1085005e-a717-4ea5-b60c-10ecf0c92d68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Player">
+      <UniqueIdentifier>{ebe831bb-5c70-44b2-a2ea-31cf3a178913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Ground">
+      <UniqueIdentifier>{7b98198e-bd91-4a83-bc43-45a179580efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -15,12 +21,15 @@
     <ClInclude Include="pch.h">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="Player.h">
+      <Filter>Scripts\Player</Filter>
+    </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDefaultState.h">
+      <Filter>Scripts\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -30,17 +39,20 @@
     <ClCompile Include="main.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Scripts\Player</Filter>
+    </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDefaultState.cpp">
+      <Filter>Scripts\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Player.inl">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Player</Filter>
     </None>
   </ItemGroup>
 </Project>
