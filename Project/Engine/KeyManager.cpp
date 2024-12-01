@@ -26,7 +26,11 @@ void KeyManager::Tick()
 			// ¾È´­¸²
 			else
 			{
-				if (key.second.state == KEY_STATE::DOWN) key.second.state = KEY_STATE::RELEASED;
+				if (key.second.state == KEY_STATE::DOWN)
+				{
+					key.second.state = KEY_STATE::RELEASED;
+					key.second.instance->OnKeyReleased(key.first);
+				}
 				else if (key.second.state == KEY_STATE::RELEASED) key.second.state = KEY_STATE::NONE;
 			}
 		}

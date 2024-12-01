@@ -38,7 +38,7 @@ void Rigidbody::FinalTick()
 	if (m_useGravity)
 	{
 		Vec3 pos = GetOwner()->GetTransform()->GetLocalPos();
-		m_velocity.y += m_gravityDelta;
-		GetOwner()->GetTransform()->SetLocalPosY(pos.y + m_velocity.y * DT);
+		m_velocity += m_gravityDelta;
+		GetOwner()->GetTransform()->SetLocalPos(pos + m_velocity * DT);
 	}
 }

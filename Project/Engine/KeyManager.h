@@ -1,27 +1,5 @@
 #pragma once
-
-// KEY 값
-enum KEY_CODE
-{
-	KEY_LEFT = VK_LEFT, KEY_RIGHT = VK_RIGHT,
-	KEY_ALT = VK_MENU
-};
-
-// KEY 상태
-enum class KEY_STATE
-{
-	NONE, DOWN, RELEASED
-};
-
-// 키 입력 콜백함수 사용을 위한 인터페이스
-class IKeyEvent
-{
-	friend class KeyManager;
-
-protected:
-	virtual ~IKeyEvent() {}
-	virtual void OnKeyDown(KEY_CODE key) = 0;
-};
+#include "IKeyEvent.h"
 
 typedef void (IKeyEvent::*KEY_CALLBACK)(KEY_CODE);
 
@@ -31,6 +9,13 @@ class KeyManager final : public Singleton<KeyManager>
 	SINGLETON(KeyManager);
 
 private:
+	// KEY 상태
+	enum class KEY_STATE
+	{
+		NONE, DOWN, RELEASED
+	};
+
+	// KEY 정보
 	struct KeyInfo
 	{
 		KEY_STATE state;

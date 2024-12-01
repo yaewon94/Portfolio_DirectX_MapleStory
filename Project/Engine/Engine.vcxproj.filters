@@ -163,6 +163,9 @@
     <ClInclude Include="RenderValues.h">
       <Filter>97.Render</Filter>
     </ClInclude>
+    <ClInclude Include="IKeyEvent.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

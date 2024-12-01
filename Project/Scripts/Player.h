@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Script.h"
-#include "Engine/KeyManager.h"
+#include "Engine/IKeyEvent.h"
 
 // 플레이어 컴포넌트
 class Player final : public Script, public IKeyEvent
@@ -8,10 +8,21 @@ class Player final : public Script, public IKeyEvent
 	NO_COPY_MOVE(Player)
 
 private:
-	enum class MOVE_DIRECTION : int
+	// 이동 방향
+	enum MOVE_DIRECTION : int
 	{
 		LEFT = -1, RIGHT = 1
 	};
+
+	// 점프 관련 상태값
+	enum JUMP_STATE : byte
+	{
+		CAN_SINGLE_JUMP = 1,
+		IS_DOUBLE_JUMPED = CAN_SINGLE_JUMP << 1,
+		CAN_DOUBLE_JUMP = IS_DOUBLE_JUMPED << 1
+	};
+	
+	typedef byte JUMP_STATES;
 
 private:
 	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
@@ -19,8 +30,8 @@ private:
 
 	class Rigidbody* m_rigidbody;
 	float m_jumpPower;
-	bool m_canJump;
-
+	JUMP_STATES m_jumpStates;
+	
 public:
 	Player(GameObject* const owner);
 	Player(const Player& origin, GameObject* const newOwner);
@@ -34,6 +45,7 @@ private: // GameObject : Component* 를 통해 호출
 
 private: // KeyManager : IKeyEvent* 를 통해 호출
 	virtual void OnKeyDown(KEY_CODE key) final;
+	virtual void OnKeyReleased(KEY_CODE key) final;
 	
 private:
 	void Move();

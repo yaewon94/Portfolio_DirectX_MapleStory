@@ -11,7 +11,7 @@ private:
 	Vec3 m_velocity; // 현재 프레임의 속도(속력 * 방향벡터)
 	float m_mass; // 질량
 
-	float m_gravityDelta;
+	Vec3 m_gravityDelta;
 	bool m_useGravity;
 
 public:
@@ -36,7 +36,7 @@ public:
 	void SetMass(float mass)
 	{
 		m_mass = mass;
-		m_gravityDelta = -1.f * m_mass * 9.8f;
+		m_gravityDelta = Vec3(0.f, -1.f * m_mass * 9.8f, 0.f);
 	}
 
 private:

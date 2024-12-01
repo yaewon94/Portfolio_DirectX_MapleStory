@@ -7,11 +7,12 @@
 #include "Engine/Rigidbody.h"
 #include "Engine/Collider.h"
 #include "Engine/TimeManager.h"
+#include "Engine/KeyManager.h"
 
 Player::Player(GameObject* const owner) 
 	: Script(owner)
 	, m_moveSpeed(300.f)
-	, m_jumpPower(500.f)
+	, m_jumpPower(600.f)
 {
 	Init();
 }
@@ -34,7 +35,7 @@ void Player::Init()
 	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
-	m_canJump = true;
+	m_jumpStates = CAN_SINGLE_JUMP;
 
 	// 플레이어 기본 컴포넌트 추가
 	// render component
@@ -57,7 +58,7 @@ void Player::OnCollisionEnter(GameObject* other)
 {
 	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
 	{
-		m_canJump = true;
+		m_jumpStates = CAN_SINGLE_JUMP;
 		m_rigidbody->UseGravity(false);
 	}
 }
@@ -66,7 +67,7 @@ void Player::OnCollisionExit(GameObject* other)
 {
 	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
 	{
-		m_canJump = false;
+		m_jumpStates = 0;
 		m_rigidbody->UseGravity(true);
 	}
 }
@@ -91,6 +92,14 @@ void Player::OnKeyDown(KEY_CODE key)
 	}
 }
 
+void Player::OnKeyReleased(KEY_CODE key)
+{
+	if (key == KEY_ALT)
+	{
+		if (!m_jumpStates) m_jumpStates = CAN_DOUBLE_JUMP;
+	}
+}
+
 void Player::Move()
 {
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;
@@ -99,10 +108,15 @@ void Player::Move()
 
 void Player::Jump()
 {
-	if (m_canJump)
+	if (m_jumpStates & CAN_SINGLE_JUMP)
 	{
-		m_canJump = false;
+		m_jumpStates &= ~CAN_SINGLE_JUMP;
 		m_rigidbody->UseGravity(true);
 		m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower);
+	}
+	else if(m_jumpStates & CAN_DOUBLE_JUMP)
+	{
+		m_jumpStates = IS_DOUBLE_JUMPED;
+		m_rigidbody->AddForce(Vec3(m_moveDir, 1.f, 0.f) * m_jumpPower);
 	}
 }

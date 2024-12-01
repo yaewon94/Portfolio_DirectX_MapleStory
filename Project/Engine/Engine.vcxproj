@@ -181,6 +181,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="IDebugRenderable.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="IKeyEvent.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Level.h" />
