@@ -31,6 +31,7 @@ private: // FlipbookPlayer 에서 호출
 	void Clear(size_t frameIndex);
 
 public:
+	size_t GetFrameCount() const { return m_leftTopUV.size(); }
 	SharedPtr<Texture> GetAtlasTexture() const { return m_atlas; }
 	// 자동으로 uv 값들 설정해줌
 	void SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount);

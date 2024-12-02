@@ -6,6 +6,10 @@
 Flipbook::Flipbook(const string& Key, const string& relativePath) 
 	: Asset(Key, relativePath)
 {
+	m_leftTopUV.resize(0);
+	m_sliceSizeUV.resize(0);
+	m_backgroundSizeUV.resize(0);
+	m_offsetUV.resize(0);
 }
 
 Flipbook::~Flipbook()

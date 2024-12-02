@@ -175,6 +175,12 @@
     <ClInclude Include="FSM.h">
       <Filter>05.Component</Filter>
     </ClInclude>
+    <ClInclude Include="FlipbookPlayer.h">
+      <Filter>05.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Flipbook.h">
+      <Filter>06.Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -268,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="FSM.cpp">
       <Filter>05.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookPlayer.cpp">
+      <Filter>05.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Flipbook.cpp">
+      <Filter>06.Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

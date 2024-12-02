@@ -6,12 +6,17 @@ class GameObject;
 // 컴포넌트 타입
 enum class COMPONENT_TYPE : byte
 {
-	TRANSFORM, CAMERA, MESH_RENDER, RIGIDBODY, COLLIDER, FSM, SCRIPT
+	TRANSFORM, 
+	CAMERA, 
+	MESH_RENDER, FLIPBOOKPLAYER, 
+	RIGIDBODY, COLLIDER, 
+	FSM, 
+	SCRIPT
 };
 
 #define COMPONENT_TYPE_DCL(type) public:\
 									static constexpr COMPONENT_TYPE Type = type;\
-									inline virtual COMPONENT_TYPE GetType() final { return Type; }
+									inline virtual COMPONENT_TYPE GetType() { return Type; }
 
 // 게임오브젝트 동작에 관한 요소들의 최상위 클래스
 class Component : public Entity

@@ -174,6 +174,8 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="Device.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Flipbook.h" />
+    <ClInclude Include="FlipbookPlayer.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSM.h" />
     <ClInclude Include="GameObject.h" />
@@ -219,6 +221,8 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="extern.cpp" />
+    <ClCompile Include="Flipbook.cpp" />
+    <ClCompile Include="FlipbookPlayer.cpp" />
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicShader.cpp" />

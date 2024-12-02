@@ -4,7 +4,7 @@
 // Texture param (value : register number)
 enum TEXTURE_PARAM : byte
 {
-	FLIPBOOK, TEXTURE_PARAM_COUNT_END
+	TEX_0, FLIPBOOK, TEXTURE_PARAM_COUNT_END
 };
 
 // 텍스처 에셋
