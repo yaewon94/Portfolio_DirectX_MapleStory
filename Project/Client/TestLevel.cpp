@@ -13,8 +13,8 @@ void CreateTestLevel()
 	obj->Init();
 
 	obj = LevelManager::GetInstance()->CreateObject("Ground");
-	obj->GetTransform()->SetLocalPosY(-100.f);
-	obj->GetTransform()->SetLocalScaleX(500.f);
+	obj->GetTransform()->SetLocalPosY(-150.f);
+	obj->GetTransform()->SetLocalScaleX(800.f);
 	obj->AddComponent<Ground>();
 	obj->Init();
 }

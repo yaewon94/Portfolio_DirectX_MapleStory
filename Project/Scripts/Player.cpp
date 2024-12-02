@@ -1,12 +1,10 @@
 #include "pch.h"
 #include "Player.h"
-#include "Engine/MeshRender.h"
 #include "Engine/AssetManager.h"
-#include "Engine/Mesh.h"
+#include "Engine/Texture.h"
 #include "Engine/Collider.h"
+#include "Engine/FlipbookPlayer.h"
 #include "Engine/KeyManager.h"
-#include "Engine/FSM.h"
-#include "PlayerDefaultState.h"
 
 Player::Player(GameObject* const owner) 
 	: Script(owner)
@@ -31,6 +29,7 @@ Player::~Player()
 void Player::Init()
 {
 	// 인스턴스 공통 필드 초기화
+	GetOwner()->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
 	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
@@ -39,18 +38,16 @@ void Player::Init()
 
 	// 플레이어 기본 컴포넌트 추가
 	// render component
-	MeshRender* meshRender = GetOwner()->AddComponent<MeshRender>();
-	meshRender->SetMesh(AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh"));
-	meshRender->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
+	FlipbookPlayer* flipbookPlayer = GetOwner()->AddComponent<FlipbookPlayer>();
+	flipbookPlayer->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
+	SharedPtr<Flipbook> flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerIdle", "");
+	flipbook->SetAtlasTexture(AssetManager::GetInstance()->AddAsset<Texture>("PlayerIdle", "Player\\PlayerIdleFlipbook.png"), 1, 3);
+	flipbookPlayer->AddFlipbook("Idle", flipbook);
 	// rigidbody
 	m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
 	// collider
 	GetOwner()->AddComponent<Collider>();
-	// fsm
-	FSM* fsm = GetOwner()->AddComponent<FSM>();
-	fsm->AddState<PlayerDefaultState>(STATE_TYPE::DEFAULT);
-	fsm->ChangeState(STATE_TYPE::DEFAULT);
 
 	// KeyManager에 플레이어가 사용할 키값 등록
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);

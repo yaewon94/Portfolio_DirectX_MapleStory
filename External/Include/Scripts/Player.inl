@@ -57,7 +57,7 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 	}
 	else if (key == KEY_UP)
 	{
-		m_keyStates ^= ~IS_KEYUP_PRESSED; // TODO : 오류나는지 체크
+		m_keyStates ^= IS_KEYUP_PRESSED; // TODO : 오류나는지 체크
 	}
 }
 
