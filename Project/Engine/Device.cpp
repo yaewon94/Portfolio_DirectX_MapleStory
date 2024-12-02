@@ -4,6 +4,7 @@
 #include "RenderManager.h"
 #include "Transform.h"
 #include "Material.h"
+#include "Flipbook.h"
 
 Device::Device() 
     : m_viewport{}
@@ -316,6 +317,10 @@ int Device::Init()
         index = (size_t)CONST_BUFFER_TYPE::MATERIAL;
         m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::MATERIAL);
         if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Material)))) return E_FAIL;
+
+        index = (size_t)CONST_BUFFER_TYPE::FLIPBOOK;
+        m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::FLIPBOOK);
+        if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Flipbook)))) return E_FAIL;
     }
 
     // viewport ¼³Á¤

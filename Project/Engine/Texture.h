@@ -4,7 +4,7 @@
 // Texture param (value : register number)
 enum TEXTURE_PARAM : byte
 {
-	TEXTURE_PARAM_COUNT_END
+	FLIPBOOK, TEXTURE_PARAM_COUNT_END
 };
 
 // 텍스처 에셋
@@ -39,8 +39,8 @@ public:
 public:
 	ComPtr<ID3D11Texture2D> GetTexture2D() const { return m_tex2D; }
 
-	int GetWidth() const { return m_desc.Width; }
-	int GetHeight() const { return m_desc.Height; }
+	UINT GetWidth() const { return m_desc.Width; }
+	UINT GetHeight() const { return m_desc.Height; }
 
 	ComPtr<ID3D11RenderTargetView> GetRenderTargetView() const { return m_rtView; }
 	ComPtr<ID3D11DepthStencilView> GetDepthStencilView() const { return m_dsView; }

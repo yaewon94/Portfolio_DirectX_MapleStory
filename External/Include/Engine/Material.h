@@ -12,6 +12,7 @@ struct CB_Material
 	Vec4 v4Arr[4];
 	Matrix matrixArr[2];
 	int bTex[TEXTURE_PARAM::TEXTURE_PARAM_COUNT_END]; // TODO : 16바이트 배수로 크기 맞춰야 오류 안남
+	byte padding[12];
 };
 
 // 재질 에셋
