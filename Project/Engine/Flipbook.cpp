@@ -27,6 +27,7 @@ void Flipbook::Bind(size_t frameIndex)
 	info.sliceSizeUV = m_sliceSizeUV.at(frameIndex);
 	info.backgroundSizeUV = m_backgroundSizeUV.at(frameIndex);
 	info.offsetUV = m_offsetUV.at(frameIndex);
+	info.binding = true;
 
 	cb->SetData(&info);
 	cb->Binding_GS();

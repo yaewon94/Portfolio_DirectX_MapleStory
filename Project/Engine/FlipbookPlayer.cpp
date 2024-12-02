@@ -69,7 +69,6 @@ void FlipbookPlayer::Render()
 	if (m_curFlipbook == nullptr) return;
 
 	m_curFlipbook->Bind(m_curFrameIndex);
-	GetMaterial()->SetTextureParam(TEX_0, m_curFlipbook->GetAtlasTexture());
 	MeshRender::Render();
 	m_curFlipbook->Clear(m_curFrameIndex);
 }

@@ -8,6 +8,8 @@ struct CB_Flipbook
 {
 	Vec2 leftTopUV, sliceSizeUV;
 	Vec2 backgroundSizeUV, offsetUV;
+	int binding;
+	byte padding[12];
 };
 
 // 2D 아틀라스 텍스처를 애니메이션처럼 재생하기 위한 정보를 담은 에셋

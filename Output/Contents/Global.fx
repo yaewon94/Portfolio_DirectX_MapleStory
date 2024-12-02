@@ -23,10 +23,21 @@ cbuffer Material : register(b1)
     int g_bTex_0;
 }
 
+// 애니메이션
+cbuffer Flipbook : register(b2)
+{
+    float2 g_leftTopUV;
+    float2 g_sliceSizeUV;
+    float2 g_bgrSizeUV;
+    float2 g_offsetUV;
+    int g_bFlipbook;
+}
+
 // =============================================
 // 텍스처
 // =============================================
 Texture2D g_tex_0 : register(t0);
+Texture2D g_flipbookTex : register(t1);
 
 // =============================================
 // 샘플링
