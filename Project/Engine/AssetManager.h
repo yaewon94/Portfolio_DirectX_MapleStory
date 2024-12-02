@@ -21,6 +21,7 @@ public:
 		if (type_iter == m_assetMap.end())
 		{
 			SharedPtr<T> asset = SharedPtr<T>(Key, relativePath);
+			if (FAILED(asset->Load())) return nullptr;
 			unordered_map<string, SharedPtr<Asset>> map;
 
 			m_assetMap.insert(make_pair(T::Type, map));
@@ -39,6 +40,7 @@ public:
 			else
 			{
 				SharedPtr<T> asset = SharedPtr<T>(Key, relativePath);
+				if (FAILED(asset->Load())) return nullptr;
 				type_iter->second.insert(make_pair(Key, asset.ptr_dynamic_cast<Asset>()));
 				return asset;
 			}
