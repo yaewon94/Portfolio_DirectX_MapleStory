@@ -52,12 +52,13 @@ public:
 			return;
 		}
 		m_flipbookMap.insert(make_pair(key, flipbook));
+		if(m_curFlipbook == nullptr) ChangeFlipbook(m_flipbookMap.begin()->first);
 	}
 
 	void ChangeFlipbook(const string& key)
 	{
 		unordered_map<string, SharedPtr<Flipbook>>::const_iterator iter = m_flipbookMap.find(key);
-		if (iter != m_flipbookMap.end())
+		if (iter == m_flipbookMap.end())
 		{
 #ifdef _DEBUG
 			assert(nullptr);
@@ -66,7 +67,6 @@ public:
 #endif // _DEBUG
 		}
 		m_curFlipbook = iter->second;
-		GetMaterial()->SetTextureParam(TEX_0, m_curFlipbook->GetAtlasTexture());
 	}
 
 private: // GameObject::복사생성자 에서 호출

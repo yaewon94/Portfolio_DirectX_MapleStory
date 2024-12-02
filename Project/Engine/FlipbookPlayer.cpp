@@ -34,7 +34,9 @@ void FlipbookPlayer::Init()
 	// Flipbook 재생 관련 초기화
 	m_playAccTime = 0.f;
 	m_curFrameIndex = 0;
-	if (m_flipbookMap.size() > 0) ChangeFlipbook(m_flipbookMap.begin()->first);
+
+	// Gameobject에서 Init()을 호출하는게 아니라서 호출될 일이 없음
+	//if (m_flipbookMap.size() > 0) ChangeFlipbook(m_flipbookMap.begin()->first);
 }
 
 void FlipbookPlayer::FinalTick()
@@ -67,6 +69,7 @@ void FlipbookPlayer::Render()
 	if (m_curFlipbook == nullptr) return;
 
 	m_curFlipbook->Bind(m_curFrameIndex);
+	GetMaterial()->SetTextureParam(TEX_0, m_curFlipbook->GetAtlasTexture());
 	MeshRender::Render();
 	m_curFlipbook->Clear(m_curFrameIndex);
 }
