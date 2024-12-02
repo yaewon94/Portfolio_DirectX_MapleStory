@@ -43,7 +43,7 @@ void ConstBuffer::SetData(void* data)
 	CONTEXT->Unmap(m_buffer.Get(), 0);
 }
 
-void ConstBuffer::Binding()
+void ConstBuffer::Binding_GS()
 {
 	UINT startSlot = (UINT)m_type;
 	CONTEXT->VSSetConstantBuffers(startSlot, 1, m_buffer.GetAddressOf());

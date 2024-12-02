@@ -3,7 +3,7 @@
 
 enum class CONST_BUFFER_TYPE : byte
 {
-    TRANSFORM, MATERIAL, COUNT_END
+    TRANSFORM, MATERIAL, FLIPBOOK, COUNT_END
 };
 
 // 상수 버퍼
@@ -24,7 +24,7 @@ private:
 
 public:
     void SetData(void* data);
-    void Binding();
+    void Binding_GS();
 
 private:
     virtual Entity* Clone() final { return nullptr; } // delete

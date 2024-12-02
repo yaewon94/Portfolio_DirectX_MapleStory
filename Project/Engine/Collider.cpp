@@ -83,7 +83,7 @@ void Collider::Render()
 	g_tr.matWV = g_tr.matWorld * g_tr.matView;
 	g_tr.matWVP = g_tr.matWV * g_tr.matProj;
 	cb->SetData(&g_tr);
-	cb->Binding();
+	cb->Binding_GS();
 
 	// material ¹ÙÀÎµù
 	m_material->GetConstBuffer().v4Arr[0] = m_dbgColor;

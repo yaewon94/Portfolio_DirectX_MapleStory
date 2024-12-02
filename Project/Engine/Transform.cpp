@@ -70,5 +70,5 @@ void Transform::Binding()
 	g_tr.matWVP = g_tr.matWV * g_tr.matProj;
 
 	cb->SetData(&g_tr);
-	cb->Binding();
+	cb->Binding_GS();
 }

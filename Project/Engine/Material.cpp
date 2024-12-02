@@ -45,7 +45,7 @@ void Material::Binding()
 	// Const Buffer
 	ConstBuffer* cb = Device::GetInstance()->GetConstBuffer(CONST_BUFFER_TYPE::MATERIAL);
 	cb->SetData(&m_cb);
-	cb->Binding();
+	cb->Binding_GS();
 
 	// Shader
 	m_shader->Binding();
