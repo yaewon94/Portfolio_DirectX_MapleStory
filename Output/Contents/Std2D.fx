@@ -65,42 +65,43 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
     float2 bgrLeftTop = g_leftTopUV + (g_sliceSizeUV - g_bgrSizeUV) / 2.f;
     float2 spriteUV = bgrLeftTop + (vs.uv * g_bgrSizeUV) - g_offsetUV;
     bool isDiscard = false;
-             
-    // X축
-    if (g_bgrSizeUV.x >= g_sliceSizeUV.x)
-    {
-        if (spriteUV.x < g_leftTopUV.x || spriteUV.x > g_leftTopUV.x + g_sliceSizeUV.x)
-        {
-            isDiscard = true;
-            discard;
-        }
-    }
-    else
-    {
-        if (spriteUV.x < bgrLeftTop.x || spriteUV.x > bgrLeftTop.x + g_bgrSizeUV.x)
-        {
-            isDiscard = true;
-            discard;
-        }
-    }
+    
+    // ERROR : 왼쪽으로 방향전환하면(vs.uv.x 값이 음수가 되게 구현했음) discard되서 주석처리
+    //// X축
+    //if (g_bgrSizeUV.x >= g_sliceSizeUV.x)
+    //{
+    //    if (spriteUV.x < g_leftTopUV.x || spriteUV.x > g_leftTopUV.x + g_sliceSizeUV.x)
+    //    {
+    //        isDiscard = true;
+    //        discard;
+    //    }
+    //}
+    //else
+    //{
+    //    if (spriteUV.x < bgrLeftTop.x || spriteUV.x > bgrLeftTop.x + g_bgrSizeUV.x)
+    //    {
+    //        isDiscard = true;
+    //        discard;
+    //    }
+    //}
             
-    // Y축
-    if (!isDiscard && g_bgrSizeUV.y >= g_sliceSizeUV.y)
-    {
-        if (spriteUV.y < g_leftTopUV.y || spriteUV.y > g_leftTopUV.y + g_sliceSizeUV.y)
-        {
-            isDiscard = true;
-            discard;
-        }
-    }
-    else
-    {
-        if (spriteUV.y < bgrLeftTop.y || spriteUV.y > bgrLeftTop.y + g_bgrSizeUV.y)
-        {
-            isDiscard = true;
-            discard;
-        }
-    }
+    //// Y축
+    //if (!isDiscard && g_bgrSizeUV.y >= g_sliceSizeUV.y)
+    //{
+    //    if (spriteUV.y < g_leftTopUV.y || spriteUV.y > g_leftTopUV.y + g_sliceSizeUV.y)
+    //    {
+    //        isDiscard = true;
+    //        discard;
+    //    }
+    //}
+    //else
+    //{
+    //    if (spriteUV.y < bgrLeftTop.y || spriteUV.y > bgrLeftTop.y + g_bgrSizeUV.y)
+    //    {
+    //        isDiscard = true;
+    //        discard;
+    //    }
+    //}
             
     // 출력
     if (!isDiscard)
