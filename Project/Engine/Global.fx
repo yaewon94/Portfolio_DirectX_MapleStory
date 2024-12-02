@@ -15,14 +15,12 @@ cbuffer Transform : register(b0) // 레지스터 번호
 // 재질
 cbuffer Material : register(b1)
 {
-    int g_int_0, g_int_1, g_int_2, g_int_3;
-    float g_float_0, g_float_1, g_float_2, f_float_3;
-    float2 g_vec2_0, g_vec2_1, g_vec2_2, g_vec2_3;
-    float4 g_vec4_0, g_vec4_1, g_vec4_2, g_vec4_3;
-    row_major Matrix g_matrix_0, g_matrix_1;
-    int g_bTex_0, g_bTex_1, g_bTex_2, g_bTex_3, g_bTex_4, g_bTex_5;
-    int g_bTexArr_0, g_bTexArr_1, g_bTexArr_2, g_bTexArr_3;
-    int g_bTexCube_0, g_TexCube_1;
+    int g_int_0;
+    float g_float_0;
+    float2 g_vec2_0;
+    float4 g_vec4_0;
+    row_major Matrix g_matrix_0;
+    int g_bTex_0;
 }
 
 // =============================================

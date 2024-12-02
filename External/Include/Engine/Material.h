@@ -6,13 +6,13 @@
 // 상수버퍼 연동 구조체
 struct CB_Material
 {
-	int iArr[4];
-	float fArr[4];
-	Vec2 v2Arr[4];
-	Vec4 v4Arr[4];
-	Matrix matrixArr[2];
-	int bTex[TEXTURE_PARAM::TEXTURE_PARAM_COUNT_END]; // TODO : 16바이트 배수로 크기 맞춰야 오류 안남
-	byte padding[12];
+	int iArr[1];
+	float fArr[1];
+	Vec2 v2Arr[1];
+	Vec4 v4Arr[1];
+	Matrix matrixArr[1];
+	int bTex[TEXTURE_PARAM::TEXTURE_PARAM_COUNT_END];
+	byte padding[8]; // TODO : 16바이트 배수로 크기 맞춰야 오류 안남
 };
 
 // 재질 에셋
