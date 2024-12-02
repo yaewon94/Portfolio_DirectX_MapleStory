@@ -38,8 +38,16 @@ void Material::Binding()
 	// Texture
 	for (auto& pair : m_texMap)
 	{
-		m_cb.bTex[pair.first] = 1;
-		pair.second->Binding_GS(pair.first);
+		if (pair.second == nullptr)
+		{
+			m_cb.bTex[pair.first] = false;
+			pair.second->Clear_GS();
+		}
+		else
+		{
+			m_cb.bTex[pair.first] = true;
+			pair.second->Binding_GS(pair.first);
+		}
 	}
 
 	// Const Buffer
