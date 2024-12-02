@@ -61,9 +61,6 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 	// 에디터모드에서 sliceUV를 프레임 인덱스 마다 조절할 수 있게 하기 위해서
 	const Vec2 SliceUV = Vec2(1.f / (float)sliceColCount, 1.f / (float)sliceRowCount);
 	const Vec2 AtlasSize = Vec2(m_atlas->GetWidth(), m_atlas->GetHeight());
-	Vec2 bgrUV;
-	if(AtlasSize.x > AtlasSize.y) bgrUV = Vec2(SliceUV.x, AtlasSize.x / AtlasSize.y);
-	else bgrUV = Vec2(AtlasSize.y / AtlasSize.x, SliceUV.y);
 
 	for (UINT row = 0; row < sliceRowCount; ++row)
 	{
@@ -72,7 +69,7 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 			UINT index = (row * col) + col;
 			m_leftTopUV[index] = Vec2(SliceUV.x * col, SliceUV.y * row);
 			m_sliceSizeUV[index] = SliceUV;
-			m_backgroundSizeUV[index] = bgrUV;
+			m_backgroundSizeUV[index] = SliceUV;
 			m_offsetUV[index] = Vec2(0.f, 0.f); // 기존 offset이 Vec2::Zero가 아닌 경우가 있기 때문에 명시적 초기화
 		}
 	}
