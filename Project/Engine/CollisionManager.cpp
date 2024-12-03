@@ -48,7 +48,7 @@ void CollisionManager::ResetCollisionState(GameObject* const obj)
 		else if(obj->GetID() == rightID)
 		{
 			GameObject* const other = LevelManager::GetInstance()->FindObject(leftID);
-			if(other != nullptr) ChangeCollisionState(nullptr, obj, false);
+			if(other != nullptr) ChangeCollisionState(other, obj, false);
 			return;
 		}
 	}
