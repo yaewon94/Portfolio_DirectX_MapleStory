@@ -28,12 +28,10 @@ inline void Player::OnKeyDown(KEY_CODE key)
 	switch (key)
 	{
 	case KEY_LEFT:
-		SetMoveDirection(MOVE_DIRECTION::LEFT);
-		Move();
+		Move(MOVE_DIRECTION::LEFT);
 		break;
 	case KEY_RIGHT:
-		SetMoveDirection(MOVE_DIRECTION::RIGHT);
-		Move();
+		Move(MOVE_DIRECTION::RIGHT);
 		break;
 		// 누르면 윈도우 메세지 루프 걸리는듯 Engine::Progress()가 멈춰버림 => 윈도우 프로시저에서 VK_MENU 처리 막는 코드 추가했음
 	case KEY_ALT:
@@ -61,8 +59,14 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 	}
 }
 
-inline void Player::Move()
+inline void Player::Move(MOVE_DIRECTION dir)
 {
+	if (m_moveDir != dir)
+	{
+		m_moveDir = dir;
+		m_moveSpeed *= -1.f;
+		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] *= -1.f;
+	}
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;
 	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT);
 }
@@ -80,15 +84,5 @@ inline void Player::Jump()
 		m_jumpStates = IS_DOUBLE_JUMPED;
 		if (m_keyStates & IS_KEYUP_PRESSED) m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower * 3.f);
 		else m_rigidbody->AddForce(Vec3(m_moveDir, 1.f, 0.f) * m_jumpPower);
-	}
-}
-
-inline void Player::SetMoveDirection(MOVE_DIRECTION dir)
-{
-	if (m_moveDir != dir)
-	{
-		m_moveDir = dir;
-		m_moveSpeed *= -1.f;
-		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] *= -1.f;
 	}
 }

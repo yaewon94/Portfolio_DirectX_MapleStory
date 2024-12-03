@@ -56,7 +56,7 @@ private: // KeyManager : IKeyEvent* 를 통해 호출
 	virtual void OnKeyReleased(KEY_CODE key) final;
 	
 private:
-	void Move();
+	void Move(MOVE_DIRECTION dir);
 	void Jump();
 
 public:
@@ -77,9 +77,6 @@ public:
 		}
 		m_jumpPower = jumpPower;
 	}
-
-private:
-	void SetMoveDirection(MOVE_DIRECTION dir);
 
 private:
 	virtual Player* Clone(GameObject* const newOwner) final { return new Player(*this, newOwner); }
