@@ -33,7 +33,7 @@ void Player::Init()
 	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);
 	SetMoveSpeed(m_moveSpeed);
 	m_moveDir = MOVE_DIRECTION::RIGHT;
-	m_jumpStates = CAN_SINGLE_JUMP;
+	m_jumpStates = 0;
 	m_keyStates = 0;
 
 	// 플레이어 기본 컴포넌트 추가
@@ -46,8 +46,11 @@ void Player::Init()
 	flipbookPlayer->AddFlipbook("Idle", flipbook);
 	// rigidbody
 	m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
+	m_rigidbody->UseGravity(true);
 	// collider
-	GetOwner()->AddComponent<Collider>();
+	Collider* collider = GetOwner()->AddComponent<Collider>();
+	collider->SetScale(Vec2(0.2f, 0.3f));
+	collider->SetOffset(Vec2(-0.1f, 0.1f));
 
 	// KeyManager에 플레이어가 사용할 키값 등록
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);
