@@ -35,17 +35,6 @@ private:
 
 	array<Vec3, DIRECTION_TYPE_COUNT_END> m_localDir, m_worldDir;
 
-private:
-	enum CHANGE_VALUE : byte
-	{
-		ON_CHANGE_POS_SCALE = 1,
-		ON_CHANGE_ROTATION = ON_CHANGE_POS_SCALE << 1,
-
-		IS_CHANGED_VALUE = ON_CHANGE_POS_SCALE | ON_CHANGE_ROTATION
-	};
-
-	byte m_isChangedValue; 	// CHANGE_VALUE 값들 | 연산으로 조합
-
 public:
 	Transform(GameObject* const owner);
 	Transform(const Transform& origin, GameObject* const newOwner);
@@ -53,7 +42,6 @@ public:
 
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
-	virtual void FinalTick() final;
 
 public:
 	void Binding();
@@ -62,19 +50,19 @@ public:
 	const Matrix& GetWorldMatrix() const { return m_matWorld; }
 
 	Vec3 GetLocalPos() const { return m_localPos; }
-	void SetLocalPos(const Vec3& pos) { m_localPos = pos; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalPosX(float x) { m_localPos.x = x; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalPosY(float y) { m_localPos.y = y; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalPosZ(float z) { m_localPos.z = z; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalPos(const Vec3& pos) { m_localPos = pos; OnChangeWorldMatrix(); }
+	void SetLocalPosX(float x) { m_localPos.x = x; OnChangeWorldMatrix(); }
+	void SetLocalPosY(float y) { m_localPos.y = y; OnChangeWorldMatrix(); }
+	void SetLocalPosZ(float z) { m_localPos.z = z; OnChangeWorldMatrix(); }
 
 	Vec3 GetLocalScale() const { return m_localScale; }
-	void SetLocalScale(const Vec3& scale) { m_localScale = scale; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalScaleX(float x) { m_localScale.x = x; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalScaleY(float y) { m_localScale.y = y; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
-	void SetLocalScaleZ(float z) { m_localScale.z = z; m_isChangedValue |= ON_CHANGE_POS_SCALE; }
+	void SetLocalScale(const Vec3& scale) { m_localScale = scale; OnChangeWorldMatrix(); }
+	void SetLocalScaleX(float x) { m_localScale.x = x; OnChangeWorldMatrix(); }
+	void SetLocalScaleY(float y) { m_localScale.y = y; OnChangeWorldMatrix(); }
+	void SetLocalScaleZ(float z) { m_localScale.z = z; OnChangeWorldMatrix(); }
 
 	Vec3 GetLocalRotation() const { return m_localRotation; }
-	void SetLocalRotation(const Vec3& rotation) { m_localRotation = rotation; m_isChangedValue |= ON_CHANGE_ROTATION; }
+	void SetLocalRotation(const Vec3& rotation) { m_localRotation = rotation; OnChangeWorldMatrix(true); }
 
 	const Vec3& GetWorldDirection(DIRECTION_TYPE type)
 	{
@@ -83,6 +71,9 @@ public:
 #endif // _DEBUG
 		return m_worldDir[type];
 	}
+
+private:
+	void OnChangeWorldMatrix(bool isChangedRotation = false);
 
 private:
 	virtual Transform* Clone(GameObject* const newOwner) final { return new Transform(*this, newOwner); }
