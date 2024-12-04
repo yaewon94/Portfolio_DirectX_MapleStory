@@ -38,7 +38,7 @@ public:
 public:
 	void AddFlipbook(const string& key, SharedPtr<Flipbook> flipbook)
 	{
-		if (flipbook == nullptr)
+		if (flipbook == nullptr || flipbook->GetAtlasTexture() == nullptr)
 		{
 #ifdef _DEBUG
 			assert(nullptr);
@@ -67,6 +67,7 @@ public:
 #endif // _DEBUG
 		}
 		m_curFlipbook = iter->second;
+		m_curFrameIndex = 0;
 	}
 
 private: // GameObject::복사생성자 에서 호출
