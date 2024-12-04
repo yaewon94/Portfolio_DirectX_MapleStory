@@ -38,54 +38,31 @@ public:
 	void SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount, class GameObject* const obj);
 
 	Vec2 GetLeftTopUV(size_t index) const { return m_leftTopUV.at(index); }
-	void SetLeftTopUV(size_t index, Vec2 leftTopPixel)
+	void SetLeftTopUV(size_t index, Vec2 leftTopUV)
 	{
 		if (index >= m_leftTopUV.size()) assert(nullptr);
-		if (m_atlas == nullptr)
-		{
-			MessageBox(nullptr, L"아틀라스 텍스처가 null입니다", L"LeftTopUV 설정 실패", MB_OK);
-			return;
-		}
-		m_leftTopUV[index] = Vec2(leftTopPixel.x / (float)m_atlas->GetWidth()
-								, leftTopPixel.y / (float)m_atlas->GetHeight());
+		m_leftTopUV[index] = XMVectorSaturate(leftTopUV);
 	}
 
 	Vec2 GetSliceSizeUV(size_t index) const { return m_sliceSizeUV.at(index); }
-	void SetSliceSizeUV(size_t index, Vec2 sliceSizePixel)
+	void SetSliceSizeUV(size_t index, Vec2 sliceSizeUV)
 	{
 		if (index >= m_sliceSizeUV.size()) assert(nullptr);
-		if (m_atlas == nullptr)
-		{
-			MessageBox(nullptr, L"아틀라스 텍스처가 null입니다", L"SliceUV 설정 실패", MB_OK);
-			return;
-		}
-		m_sliceSizeUV[index] = Vec2(sliceSizePixel.x / (float)m_atlas->GetWidth()
-									, sliceSizePixel.y / (float)m_atlas->GetHeight());
+		m_sliceSizeUV[index] = XMVectorSaturate(sliceSizeUV);
 	}
 
 	Vec2 GetBackgroundSizeUV(size_t index) const { return m_backgroundSizeUV.at(index); }
-	void SetBackgroundSizeUV(size_t index,Vec2 bgrSizePixel)
+	void SetBackgroundSizeUV(size_t index,Vec2 bgrSizeUV)
 	{
 		if (index >= m_backgroundSizeUV.size()) assert(nullptr);
-		if (m_atlas == nullptr)
-		{
-			MessageBox(nullptr, L"아틀라스 텍스처가 null입니다", L"BackgroundUV 설정 실패", MB_OK);
-			return;
-		}
-		m_backgroundSizeUV[index] = Vec2(bgrSizePixel.x / (float)m_atlas->GetWidth()
-										, bgrSizePixel.y / (float)m_atlas->GetHeight());
+		if (bgrSizeUV.x <= 0.f || bgrSizeUV.y <= 0.f) return;
+		m_backgroundSizeUV[index] = bgrSizeUV;
 	}
 
 	Vec2 GetOffsetUV(size_t index) const { return m_offsetUV.at(index); }
-	void SetOffSetUV(size_t index, Vec2 offsetPixel)
+	void SetOffSetUV(size_t index, Vec2 offsetUV)
 	{
 		if (index >= m_offsetUV.size()) assert(nullptr);
-		if (m_atlas == nullptr)
-		{
-			MessageBox(nullptr, L"아틀라스 텍스처가 null입니다", L"OffsetUV 설정 실패", MB_OK);
-			return;
-		}
-		m_offsetUV[index] = Vec2(offsetPixel.x / (float)m_atlas->GetWidth()
-								, offsetPixel.y / (float)m_atlas->GetHeight());
+		m_offsetUV[index] = XMVectorSaturate(offsetUV);
 	}
 };
