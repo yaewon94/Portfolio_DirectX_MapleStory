@@ -62,60 +62,55 @@ float4 PS_Std2D(VS_OUT vs) : SV_Target
 float4 PS_Flipbook(VS_OUT vs) : SV_Target
 {
     float2 bgrLeftTop = g_leftTopUV + (g_sliceSizeUV - g_bgrSizeUV) / 2.f;
-    float2 spriteUV = bgrLeftTop + (vs.uv * g_bgrSizeUV) - g_offsetUV;
+    float2 spriteUV;
     
+    // XÃà
+    if (vs.uv.x >= 0.f)
+        spriteUV.x = bgrLeftTop.x + (vs.uv.x * g_bgrSizeUV.x) - g_offsetUV.x;
+    else
+        spriteUV.x = bgrLeftTop.x + (vs.uv.x * g_bgrSizeUV.x) + g_offsetUV.x;
+
     // XÃà
     if (g_bgrSizeUV.x >= g_sliceSizeUV.x)
     {
         if (vs.uv.x >= 0.f)
         {
             if (spriteUV.x < g_leftTopUV.x || spriteUV.x > g_leftTopUV.x + g_sliceSizeUV.x)
-            {
                 discard;
-            }
         }
         else
         {
-            if (spriteUV.x < g_leftTopUV.x - g_sliceSizeUV.x)
-            {
+            if(spriteUV.x < g_leftTopUV.x - g_sliceSizeUV.x)
                 discard;
-            }
         }
     }
-    else
+   else
     {
         if (vs.uv.x >= 0.f)
         {
             if (spriteUV.x < bgrLeftTop.x || spriteUV.x > bgrLeftTop.x + g_bgrSizeUV.x)
-            {
                 discard;
-            }
         }
         else
         {
             if (spriteUV.x < bgrLeftTop.x - g_bgrSizeUV.x)
-            {
                 discard;
-            }
         }
     }
             
     // YÃà
+    spriteUV.y = bgrLeftTop.y + (vs.uv.y * g_bgrSizeUV.y) - g_offsetUV.y;
     if (g_bgrSizeUV.y >= g_sliceSizeUV.y)
     {
         if (spriteUV.y < g_leftTopUV.y || spriteUV.y > g_leftTopUV.y + g_sliceSizeUV.y)
-        {
             discard;
-        }
     }
     else
     {
         if (spriteUV.y < bgrLeftTop.y || spriteUV.y > bgrLeftTop.y + g_bgrSizeUV.y)
-        {
             discard;
-        }
     }
 
-    return g_flipbookTex.Sample(g_sampler0, spriteUV);
+        return g_flipbookTex.Sample(g_sampler0, spriteUV);
 }
 #endif
