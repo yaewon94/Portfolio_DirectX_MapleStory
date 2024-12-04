@@ -11,7 +11,7 @@ private:
 	// 이동 방향
 	enum MOVE_DIRECTION : int
 	{
-		LEFT = -1, RIGHT = 1
+		LEFT = -1, RIGHT = 1, NONE = 0
 	};
 
 	// 점프 관련 상태값
@@ -32,6 +32,8 @@ private:
 	typedef byte PLAYER_KEY_STATES;
 
 private:
+	class FlipbookPlayer* m_flipbookPlayer;
+
 	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
 	MOVE_DIRECTION m_moveDir;
 

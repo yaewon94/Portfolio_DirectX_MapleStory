@@ -63,6 +63,6 @@ public:
 	void SetOffSetUV(size_t index, Vec2 offsetUV)
 	{
 		if (index >= m_offsetUV.size()) assert(nullptr);
-		m_offsetUV[index] = XMVectorSaturate(offsetUV);
+		m_offsetUV[index] = offsetUV;
 	}
 };

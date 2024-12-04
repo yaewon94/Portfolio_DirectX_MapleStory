@@ -41,7 +41,8 @@ int Texture::Load()
 
 	if (FAILED(result))
 	{
-		MessageBoxA(nullptr, "Loading Texture is failed", "Loading Texture is failed", MB_OK);
+		wstring msg = Path + L"가 존재하지 않습니다";
+		MessageBox(nullptr, msg.c_str(), L"텍스처 로딩 실패", MB_OK);
 		return E_FAIL;
 	}
 

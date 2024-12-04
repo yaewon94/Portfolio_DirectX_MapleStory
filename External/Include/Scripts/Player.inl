@@ -3,6 +3,7 @@
 #include "Engine/GameObject.h"
 #include "Engine/Rigidbody.h"
 #include "Engine/Transform.h"
+#include "Engine/FlipbookPlayer.h"
 #include "Engine/TimeManager.h"
 
 inline void Player::OnCollisionEnter(GameObject* other)
@@ -11,6 +12,7 @@ inline void Player::OnCollisionEnter(GameObject* other)
 	{
 		m_jumpStates = CAN_SINGLE_JUMP;
 		m_rigidbody->UseGravity(false);
+		m_flipbookPlayer->ChangeFlipbook("Idle");
 	}
 }
 
@@ -20,6 +22,7 @@ inline void Player::OnCollisionExit(GameObject* other)
 	{
 		m_jumpStates = 0;
 		m_rigidbody->UseGravity(true);
+		m_flipbookPlayer->ChangeFlipbook("Jump");
 	}
 }
 
@@ -49,7 +52,12 @@ inline void Player::OnKeyDown(KEY_CODE key)
 
 inline void Player::OnKeyReleased(KEY_CODE key)
 {
-	if (key == KEY_ALT)
+	if (key == KEY_LEFT || key == KEY_RIGHT)
+	{
+		m_moveDir = MOVE_DIRECTION::NONE;
+		m_flipbookPlayer->ChangeFlipbook("Idle");
+	}
+	else if (key == KEY_ALT)
 	{
 		if (!m_jumpStates) m_jumpStates = CAN_DOUBLE_JUMP;
 	}
@@ -59,16 +67,14 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 	}
 }
 
+// TODO : MOVE_DIRECTION float타입 할당되게 바꾸기 (enum으로는 안됨)
 inline void Player::Move(MOVE_DIRECTION dir)
 {
-	if (m_moveDir != dir)
-	{
-		m_moveDir = dir;
-		m_moveSpeed *= -1.f;
-		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] *= -1.f;
-	}
+	if (m_moveDir == MOVE_DIRECTION::NONE) m_flipbookPlayer->ChangeFlipbook("Move");
+	m_moveDir = dir;
+	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = m_moveDir;
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;
-	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT);
+	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT * m_moveDir);
 }
 
 inline void Player::Jump()
@@ -78,11 +84,13 @@ inline void Player::Jump()
 		m_jumpStates &= ~CAN_SINGLE_JUMP;
 		m_rigidbody->UseGravity(true);
 		m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower);
+		m_flipbookPlayer->ChangeFlipbook("Jump");
 	}
 	else if (m_jumpStates & CAN_DOUBLE_JUMP)
 	{
 		m_jumpStates = IS_DOUBLE_JUMPED;
 		if (m_keyStates & IS_KEYUP_PRESSED) m_rigidbody->AddForce(Transform::UNIT_VEC[DIR_UP] * m_jumpPower * 3.f);
 		else m_rigidbody->AddForce(Vec3(m_moveDir, 1.f, 0.f) * m_jumpPower);
+		m_flipbookPlayer->ChangeFlipbook("Jump");
 	}
 }
