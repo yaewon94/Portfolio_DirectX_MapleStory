@@ -80,7 +80,7 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
         }
         else
         {
-            if(spriteUV.x < g_leftTopUV.x - g_sliceSizeUV.x)
+            if (spriteUV.x > g_leftTopUV.x || spriteUV.x < g_leftTopUV.x - g_sliceSizeUV.x)
                 discard;
         }
     }
@@ -93,7 +93,7 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
         }
         else
         {
-            if (spriteUV.x < bgrLeftTop.x - g_bgrSizeUV.x)
+            if (spriteUV.x > g_leftTopUV.x || spriteUV.x < bgrLeftTop.x - g_bgrSizeUV.x)
                 discard;
         }
     }
