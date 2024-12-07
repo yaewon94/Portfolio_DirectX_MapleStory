@@ -26,6 +26,14 @@ inline void Player::OnCollisionExit(GameObject* other)
 	}
 }
 
+inline void Player::OnKeyTap(KEY_CODE key)
+{
+	if (key == KEY_LEFT || key == KEY_RIGHT)
+	{
+		if (m_flipbookPlayer->GetCurrentFlipbookName() == "Idle") m_flipbookPlayer->ChangeFlipbook("Move");
+	}
+}
+
 inline void Player::OnKeyDown(KEY_CODE key)
 {
 	switch (key)
@@ -54,7 +62,6 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 {
 	if (key == KEY_LEFT || key == KEY_RIGHT)
 	{
-		m_moveDir = MOVE_DIRECTION::NONE;
 		m_flipbookPlayer->ChangeFlipbook("Idle");
 	}
 	else if (key == KEY_ALT)
@@ -70,7 +77,6 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 // TODO : MOVE_DIRECTION float타입 할당되게 바꾸기 (enum으로는 안됨)
 inline void Player::Move(MOVE_DIRECTION dir)
 {
-	if (m_moveDir == MOVE_DIRECTION::NONE) m_flipbookPlayer->ChangeFlipbook("Move");
 	m_moveDir = dir;
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = m_moveDir;
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;

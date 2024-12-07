@@ -6,11 +6,11 @@
 class FlipbookPlayer final : public MeshRender
 {
 	NO_COPY_MOVE(FlipbookPlayer)
-	COMPONENT_TYPE_DCL(COMPONENT_TYPE::FLIPBOOKPLAYER)
+		COMPONENT_TYPE_DCL(COMPONENT_TYPE::FLIPBOOKPLAYER)
 
 private:
 	unordered_map<string, SharedPtr<Flipbook>> m_flipbookMap;
-	SharedPtr<Flipbook> m_curFlipbook;
+	tuple<string, SharedPtr<Flipbook>> m_curFlipbook;
 	float m_term; // 다음 프레임으로 넘어가기까지 시간
 	float m_playAccTime; // 재생 누적시간 (프레임 전환될 때마다 초기화됨)
 	byte m_curFrameIndex; // 현재 재생중인 프레임 인덱스
@@ -36,6 +36,7 @@ public:
 	void SetRepeat(bool flag) { m_isRepeat = flag; }
 
 public:
+	const string& GetCurrentFlipbookName() const { return std::get<0>(m_curFlipbook); }
 	void AddFlipbook(const string& key, SharedPtr<Flipbook> flipbook)
 	{
 		if (flipbook == nullptr || flipbook->GetAtlasTexture() == nullptr)
@@ -52,7 +53,7 @@ public:
 			return;
 		}
 		m_flipbookMap.insert(make_pair(key, flipbook));
-		if(m_curFlipbook == nullptr) ChangeFlipbook(m_flipbookMap.begin()->first);
+		if(std::get<1>(m_curFlipbook) == nullptr) ChangeFlipbook(m_flipbookMap.begin()->first);
 	}
 
 	void ChangeFlipbook(const string& key)
@@ -66,7 +67,7 @@ public:
 			return;
 #endif // _DEBUG
 		}
-		m_curFlipbook = iter->second;
+		m_curFlipbook = std::tie(iter->first, iter->second);
 		m_curFrameIndex = 0;
 	}
 

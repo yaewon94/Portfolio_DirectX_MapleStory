@@ -63,7 +63,6 @@ void Player::Init()
 	// 인스턴스 공통 필드 초기화
 	GetOwner()->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
 	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);
-	m_moveDir = MOVE_DIRECTION::NONE;
 	m_jumpStates = 0;
 	m_keyStates = 0;
 

@@ -6,7 +6,6 @@
 
 FlipbookPlayer::FlipbookPlayer(GameObject* const owner) 
 	: MeshRender(owner)
-	, m_curFlipbook(nullptr)
 	, m_term(1.f)
 	, m_isRepeat(true)
 {
@@ -41,14 +40,15 @@ void FlipbookPlayer::Init()
 
 void FlipbookPlayer::FinalTick()
 {
-	if (m_curFlipbook == nullptr) return;
+	SharedPtr<Flipbook> flipbook = std::get<1>(m_curFlipbook);
+	if (flipbook == nullptr) return;
 
 	if (m_playAccTime >= m_term)
 	{
 		m_playAccTime -= m_term;
 
 		// 마지막 프레임인 경우
-		if (++m_curFrameIndex == m_curFlipbook->GetFrameCount())
+		if (++m_curFrameIndex == flipbook->GetFrameCount())
 		{
 			m_curFrameIndex = 0;
 
@@ -66,11 +66,12 @@ void FlipbookPlayer::FinalTick()
 
 void FlipbookPlayer::Render()
 {
-	if (m_curFlipbook == nullptr) return;
+	SharedPtr<Flipbook> flipbook = std::get<1>(m_curFlipbook);
+	if (flipbook == nullptr) return;
 
-	m_curFlipbook->Bind(m_curFrameIndex);
+	flipbook->Bind(m_curFrameIndex);
 	MeshRender::Render();
-	m_curFlipbook->Clear(m_curFrameIndex);
+	flipbook->Clear(m_curFrameIndex);
 }
 
 void FlipbookPlayer::SetFPS(UINT fps)

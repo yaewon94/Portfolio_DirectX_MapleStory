@@ -11,7 +11,7 @@ private:
 	// 이동 방향
 	enum MOVE_DIRECTION : int
 	{
-		LEFT = -1, RIGHT = 1, NONE = 0
+		LEFT = -1, RIGHT = 1
 	};
 
 	// 점프 관련 상태값
@@ -54,6 +54,7 @@ private: // GameObject : Component* 를 통해 호출
 	virtual void OnCollisionExit(GameObject* other) final;
 
 private: // KeyManager : IKeyEvent* 를 통해 호출
+	virtual void OnKeyTap(KEY_CODE key) final;
 	virtual void OnKeyDown(KEY_CODE key) final;
 	virtual void OnKeyReleased(KEY_CODE key) final;
 	
