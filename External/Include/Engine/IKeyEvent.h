@@ -14,6 +14,7 @@ class IKeyEvent
 
 protected:
 	virtual ~IKeyEvent() {}
+	virtual void OnKeyTap(KEY_CODE key) = 0;
 	virtual void OnKeyDown(KEY_CODE key) = 0;
 	virtual void OnKeyReleased(KEY_CODE key) = 0;
 };

@@ -17,21 +17,38 @@ void KeyManager::Tick()
 	{
 		for (auto& key : m_keyMap)
 		{
+			KeyInfo& info = key.second;
+
 			// 이번 프레임에 해당 키가 눌림
 			if (GetAsyncKeyState(key.first) & 0x8001)
 			{
-				key.second.state = KEY_STATE::DOWN;
-				key.second.instance->OnKeyDown(key.first);
+				if (info.state == KEY_STATE::DOWN)
+				{
+					info.instance->OnKeyDown(key.first);
+				}
+				else if (info.state == KEY_STATE::TAP)
+				{
+					info.state = KEY_STATE::DOWN;
+					info.instance->OnKeyDown(key.first);
+				}
+				else if (info.state == KEY_STATE::NONE)
+				{
+					info.state = KEY_STATE::TAP;
+					info.instance->OnKeyTap(key.first);
+				}
 			}
 			// 안눌림
 			else
 			{
-				if (key.second.state == KEY_STATE::DOWN)
+				if (info.state == KEY_STATE::DOWN || info.state == KEY_STATE::TAP)
 				{
-					key.second.state = KEY_STATE::RELEASED;
-					key.second.instance->OnKeyReleased(key.first);
+					info.state = KEY_STATE::RELEASED;
+					info.instance->OnKeyReleased(key.first);
 				}
-				else if (key.second.state == KEY_STATE::RELEASED) key.second.state = KEY_STATE::NONE;
+				else if (info.state == KEY_STATE::RELEASED)
+				{
+					info.state = KEY_STATE::NONE;
+				}
 			}
 		}
 	}
@@ -40,7 +57,16 @@ void KeyManager::Tick()
 	{
 		for (auto& key : m_keyMap)
 		{
-			key.second.state = KEY_STATE::NONE;
+			KeyInfo& info = key.second;
+			if (info.state == KEY_STATE::DOWN || info.state == KEY_STATE::TAP)
+			{
+				info.state = KEY_STATE::RELEASED;
+				info.instance->OnKeyReleased(key.first);
+			}
+			else if (info.state == KEY_STATE::RELEASED)
+			{
+				info.state = KEY_STATE::NONE;
+			}
 		}
 	}
 }

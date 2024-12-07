@@ -12,7 +12,7 @@ private:
 	// KEY 상태
 	enum class KEY_STATE
 	{
-		NONE, DOWN, RELEASED
+		NONE, TAP, DOWN, RELEASED
 	};
 
 	// KEY 정보
