@@ -4,7 +4,7 @@
 // 에셋 타입
 enum class ASSET_TYPE : byte
 {
-    MESH, MATERIAL, GRAPHIC_SHADER, TEXTURE, FLIPBOOK
+    MESH, MATERIAL, GRAPHIC_SHADER, TEXTURE, FLIPBOOK, SKILL
 };
 
 #define ASSET_TYPE_DCL(type) public:\
