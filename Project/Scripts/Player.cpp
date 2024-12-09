@@ -6,7 +6,7 @@
 #include "Engine/KeyManager.h"
 
 Player::Player(GameObject* const owner) 
-	: Script(owner)
+	: AliveObject(owner)
 	, m_moveSpeed(300.f)
 	, m_jumpPower(600.f)
 {
@@ -47,7 +47,7 @@ Player::Player(GameObject* const owner)
 }
 
 Player::Player(const Player& origin, GameObject* const newOwner) 
-	: Script(origin, newOwner)
+	: AliveObject(origin, newOwner)
 	, m_moveSpeed(origin.m_moveSpeed)
 	, m_jumpPower(origin.m_jumpPower)
 {

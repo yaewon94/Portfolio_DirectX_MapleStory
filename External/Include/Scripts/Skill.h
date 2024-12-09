@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine/CustomAsset.h"
 
+class AliveObject;
+class GameObject;
+
 // 스킬 에셋 최상위 클래스
 class Skill : public CustomAsset
 {
@@ -14,7 +17,7 @@ protected:
 	~Skill();
 
 public:
-	virtual void Execute(class SkillComponent* component) = 0;
+	virtual void Execute(AliveObject* const caster, GameObject* const skillObj) = 0;
 
 protected:
 	const string& GetName() const { return m_name; }

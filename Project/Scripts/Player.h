@@ -1,9 +1,9 @@
 #pragma once
-#include "Engine/Script.h"
 #include "Engine/IKeyEvent.h"
+#include "AliveObject.h"
 
 // 플레이어 컴포넌트
-class Player final : public Script, public IKeyEvent
+class Player final : public AliveObject, public IKeyEvent
 {
 	NO_COPY_MOVE(Player)
 
@@ -32,8 +32,6 @@ private:
 	typedef byte PLAYER_KEY_STATES;
 
 private:
-	class FlipbookPlayer* m_flipbookPlayer;
-
 	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
 	MOVE_DIRECTION m_moveDir;
 
