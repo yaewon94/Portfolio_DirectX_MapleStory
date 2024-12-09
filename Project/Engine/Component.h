@@ -46,6 +46,9 @@ protected:
 	virtual void Init() {}
 	virtual void FinalTick() {}
 
+protected:
+	virtual void SetActive(bool flag) {}
+
 public:
 	GameObject* const GetOwner() const { return m_owner; }
 

@@ -122,6 +122,21 @@ void GameObject::OnCollisionExit(GameObject* const other)
 	}
 }
 
+void GameObject::SetActive(bool isActive)
+{
+	for (const auto& pair : m_componentMap)
+	{
+		pair.second->SetActive(isActive);
+	}
+
+	for (const auto script : m_scripts)
+	{
+		script->SetActive(isActive);
+	}
+
+	m_isActive = isActive;
+}
+
 void GameObject::SetLayer(LAYER layer)
 {
 	if (m_renderComponent != nullptr)

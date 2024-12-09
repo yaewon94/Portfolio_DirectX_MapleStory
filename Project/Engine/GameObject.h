@@ -61,7 +61,7 @@ public:
 	void SetName(const string& name) { m_name = name; }
 
 	bool IsActive() const { return m_isActive; }
-	void SetActive(bool isActive) { m_isActive = isActive; }
+	void SetActive(bool isActive);
 
 	LAYER GetLayer() const { return m_layer; }
 	void SetLayer(LAYER layer);

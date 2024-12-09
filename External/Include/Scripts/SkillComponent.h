@@ -19,6 +19,7 @@ public:
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 	virtual void FinalTick() final;
+	virtual void SetActive(bool flag) final;
 
 private: // GameObject::복사생성자 에서 호출
 	virtual SkillComponent* Clone(GameObject* const newOwner) final { return new SkillComponent(*this, newOwner); }
