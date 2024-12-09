@@ -181,6 +181,9 @@
     <ClInclude Include="Flipbook.h">
       <Filter>06.Asset</Filter>
     </ClInclude>
+    <ClInclude Include="CustomAsset.h">
+      <Filter>06.Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -279,6 +282,9 @@
       <Filter>05.Component</Filter>
     </ClCompile>
     <ClCompile Include="Flipbook.cpp">
+      <Filter>06.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAsset.cpp">
       <Filter>06.Asset</Filter>
     </ClCompile>
   </ItemGroup>

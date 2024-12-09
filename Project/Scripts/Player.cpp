@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Player.h"
+#include "Engine/SharedPtr.h"
 #include "Engine/AssetManager.h"
 #include "Engine/Texture.h"
 #include "Engine/Collider.h"
@@ -38,6 +39,10 @@ Player::Player(GameObject* const owner)
 	flipbook->SetAtlasTexture(AssetManager::GetInstance()->AddAsset<Texture>("PlayerJump", "Player\\PlayerJumpFlipbook.png"), 1, 1, GetOwner());
 	m_flipbookPlayer->AddFlipbook("Jump", flipbook);
 	m_flipbookPlayer->ChangeFlipbook("Jump");
+	// attack flipbook
+	flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerAttack0", "");
+	flipbook->SetAtlasTexture(AssetManager::GetInstance()->AddAsset<Texture>("PlayerAttack0", "Player\\PlayerAttack0Flipbook.png"), 1, 3, GetOwner());
+	m_flipbookPlayer->AddFlipbook("Attack0", flipbook);
 	// rigidbody
 	m_rigidbody = GetOwner()->AddComponent<Rigidbody>();
 	m_rigidbody->UseGravity(true);
@@ -66,6 +71,9 @@ Player::~Player()
 
 void Player::Init()
 {
+	// 플레이어가 사용할 에셋 로드, 관련 필드 초기화
+	m_skillMap.insert(make_pair(KEY_LSHIFT, AssetManager::GetInstance()->FindOrAddAsset<AttackSkill>("Chain Lightening", "").ptr_dynamic_cast<Skill>()));
+
 	// 인스턴스 공통 필드 초기화
 	GetOwner()->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
 	GetOwner()->SetTag(OBJECT_TAG::TAG_PLAYER);

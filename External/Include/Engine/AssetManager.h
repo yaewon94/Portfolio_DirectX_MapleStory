@@ -14,7 +14,7 @@ public:
 
 public:
 	template<typename T> requires std::derived_from<T, Asset>
-	SharedPtr<T> const AddAsset(const string& Key, const string& relativePath)
+	SharedPtr<T> AddAsset(const string& Key, const string& relativePath)
 	{
 		auto type_iter = m_assetMap.find(T::Type);
 		
@@ -48,7 +48,18 @@ public:
 	}
 
 	template<typename T> requires std::derived_from<T, Asset>
-	SharedPtr<T> const FindAsset(const string& Key, const string& relativePath = "")
+	SharedPtr<T> FindAsset(const string& Key)
+	{
+		auto type_iter = m_assetMap.find(T::Type);
+		if (type_iter == m_assetMap.end()) return nullptr;
+
+		auto iter = type_iter->second.find(Key);
+		if (iter != type_iter->second.end()) return (iter->second).ptr_dynamic_cast<T>();
+		else return nullptr;
+	}
+
+	template<typename T> requires std::derived_from<T, Asset>
+	SharedPtr<T> FindOrAddAsset(const string& Key, const string& relativePath)
 	{
 		auto type_iter = m_assetMap.find(T::Type);
 		if (type_iter == m_assetMap.end()) return nullptr;
