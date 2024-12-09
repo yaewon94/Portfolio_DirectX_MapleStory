@@ -5,6 +5,7 @@
 #include "Engine/Transform.h"
 #include "Engine/FlipbookPlayer.h"
 #include "Engine/TimeManager.h"
+#include "Skill.h"
 
 inline void Player::OnCollisionEnter(GameObject* other)
 {
@@ -28,7 +29,11 @@ inline void Player::OnCollisionExit(GameObject* other)
 
 inline void Player::OnKeyTap(KEY_CODE key)
 {
-	if (key == KEY_LEFT || key == KEY_RIGHT)
+	if (key == KEY_LSHIFT)
+	{
+		m_skillMap.find(key);
+	}
+	else if (key == KEY_LEFT || key == KEY_RIGHT)
 	{
 		if (m_flipbookPlayer->GetCurrentFlipbookName() == "Idle") m_flipbookPlayer->ChangeFlipbook("Move");
 	}

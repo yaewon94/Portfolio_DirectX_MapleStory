@@ -52,6 +52,12 @@ Player::Player(const Player& origin, GameObject* const newOwner)
 	, m_jumpPower(origin.m_jumpPower)
 {
 	Init();
+
+	// 같은 스킬에셋 공유
+	for (const auto& pair : origin.m_skillMap)
+	{
+		m_skillMap.insert(make_pair(pair.first, pair.second));
+	}
 }
 
 Player::~Player()
@@ -71,4 +77,5 @@ void Player::Init()
 	KeyManager::GetInstance()->AddKey(KEY_RIGHT, this);
 	KeyManager::GetInstance()->AddKey(KEY_ALT, this);
 	KeyManager::GetInstance()->AddKey(KEY_UP, this);
+	KeyManager::GetInstance()->AddKey(KEY_LSHIFT, this);
 }

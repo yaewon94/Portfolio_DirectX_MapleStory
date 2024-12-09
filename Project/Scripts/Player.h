@@ -42,6 +42,9 @@ private:
 	JUMP_STATES m_jumpStates;
 	PLAYER_KEY_STATES m_keyStates;
 	
+	unordered_map<KEY_CODE, SharedPtr<class Skill>> m_skillMap;
+	GameObject* m_skillObj;
+	
 public:
 	Player(GameObject* const owner);
 	Player(const Player& origin, GameObject* const newOwner);

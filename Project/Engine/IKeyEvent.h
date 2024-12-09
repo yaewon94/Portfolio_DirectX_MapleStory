@@ -4,7 +4,8 @@
 enum KEY_CODE
 {
 	KEY_LEFT = VK_LEFT, KEY_RIGHT = VK_RIGHT, KEY_UP = VK_UP,
-	KEY_ALT = VK_MENU
+	KEY_ALT = VK_MENU,
+	KEY_LSHIFT = VK_LSHIFT
 };
 
 // 키 입력 콜백함수 사용을 위한 인터페이스
