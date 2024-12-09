@@ -62,12 +62,15 @@ public:
 	SharedPtr<T> FindOrAddAsset(const string& Key, const string& relativePath)
 	{
 		auto type_iter = m_assetMap.find(T::Type);
-		if (type_iter == m_assetMap.end()) return nullptr;
-		
-		auto iter = type_iter->second.find(Key);
-		if (iter != type_iter->second.end()) return (iter->second).ptr_dynamic_cast<T>();
-		
-		if (relativePath != "") return AddAsset<T>(Key, relativePath);
-		else return nullptr;
+		if (type_iter == m_assetMap.end())
+		{
+			return AddAsset<T>(Key, relativePath);
+		}
+		else
+		{
+			auto iter = type_iter->second.find(Key);
+			if (iter != type_iter->second.end()) return (iter->second).ptr_dynamic_cast<T>();
+			else return AddAsset<T>(Key, relativePath);
+		}
 	}
 };
