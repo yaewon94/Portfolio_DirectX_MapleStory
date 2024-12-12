@@ -5,7 +5,7 @@ using std::ifstream;
 
 enum class FILE_MODE
 {
-	READ_BINARY
+	READ_BINARY, READ_TEXT
 };
 
 // 파일 관리, 읽기/쓰기 담당 클래스
