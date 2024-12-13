@@ -83,6 +83,14 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 		else ++c;
 	}
 
+	if (stream.eof())
+	{
+		if (m_curKey == Key && m_curIndex++ == index)
+		{
+			return S_OK;
+		}
+	}
+
 #ifdef _DEBUG
 	assert(nullptr);
 #else
