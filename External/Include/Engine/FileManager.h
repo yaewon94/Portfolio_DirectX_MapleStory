@@ -3,6 +3,8 @@
 using std::ifstream;
 #include "StringParser.h"
 
+#define SIZE_READ_BUFFER 256
+
 // 파일 모드
 enum class FILE_MODE
 {
@@ -15,14 +17,18 @@ class FileManager final : public Singleton<FileManager>
 	SINGLETON(FileManager);
 
 private:
-	ifstream m_ifstream;
+	stack<ifstream> m_ifstreamStack;
 
 public:
 	int Open(const string& FullPath, FILE_MODE mode);
 	int ReadJsonValue(const string& Key, void* const data, size_t index = 0, bool isReadFromBegin = false);
 	void Close()
 	{
-		m_ifstream.close();
+		if (!m_ifstreamStack.empty())
+		{
+			m_ifstreamStack.top().close();
+			m_ifstreamStack.pop();
+		}
 	}
 
 	// 문제점 : data로 받는 구조체가 char[] 타입만 가질 수 있고, 배열 크기도 SIZE_BUFFER로 고정되어야 함

@@ -17,6 +17,8 @@ using std::unordered_map;
 using std::unordered_set;
 #include <tuple>
 using std::tuple;
+#include <stack>
+using std::stack;
 
 // DirectX 11
 #include <d3d11.h>

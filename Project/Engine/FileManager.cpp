@@ -8,25 +8,29 @@ FileManager::FileManager()
 
 FileManager::~FileManager()
 {
-	m_ifstream.close();
+	while (!m_ifstreamStack.empty())
+	{
+		Close();
+	}
 }
 
 int FileManager::Open(const string& FullPath, FILE_MODE mode)
 {
 	if (mode == FILE_MODE::READ_BINARY || mode == FILE_MODE::READ_TEXT)
 	{
-		if (m_ifstream.is_open()) m_ifstream.close();
-
 		ios_base::openmode iosMode = ios_base::in;
 		if (mode == FILE_MODE::READ_BINARY) iosMode |= ios_base::binary;
-		m_ifstream = std::ifstream(FullPath, iosMode);
+		ifstream stream = std::ifstream(FullPath, iosMode);
 
-		if (!m_ifstream.good())
+		if (!stream.good())
 		{
 			string msg = FullPath + " cannot be opened or found";
 			MessageBoxA(nullptr, msg.c_str(), "Opening file is failed", MB_OK);
 			return E_FAIL;
 		}
+		
+		//m_ifstreamStack.push(stream); // ifstream 복사생성자 없어서 에러남
+		m_ifstreamStack.push(std::move(stream));
 	}
 
 	return S_OK;
@@ -34,12 +38,12 @@ int FileManager::Open(const string& FullPath, FILE_MODE mode)
 
 int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index, bool isReadFromBegin)
 {
-	if (isReadFromBegin) m_ifstream.seekg(ios_base::beg);
-	
+	ifstream& stream = m_ifstreamStack.top();
+
 	// 토큰 분리
 	char* c = (char*)data;
 	bool isKeyFound = false;
-	while (m_ifstream.get(*c))
+	while (stream.get(*c))
 	{
 		if (*c == '\n')
 		{
