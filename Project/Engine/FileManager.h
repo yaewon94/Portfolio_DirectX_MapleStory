@@ -18,6 +18,8 @@ class FileManager final : public Singleton<FileManager>
 
 private:
 	stack<ifstream> m_ifstreamStack;
+	const char* m_curKey;
+	size_t m_curIndex;
 
 public:
 	int Open(const string& FullPath, FILE_MODE mode);
