@@ -36,6 +36,7 @@ int FileManager::Open(const string& FullPath, FILE_MODE mode)
 		
 		//m_ifstreamStack.push(stream); // ifstream left-value 복사생성자 없어서 에러남
 		m_ifstreamStack.push(std::move(stream));
+		stream.close();
 	}
 
 	return S_OK;
