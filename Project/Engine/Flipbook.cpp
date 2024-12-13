@@ -3,18 +3,94 @@
 #include "Device.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "FileManager.h"
+#include "AssetManager.h"
 
 Flipbook::Flipbook(const string& Key, const string& relativePath) 
 	: Asset(Key, relativePath)
+	, m_frameCount(0)
 {
-	m_leftTopUV.resize(0);
-	m_sliceSizeUV.resize(0);
-	m_backgroundSizeUV.resize(0);
-	m_offsetUV.resize(0);
 }
 
 Flipbook::~Flipbook()
 {
+}
+
+int Flipbook::Load()
+{
+	if (AssetManager::GetInstance()->FindAsset<Flipbook>(GetKey()) != nullptr)
+	{
+#ifdef _DEBUG
+		assert(nullptr);
+#else
+		return E_FAIL;
+#endif // _DEBUG
+	}
+
+	if (FAILED(FileManager::GetInstance()->Open(GetFullPathA(), FILE_MODE::READ_TEXT))) return E_FAIL;
+
+	char buff[256];
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("AtlasPath", buff))) return E_FAIL;
+	m_atlas = AssetManager::GetInstance()->AddAsset<Texture>(GetKey(), buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("FrameCount", buff))) return E_FAIL;
+	m_frameCount = ToInteger(buff);
+	m_leftTopUV.resize(m_frameCount);
+	m_sliceSizeUV.resize(m_frameCount);
+	m_backgroundSizeUV.resize(m_frameCount);
+	m_offsetUV.resize(m_frameCount);
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("LeftTopUV_X", buff, i))) return E_FAIL;
+		m_leftTopUV[i].x = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("LeftTopUV_Y", buff, i))) return E_FAIL;
+		m_leftTopUV[i].y = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("SliceUV_X", buff, i))) return E_FAIL;
+		m_sliceSizeUV[i].x = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("SliceUV_Y", buff, i))) return E_FAIL;
+		m_sliceSizeUV[i].y = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("BgrUV_X", buff, i))) return E_FAIL;
+		m_backgroundSizeUV[i].x = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("BgrUV_Y", buff, i))) return E_FAIL;
+		m_backgroundSizeUV[i].y = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("OffsetUV_X", buff, i))) return E_FAIL;
+		m_offsetUV[i].x = ToFloat(buff);
+	}
+
+	for (size_t i = 0; i < m_frameCount; ++i)
+	{
+		if (FAILED(FileManager::GetInstance()->ReadJsonValue("OffsetUV_Y", buff, i))) return E_FAIL;
+		m_offsetUV[i].y = ToFloat(buff);
+	}
+
+	FileManager::GetInstance()->Close();
+
+	return S_OK;
 }
 
 void Flipbook::Bind(size_t frameIndex)
@@ -51,11 +127,11 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 	m_atlas = atlasTex;
 
 	// vector 사이즈 초기화
-	const UINT Size = sliceRowCount * sliceColCount;
-	m_leftTopUV.resize(Size);
-	m_sliceSizeUV.resize(Size);
-	m_backgroundSizeUV.resize(Size);
-	m_offsetUV.resize(Size);
+	m_frameCount = sliceRowCount * sliceColCount;
+	m_leftTopUV.resize(m_frameCount);
+	m_sliceSizeUV.resize(m_frameCount);
+	m_backgroundSizeUV.resize(m_frameCount);
+	m_offsetUV.resize(m_frameCount);
 
 	// uv 계산
 	// sliceUV, backgroundUV 값이 모두 같게 설정되는데도 개별 vector로 선언한 이유는
