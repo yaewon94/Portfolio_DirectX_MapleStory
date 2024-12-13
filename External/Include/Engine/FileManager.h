@@ -1,8 +1,9 @@
 #pragma once
 #include <fstream>
 using std::ifstream;
-#define SIZE_BUFFER 30
+#include "StringParser.h"
 
+// 파일 모드
 enum class FILE_MODE
 {
 	READ_BINARY, READ_TEXT
@@ -18,7 +19,7 @@ private:
 
 public:
 	int Open(const string& FullPath, FILE_MODE mode);
-	int ReadJsonValue(const string& Key, void* const data, bool isReadFromBegin = false);
+	int ReadJsonValue(const string& Key, void* const data, size_t index = 0, bool isReadFromBegin = false);
 	void Close()
 	{
 		m_ifstream.close();

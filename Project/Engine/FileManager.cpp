@@ -32,7 +32,7 @@ int FileManager::Open(const string& FullPath, FILE_MODE mode)
 	return S_OK;
 }
 
-int FileManager::ReadJsonValue(const string& Key, void* const data, bool isReadFromBegin)
+int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index, bool isReadFromBegin)
 {
 	if (isReadFromBegin) m_ifstream.seekg(ios_base::beg);
 	
@@ -50,7 +50,7 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, bool isReadF
 			else // 이전까지 value를 저장한 경우
 			{
 				*c = '\0';
-				if (isKeyFound) return S_OK;
+				if (isKeyFound && index-- == 0) return S_OK;
 				else c = (char*)data;
 			}
 		}
