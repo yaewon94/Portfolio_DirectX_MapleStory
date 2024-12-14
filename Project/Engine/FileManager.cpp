@@ -52,21 +52,19 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 
 	// 토큰 분리
 	char* c = (char*)data;
+	*c = '\0';
 	while (stream.get(*c))
 	{
 		if (*c == '\n')
 		{
 			if (*((char*)data) == '\n') // 이전까지 저장한 값이 없는 경우
 			{
-				*c = '\0';
+				c = (char*)data;
 			}
 			else // 이전까지 value를 저장한 경우
 			{
 				*c = '\0';
-				if (m_curKey == Key && m_curIndex++ == index)
-				{
-					return S_OK;
-				}
+				if (m_curKey == Key && m_curIndex++ == index) return S_OK;
 				else c = (char*)data;
 			}
 		}
@@ -78,7 +76,7 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 		}
 		else if (*c == '\t' || *c == '{' || *c == '}')
 		{
-			*c = '\0';
+			//*c = '\0';
 			c = (char*)data;
 		}
 		else ++c;
@@ -86,8 +84,9 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 
 	if (stream.eof())
 	{
-		if (m_curKey == Key && m_curIndex++ == index)
+		if (m_curKey != nullptr && m_curKey == Key && m_curIndex++ == index)
 		{
+			*c = '\0';
 			return S_OK;
 		}
 	}
