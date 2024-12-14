@@ -5,7 +5,15 @@ float ToFloat(const string& str)
 {
 	float result = 0.0f;
 	float exp = 1.f;
+	float sign = 1.f;
 	string::const_iterator iter = str.cbegin();
+
+	// 부호
+	if (*iter == '-')
+	{
+		sign = -1.f;
+		++iter;
+	}
 
 	// 소수점 윗부분
 	for (; iter != str.cend(); ++iter)
@@ -39,15 +47,25 @@ float ToFloat(const string& str)
 		if (exp > 1.f) break; // underflow
 	}
 
-	return result;
+	return result * sign;
 }
 
 int ToInteger(const string& str)
 {
 	int result = 0;
 	int exp = 1;
+	int sign = 1;
+	string::const_iterator iter = str.cbegin();
 
-	for (string::const_iterator iter = str.cbegin(); iter != str.cend(); ++iter)
+	// 부호
+	if (*iter == '-')
+	{
+		sign = -1;
+		++iter;
+	}
+
+	// 값
+	for (; iter != str.cend(); ++iter)
 	{
 		char c = *iter - '0';
 		if (c < 0 || c > 9) assert(nullptr);
@@ -59,5 +77,5 @@ int ToInteger(const string& str)
 		result += (int)c;
 	}
 
-	return result;
+	return result * sign;
 }
