@@ -43,7 +43,11 @@ public:
 	bool IsFinish() const { return m_isFinish; }
 
 public:
-	void Clear() { m_flipbookMap.clear(); }
+	void Clear()
+	{ 
+		m_flipbookMap.clear();
+		m_curFlipbook = nullptr;
+	}
 
 	void AddFlipbook(const string& key, SharedPtr<Flipbook> flipbook)
 	{

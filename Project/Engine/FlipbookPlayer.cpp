@@ -7,7 +7,7 @@
 FlipbookPlayer::FlipbookPlayer(GameObject* const owner) 
 	: MeshRender(owner)
 	, m_term(1.f / 6.f)
-	, m_isRepeat(true)
+	, m_isRepeat(true), m_isFinish(false)
 {
 	Init();
 }
@@ -16,7 +16,7 @@ FlipbookPlayer::FlipbookPlayer(const FlipbookPlayer& origin, GameObject* const n
 	: MeshRender(origin, newOwner)
 	, m_curFlipbook(origin.m_curFlipbook)
 	, m_term(origin.m_term)
-	, m_isRepeat(origin.m_isRepeat)
+	, m_isRepeat(origin.m_isRepeat), m_isFinish(origin.m_isFinish)
 {
 	Init();
 }
@@ -29,6 +29,7 @@ void FlipbookPlayer::Init()
 {
 	// 에셋 초기화
 	SetMesh(AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh"));
+	SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
 
 	// Flipbook 재생 관련 초기화
 	m_playAccTime = 0.f;
@@ -40,22 +41,17 @@ void FlipbookPlayer::Init()
 
 void FlipbookPlayer::FinalTick()
 {
-	SharedPtr<Flipbook> flipbook = std::get<1>(m_curFlipbook);
-	if (flipbook == nullptr) return;
+	if (m_isFinish || m_curFlipbook == nullptr) return;
 
 	if (m_playAccTime >= m_term)
 	{
 		m_playAccTime -= m_term;
 
 		// 마지막 프레임인 경우
-		if (++m_curFrameIndex == flipbook->GetFrameCount())
+		if (++m_curFrameIndex == m_curFlipbook->GetFrameCount())
 		{
 			m_curFrameIndex = 0;
-
-			if (!m_isRepeat)
-			{
-				// TODO : 현재 애니메이션 종료 또는 다른 애니메이션으로 전환
-			}
+			if (!m_isRepeat) m_isFinish = true;
 		}
 	}
 	else
@@ -66,12 +62,11 @@ void FlipbookPlayer::FinalTick()
 
 void FlipbookPlayer::Render()
 {
-	SharedPtr<Flipbook> flipbook = std::get<1>(m_curFlipbook);
-	if (flipbook == nullptr) return;
+	if (m_isFinish || m_curFlipbook == nullptr) return;
 
-	flipbook->Bind(m_curFrameIndex);
+	m_curFlipbook->Bind(m_curFrameIndex);
 	MeshRender::Render();
-	flipbook->Clear(m_curFrameIndex);
+	m_curFlipbook->Clear(m_curFrameIndex);
 }
 
 void FlipbookPlayer::SetFPS(UINT fps)

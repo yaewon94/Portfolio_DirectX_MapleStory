@@ -3,24 +3,33 @@
 
 class Skill;
 
-// 스킬 컴포넌트
-class SkillComponent final : public Script
+// 스킬 컴포넌트 최상위 클래스
+class SkillComponent : public Script
 {
 	NO_COPY_MOVE(SkillComponent)
 
 private:
-	SharedPtr<Skill> m_skill;
+	GameObject* m_caster;
+	class FlipbookPlayer* m_flipbookPlayer;
 
-public:
+protected:
 	SkillComponent(GameObject* const owner);
 	SkillComponent(const SkillComponent& origin, GameObject* const newOwner);
 	~SkillComponent();
 
-private: // GameObject : Component* 를 통해 호출
+protected: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
-	virtual void FinalTick() final;
-	virtual void SetActive(bool flag) final;
 
-private: // GameObject::복사생성자 에서 호출
-	virtual SkillComponent* Clone(GameObject* const newOwner) final { return new SkillComponent(*this, newOwner); }
+public:
+	void SetCaster(GameObject* const caster) { m_caster = caster; }
+
+protected:
+	GameObject* const GetCaster() { return m_caster; }
+
+	FlipbookPlayer* const GetFlipbookPlayer() { return m_flipbookPlayer; }
+	void SetSkill(SharedPtr<Skill> skill)
+	{
+		m_flipbookPlayer->Clear();
+		m_flipbookPlayer->AddFlipbook(skill->GetKey(), skill->GetFlipbook());
+	}
 };
