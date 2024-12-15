@@ -64,7 +64,7 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 			else // 이전까지 value를 저장한 경우
 			{
 				*c = '\0';
-				if (m_curKey == Key && m_curIndex++ == index) return S_OK;
+				if (m_curKey != nullptr && m_curKey == Key && m_curIndex++ == index) return S_OK;
 				else c = (char*)data;
 			}
 		}
