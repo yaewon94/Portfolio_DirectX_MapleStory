@@ -1,0 +1,5 @@
+Key:Skill_ChainLightening
+{
+	FlipbookPath:\\Skill\\ArchMage_IceLightening\\ChainLightening.flipbook
+	CasterFlipbookKey:Attack0
+}

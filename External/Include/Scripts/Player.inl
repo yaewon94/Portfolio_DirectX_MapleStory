@@ -5,7 +5,7 @@
 #include "Engine/Transform.h"
 #include "Engine/FlipbookPlayer.h"
 #include "Engine/TimeManager.h"
-#include "Skill.h"
+#include "AttackSkill.h"
 
 inline void Player::OnCollisionEnter(GameObject* other)
 {
@@ -29,10 +29,12 @@ inline void Player::OnCollisionExit(GameObject* other)
 
 inline void Player::OnKeyTap(KEY_CODE key)
 {
+	// 공격
 	if (key == KEY_LSHIFT)
 	{
-		m_skillMap.find(key);
+		m_skillMap.find(key)->second->Execute(this, m_skillComponent);
 	}
+	// 이동
 	else if (key == KEY_LEFT || key == KEY_RIGHT)
 	{
 		if (m_flipbookPlayer->GetCurrentFlipbookName() == "Idle") m_flipbookPlayer->ChangeFlipbook("Move");
@@ -56,10 +58,6 @@ inline void Player::OnKeyDown(KEY_CODE key)
 	case KEY_UP:
 		m_keyStates |= IS_KEYUP_PRESSED;
 		break;
-	default:
-#ifdef _DEBUG
-		assert(nullptr);
-#endif // _DEBUG
 	}
 }
 
