@@ -3,13 +3,13 @@
 
 FSM::FSM(GameObject* const owner) 
 	: Component(owner)
-	, m_curState(nullptr)
+	, m_curState(nullptr), m_curStateType(STATE_TYPE::DEFAULT)
 {
 }
 
 FSM::FSM(const FSM& origin, GameObject* const newOwner) 
 	: Component(origin, newOwner)
-	, m_curState(nullptr)
+	, m_curState(nullptr), m_curStateType(STATE_TYPE::DEFAULT)
 {
 	for (const auto& pair : origin.m_stateMap)
 	{
@@ -54,6 +54,7 @@ void FSM::ChangeState(STATE_TYPE type)
 #endif // _DEBUG
 	}
 	if (m_curState) m_curState->OnStateExit();
+	m_curStateType = type;
 	m_curState = iter->second;
 	m_curState->OnStateEnter();
 }

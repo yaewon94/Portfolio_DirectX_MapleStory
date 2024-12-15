@@ -8,6 +8,7 @@ class AliveObject : public Script
 
 protected:
 	class FlipbookPlayer* m_flipbookPlayer;
+	class FSM* m_fsm;
 
 protected:
 	AliveObject(GameObject* const owner);
@@ -16,4 +17,5 @@ protected:
 
 public:
 	FlipbookPlayer* const GetFlipbookPlayer() const { return m_flipbookPlayer; }
+	FSM* const GetFSM() const { return m_fsm; }
 };

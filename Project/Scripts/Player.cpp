@@ -1,12 +1,17 @@
 #include "pch.h"
 #include "Player.h"
-#include "SkillComponent.h"
+#include "Engine/KeyManager.h"
+#include "Engine/LevelManager.h"
 #include "Engine/SharedPtr.h"
 #include "Engine/AssetManager.h"
 #include "Engine/Texture.h"
+#include "PlayerDefaultState.h"
+#include "PlayerMoveState.h"
+#include "PlayerJumpState.h"
+#include "PlayerAttackState.h"
 #include "Engine/Collider.h"
-#include "Engine/KeyManager.h"
-#include "Engine/LevelManager.h"
+#include "Engine/FlipbookPlayer.h"
+#include "SkillComponent.h"
 
 Player::Player(GameObject* const owner) 
 	: AliveObject(owner)
@@ -29,7 +34,6 @@ Player::Player(GameObject* const owner)
 	// jump flipbook
 	flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerJump", "Player\\PlayerJump.flipbook");
 	m_flipbookPlayer->AddFlipbook("Jump", flipbook);
-	m_flipbookPlayer->ChangeFlipbook("Jump");
 	// attack flipbook
 	flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerAttack0", "Player\\PlayerAttack0.flipbook");
 	m_flipbookPlayer->AddFlipbook("Attack0", flipbook);
@@ -39,6 +43,12 @@ Player::Player(GameObject* const owner)
 	// collider
 	Collider* collider = GetOwner()->AddComponent<Collider>();
 	collider->SetScale(Vec2(0.2f, 0.3f));
+	// fsm
+	m_fsm = GetOwner()->AddComponent<FSM>();
+	m_fsm->AddState<PlayerDefaultState>(STATE_TYPE::DEFAULT);
+	m_fsm->AddState<PlayerMoveState>(STATE_TYPE::MOVE);
+	m_fsm->AddState<PlayerJumpState>(STATE_TYPE::JUMP);
+	m_fsm->AddState<PlayerAttackState>(STATE_TYPE::ATTACK);
 }
 
 Player::Player(const Player& origin, GameObject* const newOwner) 

@@ -11,6 +11,7 @@ class FSM final : public Component
 private:
 	unordered_map<STATE_TYPE, State*> m_stateMap;
 	State* m_curState;
+	STATE_TYPE m_curStateType;
 
 public:
 	FSM(GameObject* const owner);
@@ -21,6 +22,8 @@ private: // GameObject : Component* 를 통해 호출
 	virtual void FinalTick() final;
 
 public:
+	STATE_TYPE GetCurrentState() const { return m_curStateType; }
+
 	void ChangeState(STATE_TYPE type);
 
 	template<typename T> requires std::derived_from<T, State>
@@ -33,6 +36,7 @@ public:
 		}
 
 		m_stateMap.insert(make_pair(type, new T(this)));
+		if (m_stateMap.size() == 1) m_curState = m_stateMap.find(type)->second;
 	}
 
 private: // GameObject::복사생성자 에서 호출

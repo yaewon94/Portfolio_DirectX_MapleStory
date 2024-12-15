@@ -3,7 +3,7 @@
 
 enum class STATE_TYPE : byte
 {
-	DEFAULT
+	DEFAULT, MOVE, JUMP, ATTACK
 };
 
 // 게임오브젝트의 상태
@@ -22,12 +22,12 @@ protected:
 	virtual State* const Clone(FSM* const newOwner) = 0;
 
 protected:
-	virtual void OnStateEnter() = 0;
+	virtual void OnStateEnter() {}
 	virtual void OnStateTick() {}
 	virtual void OnStateExit() {}
 
 protected:
-	FSM* const GetOwner() const { return m_fsm; }
+	FSM* const GetFSM() const { return m_fsm; }
 
 private:
 	virtual Entity* Clone() final { return nullptr; } // delete

@@ -2,6 +2,9 @@ AliveObject
 AttackSkill
 Ground
 Player
+PlayerAttackState
 PlayerDefaultState
+PlayerJumpState
+PlayerMoveState
 Skill
 SkillComponent

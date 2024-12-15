@@ -9,10 +9,8 @@ public:
 	PlayerDefaultState(FSM* const fsm);
 	~PlayerDefaultState();
 
-protected:
-	virtual void OnStateEnter() final
-	{
-	}
+private: // FSM* 클래스에서 state* 로 호출
+	virtual void OnStateEnter() final;
 
 private: // FSM::복사생성자 에서 호출
 	PlayerDefaultState(const PlayerDefaultState& origin, FSM* const newOwner);
