@@ -5,6 +5,9 @@ class PlayerAttackState final : public State
 {
 	NO_COPY_MOVE(PlayerAttackState);
 
+private:
+	class FlipbookPlayer* m_flipbookPlayer;
+
 public:
 	PlayerAttackState(FSM* const fsm);
 	~PlayerAttackState();

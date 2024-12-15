@@ -20,5 +20,7 @@ PlayerDefaultState::~PlayerDefaultState()
 
 void PlayerDefaultState::OnStateEnter()
 {
-	GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>()->ChangeFlipbook("Idle");
+	FlipbookPlayer* flipbookPlayer = GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>();
+	flipbookPlayer->ChangeFlipbook("Idle");
+	flipbookPlayer->SetRepeat(true);
 }

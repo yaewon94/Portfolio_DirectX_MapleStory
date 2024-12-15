@@ -10,11 +10,12 @@ class FlipbookPlayer final : public MeshRender
 
 private:
 	unordered_map<string, SharedPtr<Flipbook>> m_flipbookMap;
-	tuple<string, SharedPtr<Flipbook>> m_curFlipbook;
+	SharedPtr<Flipbook> m_curFlipbook;
 	float m_term; // 다음 프레임으로 넘어가기까지 시간
 	float m_playAccTime; // 재생 누적시간 (프레임 전환될 때마다 초기화됨)
 	byte m_curFrameIndex; // 현재 재생중인 프레임 인덱스
 	bool m_isRepeat;
+	bool m_isFinish;
 
 public:
 	FlipbookPlayer(GameObject* const owner);
@@ -39,8 +40,9 @@ public:
 	bool IsRepeat() const { return m_isRepeat; }
 	void SetRepeat(bool flag) { m_isRepeat = flag; }
 
+	bool IsFinish() const { return m_isFinish; }
+
 public:
-	const string& GetCurrentFlipbookName() const { return std::get<0>(m_curFlipbook); }
 	void Clear() { m_flipbookMap.clear(); }
 
 	void AddFlipbook(const string& key, SharedPtr<Flipbook> flipbook)
@@ -59,7 +61,7 @@ public:
 			return;
 		}
 		m_flipbookMap.insert(make_pair(key, flipbook));
-		if(std::get<1>(m_curFlipbook) == nullptr) ChangeFlipbook(m_flipbookMap.begin()->first);
+		if(m_curFlipbook == nullptr) ChangeFlipbook(key);
 	}
 
 	void ChangeFlipbook(const string& key)
@@ -73,8 +75,9 @@ public:
 			return;
 #endif // _DEBUG
 		}
-		m_curFlipbook = std::tie(iter->first, iter->second);
+		m_curFlipbook = iter->second;
 		m_curFrameIndex = 0;
+		m_isFinish = false;
 	}
 
 private: // GameObject::복사생성자 에서 호출
