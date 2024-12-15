@@ -1,4 +1,4 @@
 #pragma once
 
-static float ToFloat(const string& str);
-static int ToInteger(const string& str);
+extern float ToFloat(const string& str);
+extern int ToInteger(const string& str);
