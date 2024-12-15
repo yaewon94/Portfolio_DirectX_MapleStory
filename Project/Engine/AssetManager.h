@@ -21,12 +21,13 @@ public:
 		if (type_iter == m_assetMap.end())
 		{
 			SharedPtr<T> asset = SharedPtr<T>(Key, relativePath);
-			if (FAILED(asset->Load())) return nullptr;
-			unordered_map<string, SharedPtr<Asset>> map;
+			SharedPtr<Asset> baseTypeAsset = asset.ptr_dynamic_cast<Asset>();
+			if (FAILED(baseTypeAsset->Load())) return nullptr;
 
+			unordered_map<string, SharedPtr<Asset>> map;
 			m_assetMap.insert(make_pair(T::Type, map));
 			type_iter = m_assetMap.find(T::Type);
-			type_iter->second.insert(make_pair(Key, asset.ptr_dynamic_cast<Asset>()));
+			type_iter->second.insert(make_pair(Key, baseTypeAsset));
 			return asset;
 		}
 		else
@@ -40,8 +41,9 @@ public:
 			else
 			{
 				SharedPtr<T> asset = SharedPtr<T>(Key, relativePath);
-				if (FAILED(asset->Load())) return nullptr;
-				type_iter->second.insert(make_pair(Key, asset.ptr_dynamic_cast<Asset>()));
+				SharedPtr<Asset> baseTypeAsset = asset.ptr_dynamic_cast<Asset>();
+				if (FAILED(baseTypeAsset->Load())) return nullptr;
+				type_iter->second.insert(make_pair(Key, baseTypeAsset));
 				return asset;
 			}
 		}

@@ -71,7 +71,8 @@ public:
 	}
 
 	// @ param : 참조할 객체
-	SharedPtr(T* const t) : t(t)
+	template<typename DERIVED> requires std::derived_from<DERIVED, T>
+	SharedPtr(DERIVED* const t) : t(t)
 	{
 		if (t != nullptr) t->AddRefCount();
 	}
@@ -155,11 +156,35 @@ public:
 		else return false;
 	}
 
+	bool operator==(const SharedPtr& other) const
+	{
+		if (t == other.t) return true;
+		else return false;
+	}
+
+	bool operator==(SharedPtr&& other) const
+	{
+		if (t == other.t) return true;
+		else return false;
+	}
+
 	// 비교 연산자 (!=)
 	bool operator!=(nullptr_t) const
 	{
 		if (this == nullptr || t == nullptr) return false;
 		else return true;
+	}
+
+	bool operator!=(const SharedPtr& other) const
+	{
+		if (t != other.t) return true;
+		else return false;
+	}
+
+	bool operator!=(SharedPtr&& other) const
+	{
+		if (t != other.t) return true;
+		else return false;
 	}
 
 	// 포인터 참조 연산자
