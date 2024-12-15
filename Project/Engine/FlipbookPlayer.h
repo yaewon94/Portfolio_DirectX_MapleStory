@@ -6,7 +6,7 @@
 class FlipbookPlayer final : public MeshRender
 {
 	NO_COPY_MOVE(FlipbookPlayer)
-		COMPONENT_TYPE_DCL(COMPONENT_TYPE::FLIPBOOKPLAYER)
+	COMPONENT_TYPE_DCL(COMPONENT_TYPE::FLIPBOOKPLAYER)
 
 private:
 	unordered_map<string, SharedPtr<Flipbook>> m_flipbookMap;
@@ -24,6 +24,10 @@ public:
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 	virtual void FinalTick() final;
+	virtual void SetActive(bool flag) final
+	{
+		if (flag) m_curFrameIndex = 0;
+	}
 
 private: // Camera : IRenderable* 을 통해 호출
 	virtual void Render() final;
@@ -37,6 +41,8 @@ public:
 
 public:
 	const string& GetCurrentFlipbookName() const { return std::get<0>(m_curFlipbook); }
+	void Clear() { m_flipbookMap.clear(); }
+
 	void AddFlipbook(const string& key, SharedPtr<Flipbook> flipbook)
 	{
 		if (flipbook == nullptr || flipbook->GetAtlasTexture() == nullptr)

@@ -6,7 +6,7 @@
 
 FlipbookPlayer::FlipbookPlayer(GameObject* const owner) 
 	: MeshRender(owner)
-	, m_term(1.f)
+	, m_term(1.f / 6.f)
 	, m_isRepeat(true)
 {
 	Init();
