@@ -32,7 +32,7 @@ inline void Player::OnKeyTap(KEY_CODE key)
 	// 공격
 	if (key == KEY_LSHIFT)
 	{
-		m_skillMap.find(key)->second->Execute(this, m_skillComponent);
+		m_skillMap.find(key)->second->Execute(this, m_skillObj);
 	}
 	// 이동
 	else if (key == KEY_LEFT || key == KEY_RIGHT)

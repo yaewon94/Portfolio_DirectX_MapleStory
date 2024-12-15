@@ -11,7 +11,7 @@
 #include "PlayerAttackState.h"
 #include "Engine/Collider.h"
 #include "Engine/FlipbookPlayer.h"
-#include "SkillComponent.h"
+#include "AttackSkillComponent.h"
 
 Player::Player(GameObject* const owner) 
 	: AliveObject(owner)
@@ -23,7 +23,6 @@ Player::Player(GameObject* const owner)
 	// 플레이어 기본 컴포넌트 추가
 	// FlipbookPlayer(Render Component)
 	m_flipbookPlayer = GetOwner()->AddComponent<FlipbookPlayer>();
-	m_flipbookPlayer->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
 	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
 	// idle flipbook
 	SharedPtr<Flipbook> flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerIdle", "Player\\PlayerIdle.flipbook");
@@ -88,6 +87,8 @@ void Player::Init()
 	KeyManager::GetInstance()->AddKey(KEY_LSHIFT, this);
 
 	// 스킬 오브젝트 추가 (자식 오브젝트로 생성 X)
-	m_skillComponent = LevelManager::GetInstance()->CreateObject("PlayerSkillObj")->AddComponent<SkillComponent>();
-	m_skillComponent->SetCaster(GetOwner());
+	m_skillObj = LevelManager::GetInstance()->CreateObject("PlayerSkillObj");
+	m_skillObj->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
+	m_skillObj->AddComponent<AttackSkillComponent>()->SetCaster(GetOwner());
+	m_skillObj->Init();
 }

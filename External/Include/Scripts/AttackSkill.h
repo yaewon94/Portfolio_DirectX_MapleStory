@@ -11,7 +11,7 @@ public:
 	~AttackSkill();
 
 public:
-	virtual void Execute(AliveObject* const caster, SkillComponent* const skillComponent) final;
+	virtual void Execute(AliveObject* const caster, GameObject* const skillObj) final;
 
 private: // AssetManager에서 Asset* 으로 호출
 	virtual int Load() final;

@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "AttackSkill.h"
 #include "AliveObject.h"
-#include "SkillComponent.h"
+#include "AttackSkillComponent.h"
 #include "Engine/GameObject.h"
 #include "Engine/FlipbookPlayer.h"
+#include "Engine/FSM.h"
 #include "Engine/FileManager.h"
 #include "Engine/AssetManager.h"
 
@@ -16,15 +17,14 @@ AttackSkill::~AttackSkill()
 {
 }
 
-void AttackSkill::Execute(AliveObject* const caster, SkillComponent* const skillComponent)
+void AttackSkill::Execute(AliveObject* const caster, GameObject* const skillObj)
 {
-#ifdef _DEBUG
-	if (caster == nullptr || skillComponent == nullptr) assert(nullptr);
-#endif // _DEBUG
-
 	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey);
-	skillComponent->SetSkill(SharedPtr<Skill>(this));
-	skillComponent->GetOwner()->SetActive(true);
+	caster->GetFlipbookPlayer()->SetRepeat(false);
+	caster->GetFSM()->ChangeState(STATE_TYPE::ATTACK);
+
+	skillObj->GetComponent<AttackSkillComponent>()->SetSkill(SharedPtr<AttackSkill>(this));
+	skillObj->SetActive(true);
 }
 
 int AttackSkill::Load()
