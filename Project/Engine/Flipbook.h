@@ -40,7 +40,7 @@ public:
 
 	SharedPtr<Texture> GetAtlasTexture() const { return m_atlas; }
 	// 자동으로 uv 값들 설정해줌
-	void SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount, class GameObject* const obj);
+	void SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount);
 
 	Vec2 GetLeftTopUV(size_t index) const { return m_leftTopUV.at(index); }
 	void SetLeftTopUV(size_t index, Vec2 leftTopUV)

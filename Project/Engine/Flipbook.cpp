@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Flipbook.h"
 #include "Device.h"
-#include "GameObject.h"
 #include "Transform.h"
 #include "FileManager.h"
 #include "AssetManager.h"
@@ -121,7 +120,7 @@ void Flipbook::Clear(size_t frameIndex)
 	m_atlas->Clear_GS();
 }
 
-void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount, class GameObject* const obj)
+void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount)
 {
 	if (atlasTex == nullptr) return;
 	m_atlas = atlasTex;
@@ -137,8 +136,17 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 	// sliceUV, backgroundUV 값이 모두 같게 설정되는데도 개별 vector로 선언한 이유는
 	// 에디터모드에서 sliceUV를 프레임 인덱스 마다 조절할 수 있게 하기 위해서
 	const Vec2 SliceUV = Vec2(1.f / (float)sliceColCount, 1.f / (float)sliceRowCount);
-	const Vec2 bgrUV = Vec2(obj->GetTransform()->GetLocalScale().x / (float)m_atlas->GetWidth()
-							, obj->GetTransform()->GetLocalScale().y / (float)m_atlas->GetHeight());
+	Vec2 bgrUV;
+	if (SliceUV.x >= SliceUV.y)
+	{
+		bgrUV.x = SliceUV.x;
+		bgrUV.y = SliceUV.x * SliceUV.x / SliceUV.y;
+	}
+	else
+	{
+		bgrUV.y = SliceUV.y;
+		bgrUV.x = SliceUV.y * SliceUV.y / SliceUV.x;
+	}
 
 	for (UINT row = 0; row < sliceRowCount; ++row)
 	{
