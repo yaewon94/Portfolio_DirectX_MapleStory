@@ -29,4 +29,6 @@ protected:
 public:
 	float GetMoveSpeed() const { return m_moveSpeed; }
 	void SetMoveSpeed(float speed) { m_moveSpeed = speed; }
+
+	MOVE_DIRECTION GetMoveDirection() const { return m_moveDir; }
 };

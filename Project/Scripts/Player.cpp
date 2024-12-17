@@ -15,7 +15,6 @@
 
 Player::Player(GameObject* const owner) 
 	: AliveObject(owner)
-	, m_moveSpeed(300.f)
 	, m_jumpPower(600.f)
 {
 	Init();
@@ -52,7 +51,6 @@ Player::Player(GameObject* const owner)
 
 Player::Player(const Player& origin, GameObject* const newOwner) 
 	: AliveObject(origin, newOwner)
-	, m_moveSpeed(origin.m_moveSpeed)
 	, m_jumpPower(origin.m_jumpPower)
 {
 	Init();
@@ -89,6 +87,6 @@ void Player::Init()
 	// 스킬 오브젝트 추가 (자식 오브젝트로 생성 X)
 	m_skillObj = LevelManager::GetInstance()->CreateObject("PlayerSkillObj");
 	m_skillObj->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
-	m_skillObj->AddComponent<AttackSkillComponent>()->SetCaster(GetOwner());
+	m_skillObj->AddComponent<AttackSkillComponent>()->SetCaster(this);
 	m_skillObj->Init();
 }

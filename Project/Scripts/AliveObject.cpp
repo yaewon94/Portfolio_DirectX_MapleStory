@@ -12,6 +12,7 @@ AliveObject::AliveObject(GameObject* const owner)
 
 AliveObject::AliveObject(const AliveObject& origin, GameObject* const newOwner) 
 	: Script(origin, newOwner)
+	, IMovable(origin.m_moveSpeed)
 {
 	m_flipbookPlayer = GetOwner()->GetComponent<FlipbookPlayer>();
 	m_fsm = GetOwner()->GetComponent<FSM>();

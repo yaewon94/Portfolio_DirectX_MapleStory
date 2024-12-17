@@ -8,12 +8,6 @@ class Player final : public AliveObject, public IKeyEvent
 	NO_COPY_MOVE(Player)
 
 private:
-	// 이동 방향
-	enum MOVE_DIRECTION : int
-	{
-		LEFT = -1, RIGHT = 1
-	};
-
 	// 점프 관련 상태값
 	enum JUMP_STATE : byte
 	{
@@ -32,9 +26,6 @@ private:
 	typedef byte PLAYER_KEY_STATES;
 
 private:
-	float m_moveSpeed; // 왼쪽으로 방향 전환 시 -값으로 바뀜
-	MOVE_DIRECTION m_moveDir;
-
 	class Rigidbody* m_rigidbody;
 	float m_jumpPower;
 	JUMP_STATES m_jumpStates;
@@ -60,17 +51,10 @@ private: // KeyManager : IKeyEvent* 를 통해 호출
 	virtual void OnKeyReleased(KEY_CODE key) final;
 	
 private:
-	void Move(MOVE_DIRECTION dir);
+	virtual void Move(MOVE_DIRECTION dir) final;
 	void Jump();
 
 public:
-	float GetMoveSpeed() const
-	{ 
-		if (m_moveSpeed < 0.f) return m_moveSpeed * -1.f;
-		else return m_moveSpeed;
-	}
-	void SetMoveSpeed(float speed) { m_moveSpeed = speed; }
-
 	float GetJumpPower() const { return m_jumpPower; }
 	void SetJumpPower(float jumpPower)
 	{
