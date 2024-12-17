@@ -39,6 +39,18 @@ int AttackSkill::Load()
 	if (FAILED(FileManager::GetInstance()->ReadJsonValue("CasterFlipbookKey", buff))) return E_FAIL;
 	m_casterFlipbookKey = buff;
 
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("MaxDistance", buff))) return E_FAIL;
+	m_maxDistance = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Velocity_X", buff))) return E_FAIL;
+	m_velocity.x = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Velocity_Y", buff))) return E_FAIL;
+	m_velocity.y = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Velocity_Z", buff))) return E_FAIL;
+	m_velocity.z = ToFloat(buff);
+
 	FileManager::GetInstance()->Close();
 
 	return S_OK;

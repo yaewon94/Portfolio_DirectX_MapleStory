@@ -1,5 +1,9 @@
-Key:Skill_ChainLightening
+ChainLightening
 {
 	FlipbookPath:\\Skill\\ArchMage_IceLightening\\ChainLightening.flipbook
 	CasterFlipbookKey:Attack0
+	MaxDistance:500
+	Velocity_X:500
+	Velocity_Y:0
+	Velocity_Z:0
 }
