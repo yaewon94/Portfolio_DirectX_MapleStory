@@ -67,7 +67,7 @@ void Camera::Render()
 		{
 			for (auto obj : pair.second)
 			{
-				obj->GetRenderComponent()->Render();
+				if(obj->IsActive()) obj->GetRenderComponent()->Render();
 			}
 		}
 	}
@@ -78,7 +78,7 @@ void Camera::Render()
 		for (auto obj : pair.second)
 		{
 			// TODO : RenderTarget 복사한 곳에 렌더링하도록 구현
-			obj->GetRenderComponent()->Render();
+			if(obj->IsActive()) obj->GetRenderComponent()->Render();
 		}
 	}
 }
