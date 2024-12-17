@@ -3,7 +3,10 @@
 // TODO : 커스텀 태그 추가하면 반영되게 구현
 enum OBJECT_TAG : byte
 {
-	TAG_DEFAULT, TAG_PLAYER, TAG_GROUND,
+	TAG_DEFAULT, 
+	TAG_PLAYER, TAG_PLAYER_SKILL, 
+	TAG_MONSTER, 
+	TAG_GROUND,
 	TAG_END
 };
 
