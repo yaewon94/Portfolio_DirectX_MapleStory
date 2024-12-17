@@ -4,15 +4,19 @@
 #include "GraphicShader.h"
 
 // 상수버퍼 연동 구조체
+// 32비트 단위로 경계가 끊어져야 오류가 안나는듯??
 struct CB_Material
 {
-	int iArr[1];
+	// 32
+	int iArr[2];
 	float fArr[2];
-	Vec2 v2Arr[1];
-	Vec4 v4Arr[1];
+	Vec2 v2Arr[2];
+	// 32
+	Vec4 v4Arr[2];
+	// 64
 	Matrix matrixArr[1];
 	int bTex[TEXTURE_PARAM::TEXTURE_PARAM_COUNT_END];
-	byte padding[8]; // TODO : 16바이트 배수로 크기 맞춰야 오류 안남
+	byte padding[12]; // TODO : 16바이트 배수로 크기 맞춰야 오류 안남
 };
 
 // 재질 에셋
