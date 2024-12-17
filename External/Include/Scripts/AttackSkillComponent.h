@@ -1,9 +1,8 @@
 #pragma once
 #include "SkillComponent.h"
-#include "IMovable.h"
 
 // 스킬 컴포넌트
-class AttackSkillComponent final : public SkillComponent, public IMovable
+class AttackSkillComponent final : public SkillComponent
 {
 	NO_COPY_MOVE(AttackSkillComponent)
 

@@ -72,9 +72,19 @@ int AssetManager::Init()
 			shader = AddAsset<GraphicShader>("Std2D_Shader", "Std2D.fx");
 			shader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 			shader->SetBlendType(BLEND_TYPE::DEFAULT);
-			shader->SetShaderDomain(SHADER_DOMAIN::DOMAIN_MASK);
+			shader->SetShaderDomain(SHADER_DOMAIN::DOMAIN_OPAQUE);
 			if (FAILED(shader->CreateVertexShader("VS_Std2D"))) return E_FAIL;
 			if (FAILED(shader->CreatePixelShader("PS_Std2D"))) return E_FAIL;
+		}
+
+		// 기본 2D 알파블렌딩 셰이더
+		{
+			shader = AddAsset<GraphicShader>("Std2D_AlphaBlend_Shader", "Std2D.fx");
+			shader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+			shader->SetBlendType(BLEND_TYPE::ALPHABLEND);
+			shader->SetShaderDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+			if (FAILED(shader->CreateVertexShader("VS_Std2D"))) return E_FAIL;
+			if (FAILED(shader->CreatePixelShader("PS_Std2D_AlphaBlend"))) return E_FAIL;
 		}
 
 #ifdef _DEBUG
@@ -103,6 +113,17 @@ int AssetManager::Init()
 			if ((shader = FindAsset<GraphicShader>("Std2D_Shader")) == nullptr)
 			{
 				MessageBoxA(nullptr, "Std2D_Shader is not exist", "Create Std2D_Material is failed", MB_OK);
+				return E_FAIL;
+			}
+			mtrl->SetShader(shader);
+		}
+
+		// 기본 2D 알파블렌딩
+		{
+			mtrl = AddAsset<Material>("Std2D_AlphaBlend_Material", "");
+			if ((shader = FindAsset<GraphicShader>("Std2D_AlphaBlend_Shader")) == nullptr)
+			{
+				MessageBoxA(nullptr, "Std2D_AlphaBlend_Shader is not exist", "Create Std2D_AlphaBlend_Material is failed", MB_OK);
 				return E_FAIL;
 			}
 			mtrl->SetShader(shader);

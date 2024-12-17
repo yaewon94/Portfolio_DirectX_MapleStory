@@ -21,3 +21,8 @@ AliveObject::AliveObject(const AliveObject& origin, GameObject* const newOwner)
 AliveObject::~AliveObject()
 {
 }
+
+void AliveObject::Init()
+{
+	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = (float)m_moveDir;
+}

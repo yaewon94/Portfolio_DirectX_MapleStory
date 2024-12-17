@@ -36,5 +36,7 @@ void AttackSkillComponent::SetActive(bool flag)
 		m_moveDir = GetCaster()->GetMoveDirection();
 		m_startPos = GetCaster()->GetOwner()->GetTransform()->GetLocalPos() + Vec3(100.f * m_moveDir, 0.f, 0.f);
 		GetOwner()->GetTransform()->SetLocalPos(m_startPos);
+
+		GetFlipbookPlayer()->GetMaterial()->GetConstBuffer().fArr[0] = (float)m_moveDir;
 	}
 }

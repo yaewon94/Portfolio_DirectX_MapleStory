@@ -16,7 +16,7 @@ cbuffer Transform : register(b0) // 레지스터 번호
 cbuffer Material : register(b1)
 {
     int g_int_0;
-    float g_float_0;
+    float g_float_0, g_float_1;
     float2 g_vec2_0;
     float4 g_vec4_0;
     row_major Matrix g_matrix_0;

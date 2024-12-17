@@ -27,7 +27,11 @@ protected:
 	inline virtual void Move(MOVE_DIRECTION dir) = 0;
 
 public:
-	float GetMoveSpeed() const { return m_moveSpeed; }
+	float GetMoveSpeed() const
+	{
+		if (m_moveSpeed < 0.f) return m_moveSpeed * -1.f;
+		return m_moveSpeed;
+	}
 	void SetMoveSpeed(float speed) { m_moveSpeed = speed; }
 
 	MOVE_DIRECTION GetMoveDirection() const { return m_moveDir; }

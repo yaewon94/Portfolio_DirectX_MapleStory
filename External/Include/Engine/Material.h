@@ -7,7 +7,7 @@
 struct CB_Material
 {
 	int iArr[1];
-	float fArr[1];
+	float fArr[2];
 	Vec2 v2Arr[1];
 	Vec4 v4Arr[1];
 	Matrix matrixArr[1];

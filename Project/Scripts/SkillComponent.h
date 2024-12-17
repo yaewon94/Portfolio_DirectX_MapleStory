@@ -1,11 +1,12 @@
 #pragma once
 #include "Engine/Script.h"
+#include "IMovable.h"
 
 class Skill;
 class AliveObject;
 
 // 스킬 컴포넌트 최상위 클래스
-class SkillComponent : public Script
+class SkillComponent : public Script, public IMovable
 {
 	NO_COPY_MOVE(SkillComponent)
 

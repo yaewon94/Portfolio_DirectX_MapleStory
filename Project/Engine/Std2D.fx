@@ -3,6 +3,7 @@
 #include "Global.fx"
 
 #define DIRECTION g_float_0
+#define ALPHA g_float_1
 
 // Vertex Shader
 struct VS_IN
@@ -43,7 +44,7 @@ VS_OUT VS_Std2D(VS_IN input)
 }
 
 // Pixel Shader
-float4 PS_Std2D(VS_OUT vs) : SV_Target
+inline float4 PS_Std2D(VS_OUT vs) : SV_Target
 {
     float4 color = (float4) 0.f;
     
@@ -56,6 +57,13 @@ float4 PS_Std2D(VS_OUT vs) : SV_Target
     else
         color = GetDebugColor(vs.uv, 2);
    
+    return color;
+}
+
+float4 PS_Std2D_AlphaBlend(VS_OUT vs) : SV_Target
+{
+    float4 color = PS_Std2D(vs);
+    color.a = ALPHA;
     return color;
 }
 

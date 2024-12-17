@@ -16,6 +16,9 @@ protected:
 	AliveObject(const AliveObject& origin, GameObject* const newOwner);
 	~AliveObject();
 
+protected: // GameObject : Component* 를 통해 호출
+	virtual void Init() override;
+
 public:
 	FlipbookPlayer* const GetFlipbookPlayer() const { return m_flipbookPlayer; }
 	FSM* const GetFSM() const { return m_fsm; }

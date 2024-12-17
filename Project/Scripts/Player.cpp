@@ -17,12 +17,9 @@ Player::Player(GameObject* const owner)
 	: AliveObject(owner)
 	, m_jumpPower(600.f)
 {
-	Init();
-
 	// 플레이어 기본 컴포넌트 추가
 	// FlipbookPlayer(Render Component)
 	m_flipbookPlayer = GetOwner()->AddComponent<FlipbookPlayer>();
-	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = 1.f;
 	// idle flipbook
 	SharedPtr<Flipbook> flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerIdle", "Player\\PlayerIdle.flipbook");
 	m_flipbookPlayer->AddFlipbook("Idle", flipbook);
@@ -47,19 +44,21 @@ Player::Player(GameObject* const owner)
 	m_fsm->AddState<PlayerMoveState>(STATE_TYPE::MOVE);
 	m_fsm->AddState<PlayerJumpState>(STATE_TYPE::JUMP);
 	m_fsm->AddState<PlayerAttackState>(STATE_TYPE::ATTACK);
+
+	Init();
 }
 
 Player::Player(const Player& origin, GameObject* const newOwner) 
 	: AliveObject(origin, newOwner)
 	, m_jumpPower(origin.m_jumpPower)
 {
-	Init();
-
 	// 같은 스킬에셋 공유
 	for (const auto& pair : origin.m_skillMap)
 	{
 		m_skillMap.insert(make_pair(pair.first, pair.second));
 	}
+
+	Init();
 }
 
 Player::~Player()
@@ -68,6 +67,8 @@ Player::~Player()
 
 void Player::Init()
 {
+	AliveObject::Init();
+
 	// 플레이어가 사용할 에셋 로드, 관련 필드 초기화
 	m_skillMap.insert(make_pair(KEY_LSHIFT, AssetManager::GetInstance()->FindOrAddAsset<AttackSkill>("Skill_ChainLightening", "Skill\\ArchMage_IceLightening\\skills.skill").ptr_dynamic_cast<Skill>()));
 

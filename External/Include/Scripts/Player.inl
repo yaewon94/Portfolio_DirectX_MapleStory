@@ -80,10 +80,14 @@ inline void Player::OnKeyReleased(KEY_CODE key)
 // TODO : MOVE_DIRECTION float타입 할당되게 바꾸기 (enum으로는 안됨)
 inline void Player::Move(MOVE_DIRECTION dir)
 {
-	m_moveDir = dir;
-	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = m_moveDir;
+	if (m_moveDir != dir)
+	{
+		m_moveDir = dir;
+		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = m_moveDir;
+		m_moveSpeed *= -1.f;
+	}
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;
-	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT * m_moveDir);
+	GetOwner()->GetTransform()->SetLocalPosX(posX + m_moveSpeed * DT);
 }
 
 inline void Player::Jump()
