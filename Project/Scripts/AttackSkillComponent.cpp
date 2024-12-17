@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "AttackSkillComponent.h"
 #include "AliveObject.h"
-#include "Skill.h"
-#include "Engine/GameObject.h"
-#include "Engine/Transform.h"
+#include "AttackSkill.h"
 #include "Engine/FlipbookPlayer.h"
 
 AttackSkillComponent::AttackSkillComponent(GameObject* const owner) 
@@ -24,6 +22,7 @@ AttackSkillComponent::~AttackSkillComponent()
 
 void AttackSkillComponent::FinalTick()
 {
+	Move(m_moveDir);
 }
 
 void AttackSkillComponent::SetActive(bool flag)
@@ -34,6 +33,8 @@ void AttackSkillComponent::SetActive(bool flag)
 		if (GetCaster() == nullptr) assert(nullptr);
 #endif // _DEBUG
 
-		GetOwner()->GetTransform()->SetLocalPos(GetCaster()->GetTransform()->GetLocalPos());
+		m_moveDir = GetCaster()->GetMoveDirection();
+		m_startPos = GetCaster()->GetOwner()->GetTransform()->GetLocalPos() + Vec3(100.f * m_moveDir, 0.f, 0.f);
+		GetOwner()->GetTransform()->SetLocalPos(m_startPos);
 	}
 }

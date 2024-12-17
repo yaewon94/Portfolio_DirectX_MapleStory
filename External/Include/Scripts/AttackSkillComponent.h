@@ -1,13 +1,15 @@
 #pragma once
 #include "SkillComponent.h"
+#include "IMovable.h"
 
 // 스킬 컴포넌트
-class AttackSkillComponent final : public SkillComponent
+class AttackSkillComponent final : public SkillComponent, public IMovable
 {
 	NO_COPY_MOVE(AttackSkillComponent)
 
 private:
 	SharedPtr<AttackSkill> m_skill;
+	Vec3 m_startPos;
 
 public:
 	AttackSkillComponent(GameObject* const owner);
@@ -18,12 +20,41 @@ private: // GameObject : Component* 를 통해 호출
 	virtual void FinalTick() final;
 	virtual void SetActive(bool flag) final;
 
+private:
+	virtual void Move(MOVE_DIRECTION dir) final;
+
 public:
 	void SetSkill(SharedPtr<AttackSkill> skill)
 	{
-		if (m_skill != skill) SkillComponent::SetSkill(skill.ptr_dynamic_cast<Skill>());
+		if (m_skill != skill)
+		{
+			m_skill = skill;
+			SkillComponent::SetSkill(skill.ptr_dynamic_cast<Skill>());
+		}
 	}
 
 private: // GameObject::복사생성자 에서 호출
 	virtual AttackSkillComponent* Clone(GameObject* const newOwner) final { return new AttackSkillComponent(*this, newOwner); }
 };
+
+///////////////////////////////////////////////////
+// AttackSkillComponent.inl
+///////////////////////////////////////////////////
+#include "Engine/TimeManager.h"
+#include "Engine/GameObject.h"
+#include "Engine/Transform.h"
+inline void AttackSkillComponent::Move(MOVE_DIRECTION dir)
+{
+	Transform* tr = GetOwner()->GetTransform();
+	Vec3 curPos = tr->GetLocalPos();
+
+	// 최대 이동범위를 벗어나면 자동 비활성화
+	if (Vec3::Distance(curPos, m_startPos) >= m_skill->GetMaxDistance())
+	{
+		GetOwner()->SetActive(false);
+		return;
+	}
+
+	curPos += DT * m_skill->GetVelocity() * dir;
+	tr->SetLocalPos(curPos);
+}
