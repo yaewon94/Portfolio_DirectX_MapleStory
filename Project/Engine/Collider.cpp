@@ -86,7 +86,7 @@ void Collider::Render()
 	cb->Binding_GS();
 
 	// material 바인딩
-	m_material->GetConstBuffer().v4Arr[0] = m_dbgColor;
+	m_material->GetConstBuffer().color = m_dbgColor;
 	m_material->Binding();
 
 	// 렌더링

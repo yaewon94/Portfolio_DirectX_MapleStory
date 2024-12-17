@@ -87,6 +87,7 @@ void Player::Init()
 
 	// 스킬 오브젝트 추가 (자식 오브젝트로 생성 X)
 	m_skillObj = LevelManager::GetInstance()->CreateObject("PlayerSkillObj");
+	m_skillObj->SetTag(OBJECT_TAG::TAG_PLAYER_SKILL);
 	m_skillObj->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 1.f));
 	m_skillObj->AddComponent<AttackSkillComponent>()->SetCaster(this);
 	m_skillObj->Init();

@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "RenderManager.h"
 #include "Transform.h"
+#include "RenderComponent.h"
 #include "Material.h"
 #include "Flipbook.h"
 
@@ -310,7 +311,11 @@ int Device::Init()
 
     // 상수 버퍼 생성
     {
-        size_t index = (size_t)CONST_BUFFER_TYPE::TRANSFORM;
+        size_t index = (size_t)CONST_BUFFER_TYPE::INSTANCE;
+        m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::INSTANCE);
+        if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Instance)))) return E_FAIL;
+
+        index = (size_t)CONST_BUFFER_TYPE::TRANSFORM;
         m_constBuffers[index] = new ConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
         if (FAILED(m_constBuffers[index]->Create(sizeof(CB_Transform)))) return E_FAIL;
 

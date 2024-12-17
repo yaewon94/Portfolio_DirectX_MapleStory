@@ -83,7 +83,7 @@ inline void Player::Move(MOVE_DIRECTION dir)
 	if (m_moveDir != dir)
 	{
 		m_moveDir = dir;
-		GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = m_moveDir;
+		GetOwner()->GetRenderComponent()->GetConstBuffer().direction = (float)m_moveDir;
 		m_moveSpeed *= -1.f;
 	}
 	float posX = GetOwner()->GetTransform()->GetLocalPos().x;

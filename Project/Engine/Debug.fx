@@ -3,8 +3,6 @@
 #define _DEBUG
 #include "Global.fx"
 
-#define COLOR g_vec4_0
-
 // Vertex Shader
 struct VS_IN
 {
@@ -31,6 +29,6 @@ VS_OUT VS_Debug(VS_IN input)
 // Pixel Shader
 float4 PS_Debug(VS_OUT vs) : SV_Target
 {
-    return COLOR;
+    return g_mtrl_color;
 }
 #endif

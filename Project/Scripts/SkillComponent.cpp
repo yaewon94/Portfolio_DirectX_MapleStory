@@ -29,7 +29,7 @@ void SkillComponent::Init()
 	// 컴포넌트 추가
 	m_flipbookPlayer = GetOwner()->AddComponent<FlipbookPlayer>();
 	m_flipbookPlayer->SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_AlphaBlend_Material"));
-	m_flipbookPlayer->GetMaterial()->GetConstBuffer().fArr[0] = (float)m_moveDir;
-	m_flipbookPlayer->GetMaterial()->GetConstBuffer().fArr[1] = 1.f; // TODO : 알파값 조절 가능하게
+	GetOwner()->GetRenderComponent()->GetConstBuffer().direction = (float)m_moveDir;
+	m_flipbookPlayer->GetMaterial()->GetConstBuffer().alpha = 1.f; // TODO : 알파값 조절 가능하게
 	m_flipbookPlayer->SetFPS(20);
 }

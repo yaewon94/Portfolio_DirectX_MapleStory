@@ -3,8 +3,14 @@
 // =============================================
 // 상수 버퍼
 // =============================================
+// 개별 인스턴스
+cbuffer Instance : register(b0)
+{
+    float g_inst_dir;
+}
+
 // 오브젝트 좌표, 크기, 각도
-cbuffer Transform : register(b0) // 레지스터 번호
+cbuffer Transform : register(b1) // 레지스터 번호
 {
     // * row major : 행 우선 행렬
     row_major matrix g_matWorld, g_matView, g_matProj;
@@ -13,18 +19,15 @@ cbuffer Transform : register(b0) // 레지스터 번호
 };
 
 // 재질
-cbuffer Material : register(b1)
+cbuffer Material : register(b2)
 {
-    int g_int_0, g_int_1;
-    float g_float_0, g_float_1;
-    float2 g_vec2_0, g_vec2_1;
-    float4 g_vec4_0, g_vec4_1;
-    row_major Matrix g_matrix_0;
+    float g_mtrl_alpha;
+    float4 g_mtrl_color;
     int g_bTex_0;
 }
 
 // 애니메이션
-cbuffer Flipbook : register(b2)
+cbuffer Flipbook : register(b3)
 {
     float2 g_leftTopUV;
     float2 g_sliceSizeUV;

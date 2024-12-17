@@ -24,5 +24,5 @@ AliveObject::~AliveObject()
 
 void AliveObject::Init()
 {
-	GetOwner()->GetRenderComponent()->GetMaterial()->GetConstBuffer().fArr[0] = (float)m_moveDir;
+	GetOwner()->GetRenderComponent()->GetConstBuffer().direction = (float)m_moveDir;
 }

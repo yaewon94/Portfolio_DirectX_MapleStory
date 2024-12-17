@@ -26,5 +26,6 @@ void MeshRender::Render()
 
 	GetOwner()->GetTransform()->Binding();
 	GetMaterial()->Binding();
+	Binding();
 	m_mesh->Render();
 }
