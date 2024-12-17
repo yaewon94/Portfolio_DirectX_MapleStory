@@ -2,6 +2,7 @@ AliveObject
 AttackSkill
 AttackSkillComponent
 Ground
+IMovable
 Player
 PlayerAttackState
 PlayerDefaultState
