@@ -22,9 +22,9 @@ void CollisionManager::Tick()
 	// 다른 타입의 Tag에 속한 오브젝트의 콜라이더끼리 충돌 체크
 	for (const auto& pair : m_checkTagMap)
 	{
-		for (OBJECT_TAG tag = TAG_DEFAULT; tag < OBJECT_TAG::TAG_END; ++tag)
+		for (OBJECT_TAG tag = TAG_DEFAULT; tag != 0; tag <<= 1)
 		{
-			if (pair.second & (1 << tag))
+			if (pair.second & tag)
 			{
 				CheckCollision(pair.first, tag);
 			}
@@ -59,7 +59,7 @@ void CollisionManager::InitCollisionCheckTag(OBJECT_TAG a, OBJECT_TAG b)
 #ifdef _DEBUG
 	if (a == b) assert(nullptr);
 #endif // _DEBUG
-	if (b > a)
+	if (a > b)
 	{
 		OBJECT_TAG temp = a;
 		a = b;
@@ -67,8 +67,8 @@ void CollisionManager::InitCollisionCheckTag(OBJECT_TAG a, OBJECT_TAG b)
 	}
 
 	auto iter = m_checkTagMap.find(a);
-	if (iter != m_checkTagMap.end()) iter->second |= (1 << b);
-	else m_checkTagMap.insert(make_pair(a, 1 << b));
+	if (iter != m_checkTagMap.end()) iter->second |= b;
+	else m_checkTagMap.insert(make_pair(a, b));
 }
 
 void CollisionManager::CheckCollision(OBJECT_TAG tagA, OBJECT_TAG tagB)
