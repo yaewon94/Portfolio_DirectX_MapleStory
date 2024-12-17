@@ -135,18 +135,20 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 	// uv 계산
 	// sliceUV, backgroundUV 값이 모두 같게 설정되는데도 개별 vector로 선언한 이유는
 	// 에디터모드에서 sliceUV를 프레임 인덱스 마다 조절할 수 있게 하기 위해서
+	const Vec2 SliceSize = Vec2(atlasTex->GetWidth() / (float)sliceColCount, atlasTex->GetHeight() / (float)sliceRowCount);
 	const Vec2 SliceUV = Vec2(1.f / (float)sliceColCount, 1.f / (float)sliceRowCount);
 	Vec2 bgrUV;
-	if (SliceUV.x >= SliceUV.y)
+	if (SliceSize.x >= SliceSize.y)
 	{
 		bgrUV.x = SliceUV.x;
-		bgrUV.y = SliceUV.x * SliceUV.x / SliceUV.y;
+		bgrUV.y = SliceUV.y * (SliceSize.x / SliceSize.y);
 	}
 	else
 	{
 		bgrUV.y = SliceUV.y;
-		bgrUV.x = SliceUV.y * SliceUV.y / SliceUV.x;
+		bgrUV.x = SliceUV.x * (SliceSize.y / SliceSize.x);
 	}
+	assert(nullptr);
 
 	for (UINT row = 0; row < sliceRowCount; ++row)
 	{
