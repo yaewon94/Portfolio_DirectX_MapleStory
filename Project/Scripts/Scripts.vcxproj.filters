@@ -7,11 +7,29 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{1085005e-a717-4ea5-b60c-10ecf0c92d68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Player">
-      <UniqueIdentifier>{ebe831bb-5c70-44b2-a2ea-31cf3a178913}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Ground">
       <UniqueIdentifier>{7b98198e-bd91-4a83-bc43-45a179580efc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AliveObject">
+      <UniqueIdentifier>{46d4170e-0ff0-4dc0-aaa6-dc2fd51ca0e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AliveObject\Player">
+      <UniqueIdentifier>{ebe831bb-5c70-44b2-a2ea-31cf3a178913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Skill">
+      <UniqueIdentifier>{94a983a4-f805-4478-ad5f-32cd7f51cbdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{654fd6d8-ae40-4ed1-b97e-b04797bd0d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Skill">
+      <UniqueIdentifier>{b616633f-249d-4652-b593-52a6fff6fbcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AliveObject\Monster">
+      <UniqueIdentifier>{b9f45e04-c8e1-4fa2-9342-1e19f6a5d9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Interface">
+      <UniqueIdentifier>{4ca721a0-ffea-4027-9344-f5ce5f821103}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,13 +41,49 @@
     </ClInclude>
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="Player.h">
-      <Filter>Scripts\Player</Filter>
+      <Filter>Scripts\AliveObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Scripts\Ground</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDefaultState.h">
-      <Filter>Scripts\Player</Filter>
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AliveObject.h">
+      <Filter>Scripts\AliveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackSkillComponent.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillComponent.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackSkill.h">
+      <Filter>Assets\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Assets\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveState.h">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDefaultState.h">
+      <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="IMovable.h">
+      <Filter>Scripts\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDeadState.h">
+      <Filter>Scripts\AliveObject\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,18 +95,51 @@
     </ClCompile>
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="Player.cpp">
-      <Filter>Scripts\Player</Filter>
+      <Filter>Scripts\AliveObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Scripts\Ground</Filter>
     </ClCompile>
     <ClCompile Include="PlayerDefaultState.cpp">
-      <Filter>Scripts\Player</Filter>
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AliveObject.cpp">
+      <Filter>Scripts\AliveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackSkillComponent.cpp">
+      <Filter>Scripts\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillComponent.cpp">
+      <Filter>Scripts\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackSkill.cpp">
+      <Filter>Assets\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Assets\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveState.cpp">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDefaultState.cpp">
+      <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDeadState.cpp">
+      <Filter>Scripts\AliveObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Player.inl">
-      <Filter>Scripts\Player</Filter>
+      <Filter>Scripts\AliveObject\Player</Filter>
     </None>
   </ItemGroup>
 </Project>

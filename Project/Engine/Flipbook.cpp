@@ -148,7 +148,6 @@ void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, 
 		bgrUV.y = SliceUV.y;
 		bgrUV.x = SliceUV.x * (SliceSize.y / SliceSize.x);
 	}
-	assert(nullptr);
 
 	for (UINT row = 0; row < sliceRowCount; ++row)
 	{

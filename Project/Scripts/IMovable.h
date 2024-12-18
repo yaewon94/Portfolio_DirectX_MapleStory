@@ -5,7 +5,7 @@ class IMovable
 {
 	NO_COPY_MOVE(IMovable)
 
-protected:
+public:
 	// 이동 방향
 	enum MOVE_DIRECTION : int
 	{
@@ -35,4 +35,5 @@ public:
 	void SetMoveSpeed(float speed) { m_moveSpeed = speed; }
 
 	MOVE_DIRECTION GetMoveDirection() const { return m_moveDir; }
+	void SetMoveDirection(MOVE_DIRECTION dir) { m_moveDir = dir; }
 };

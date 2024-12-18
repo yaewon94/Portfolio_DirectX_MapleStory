@@ -168,15 +168,33 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AliveObject.h" />
+    <ClInclude Include="AttackSkill.h" />
+    <ClInclude Include="AttackSkillComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="IMovable.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterDeadState.h" />
+    <ClInclude Include="MonsterDefaultState.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttackState.h" />
     <ClInclude Include="PlayerDefaultState.h" />
+    <ClInclude Include="PlayerJumpState.h" />
+    <ClInclude Include="PlayerMoveState.h" />
     <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="Skill.h" />
+    <ClInclude Include="SkillComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AliveObject.cpp" />
+    <ClCompile Include="AttackSkill.cpp" />
+    <ClCompile Include="AttackSkillComponent.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterDeadState.cpp" />
+    <ClCompile Include="MonsterDefaultState.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -185,8 +203,13 @@ call CodeGen.exe</Command>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttackState.cpp" />
     <ClCompile Include="PlayerDefaultState.cpp" />
+    <ClCompile Include="PlayerJumpState.cpp" />
+    <ClCompile Include="PlayerMoveState.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="SkillComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Player.inl" />

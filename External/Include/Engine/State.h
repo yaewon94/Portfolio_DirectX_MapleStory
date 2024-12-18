@@ -3,7 +3,7 @@
 
 enum class STATE_TYPE : byte
 {
-	DEFAULT, MOVE, JUMP, ATTACK
+	DEFAULT, MOVE, JUMP, ATTACK, DEAD
 };
 
 // 게임오브젝트의 상태

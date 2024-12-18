@@ -184,6 +184,12 @@
     <ClInclude Include="CustomAsset.h">
       <Filter>06.Asset</Filter>
     </ClInclude>
+    <ClInclude Include="StringParser.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -286,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="CustomAsset.cpp">
       <Filter>06.Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="StringParser.cpp">
+      <Filter>99.Util</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>99.Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

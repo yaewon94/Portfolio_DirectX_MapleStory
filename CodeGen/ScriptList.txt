@@ -3,6 +3,9 @@ AttackSkill
 AttackSkillComponent
 Ground
 IMovable
+Monster
+MonsterDeadState
+MonsterDefaultState
 Player
 PlayerAttackState
 PlayerDefaultState
