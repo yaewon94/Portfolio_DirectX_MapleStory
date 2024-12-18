@@ -21,8 +21,8 @@ cbuffer Transform : register(b1) // 레지스터 번호
 // 재질
 cbuffer Material : register(b2)
 {
-    float g_mtrl_alpha;
     float4 g_mtrl_color;
+    float g_mtrl_alpha;
     int g_bTex_0;
 }
 
