@@ -14,7 +14,6 @@ Camera::Camera(GameObject* const owner)
 	, m_scale(1.f)
 	, m_priority(RenderManager::GetInstance()->GetCameraCount())
 {
-	Init();
 }
 
 Camera::Camera(const Camera& origin, GameObject* const newOwner) 
@@ -26,7 +25,6 @@ Camera::Camera(const Camera& origin, GameObject* const newOwner)
 	, m_scale(origin.m_scale)
 	, m_priority(RenderManager::GetInstance()->GetCameraCount())
 {
-	Init();
 }
 
 Camera::~Camera()

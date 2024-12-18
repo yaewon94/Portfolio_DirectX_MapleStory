@@ -6,13 +6,12 @@
 Ground::Ground(GameObject* const owner) 
 	: Script(owner)
 {
-	Init();
+	GetOwner()->AddComponent<Collider>();
 }
 
 Ground::Ground(const Ground& origin, GameObject* const newOwner) 
 	: Script(origin, newOwner)
 {
-	Init();
 }
 
 Ground::~Ground()
@@ -22,5 +21,4 @@ Ground::~Ground()
 void Ground::Init()
 {
 	GetOwner()->SetTag(OBJECT_TAG::TAG_GROUND);
-	GetOwner()->AddComponent<Collider>();
 }

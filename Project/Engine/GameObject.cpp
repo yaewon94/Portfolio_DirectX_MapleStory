@@ -67,6 +67,16 @@ GameObject& GameObject::operator=(const GameObject& other)
 
 void GameObject::Init()
 {
+	for (const auto& pair : m_componentMap)
+	{
+		pair.second->Init();
+	}
+
+	for (Script* const script : m_scripts)
+	{
+		script->Init();
+	}
+
 	// 메인카메라에 오브젝트 등록
 	if (m_renderComponent != nullptr) RenderManager::GetInstance()->AddObject(this);
 }

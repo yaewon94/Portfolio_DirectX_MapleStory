@@ -29,13 +29,16 @@ inline T* const GameObject::GetComponent() const
 template<typename T> requires std::derived_from<T, Component>
 inline T* const GameObject::AddComponent()
 {
-	if (GetComponent<T>() != nullptr)
-	{
-		MessageBox(nullptr, L"이미 해당 컴포넌트가 존재합니다", L"컴포넌트 추가 실패", MB_OK);
-		return nullptr;
-	}
+	T* component = GetComponent<T>();
 
-	T* component = nullptr;
+	if (component != nullptr)
+	{
+#ifdef _DEBUG
+		assert(nullptr);
+#else
+		return component;
+#endif // _DEBUG
+	}
 
 	// 커스텀 스크립트 타입
 	if constexpr (T::Type == COMPONENT_TYPE::SCRIPT)

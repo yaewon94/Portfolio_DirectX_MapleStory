@@ -7,13 +7,11 @@
 AttackSkillComponent::AttackSkillComponent(GameObject* const owner) 
 	: SkillComponent(owner)
 {
-	Init();
 }
 
 AttackSkillComponent::AttackSkillComponent(const AttackSkillComponent& origin, GameObject* const newOwner) 
 	: SkillComponent(origin ,newOwner)
 {
-	Init();
 }
 
 AttackSkillComponent::~AttackSkillComponent()

@@ -12,14 +12,12 @@ Transform::Transform(GameObject* const owner)
 	: Component(owner)
 	, m_localScale(Vec3(100.f, 100.f, 1.f))
 {
-	Init();
 }
 
 Transform::Transform(const Transform& origin, GameObject* const newOwner) 
 	: Component(origin, newOwner)
 	, m_localPos(origin.m_localPos), m_localScale(origin.m_localScale), m_localRotation(origin.m_localRotation)
 {
-	Init();
 }
 
 Transform::~Transform()

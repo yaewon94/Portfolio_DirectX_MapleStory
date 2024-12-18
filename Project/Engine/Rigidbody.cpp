@@ -8,14 +8,12 @@ Rigidbody::Rigidbody(GameObject* const owner)
 	: Component(owner)
 	, m_mass(1.f)
 {
-	Init();
 }
 
 Rigidbody::Rigidbody(const Rigidbody& origin, GameObject* const newOwner) 
 	: Component(origin, newOwner)
 	, m_mass(origin.m_mass)
 {
-	Init();
 }
 
 Rigidbody::~Rigidbody()

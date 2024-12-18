@@ -16,14 +16,12 @@ Collider::Collider(GameObject* const owner)
 	: Component(owner)
 	, m_offset(Vec2(0.f, 0.f)), m_scale(Vec2(1.f, 1.f))
 {
-	Init();
 }
 
 Collider::Collider(const Collider& origin, GameObject* const newOwner) 
 	: Component(origin, newOwner)
 	, m_offset(origin.m_offset), m_scale(origin.m_scale)
 {
-	Init();
 }
 
 Collider::~Collider()

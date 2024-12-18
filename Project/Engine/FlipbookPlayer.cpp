@@ -9,7 +9,6 @@ FlipbookPlayer::FlipbookPlayer(GameObject* const owner)
 	, m_term(1.f / 6.f)
 	, m_isRepeat(true), m_isFinish(false)
 {
-	Init();
 }
 
 FlipbookPlayer::FlipbookPlayer(const FlipbookPlayer& origin, GameObject* const newOwner) 
@@ -18,7 +17,6 @@ FlipbookPlayer::FlipbookPlayer(const FlipbookPlayer& origin, GameObject* const n
 	, m_term(origin.m_term)
 	, m_isRepeat(origin.m_isRepeat), m_isFinish(origin.m_isFinish)
 {
-	Init();
 }
 
 FlipbookPlayer::~FlipbookPlayer()
@@ -34,9 +32,6 @@ void FlipbookPlayer::Init()
 	// Flipbook 재생 관련 초기화
 	m_playAccTime = 0.f;
 	m_curFrameIndex = 0;
-
-	// Gameobject에서 Init()을 호출하는게 아니라서 호출될 일이 없음
-	//if (m_flipbookMap.size() > 0) ChangeFlipbook(m_flipbookMap.begin()->first);
 }
 
 void FlipbookPlayer::FinalTick()
