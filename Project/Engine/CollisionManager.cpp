@@ -170,9 +170,9 @@ void CollisionManager::ChangeCollisionState(GameObject* const a, GameObject* con
 		// 저번 프레임에 충돌한 경우
 		if (iter != m_collisionSet.end())
 		{
+			m_collisionSet.erase(id.ID);
 			a->GetCollider()->OnCollisionExit(b);
 			b->GetCollider()->OnCollisionExit(a);
-			m_collisionSet.erase(id.ID);
 		}
 	}
 }
