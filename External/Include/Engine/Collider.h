@@ -28,6 +28,7 @@ public:
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 	virtual void FinalTick() final;
+	virtual void SetActive(bool flag) final;
 
 private: // CollisionManager에서 호출
 	void OnCollisionEnter(GameObject* const other);

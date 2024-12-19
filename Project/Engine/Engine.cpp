@@ -21,6 +21,7 @@ Engine::~Engine()
 
 int Engine::Init(HWND hwnd)
 {
+	m_isQuit = false;
 	m_hMainWnd = hwnd;
 	m_resolution = resolution_type_arr[(size_t)RESOLUTION_TYPE::FULL_HD];
 
@@ -57,4 +58,9 @@ void Engine::Progress()
 	KeyManager::GetInstance()->Tick();
 	LevelManager::GetInstance()->Tick();
 	CollisionManager::GetInstance()->Tick();
+}
+
+void Engine::Quit()
+{
+	m_isQuit = true;
 }

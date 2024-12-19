@@ -11,8 +11,9 @@ class Engine final : public Singleton<Engine>
 	SINGLETON(Engine)
 
 private:
-	HWND	m_hMainWnd;
-	Vec2	m_resolution;
+	HWND m_hMainWnd;
+	Vec2 m_resolution;
+	bool m_isQuit;
 
 public:
 	HWND GetMainWnd() const { return m_hMainWnd; }
@@ -21,9 +22,11 @@ public:
 public:
 	int Init(HWND hwnd);
 	void Progress();
+	void Quit();
 
 public:
 	bool IsFocused() const { return m_hMainWnd == GetFocus(); }
+	bool IsQuit() const { return m_isQuit; }
 
 #ifdef _DEBUG
 public:

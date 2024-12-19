@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Collider.h"
+#include "Engine.h"
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -26,7 +27,7 @@ Collider::Collider(const Collider& origin, GameObject* const newOwner)
 
 Collider::~Collider()
 {
-	CollisionManager::GetInstance()->ResetCollisionState(GetOwner());
+	if(!Engine::GetInstance()->IsQuit()) CollisionManager::GetInstance()->ResetCollisionState(GetOwner());
 
 #ifdef _DEBUG
 	RenderManager::GetInstance()->DeleteDebugRender(this);
@@ -49,6 +50,14 @@ void Collider::FinalTick()
 	Matrix matScale = XMMatrixScaling(m_scale.x, m_scale.y, 1.f);
 	Matrix matTrans = XMMatrixTranslation(m_offset.x, m_offset.y, 0.f);
 	m_matWorld = matScale * matTrans * GetOwner()->GetTransform()->GetWorldMatrix();
+}
+
+void Collider::SetActive(bool flag)
+{
+	if (!flag)
+	{
+		CollisionManager::GetInstance()->ResetCollisionState(GetOwner());
+	}
 }
 
 void Collider::OnCollisionEnter(GameObject* const other)
@@ -75,6 +84,8 @@ void Collider::OnCollisionExit(GameObject* const other)
 
 void Collider::Render()
 {
+	if (!GetOwner()->IsActive()) return;
+
 	// 좌표, 크기 바인딩
 	ConstBuffer* cb = Device::GetInstance()->GetConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
 	g_tr.matWorld = m_matWorld;
