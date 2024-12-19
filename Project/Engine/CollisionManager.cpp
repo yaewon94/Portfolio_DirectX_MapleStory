@@ -15,6 +15,7 @@ CollisionManager::~CollisionManager()
 void CollisionManager::Init()
 {
 	InitCollisionCheckTag(OBJECT_TAG::TAG_PLAYER, OBJECT_TAG::TAG_GROUND);
+	InitCollisionCheckTag(OBJECT_TAG::TAG_PLAYER_SKILL, OBJECT_TAG::TAG_MONSTER);
 }
 
 void CollisionManager::Tick()
@@ -34,20 +35,25 @@ void CollisionManager::Tick()
 
 void CollisionManager::ResetCollisionState(GameObject* const obj)
 {
+	if (this == nullptr) return;
+
+	// TODO : for문 안돌고 바로찾는 방법
 	for (unordered_set<ULONGLONG>::const_iterator iter = m_collisionSet.begin(); iter != m_collisionSet.end(); ++iter)
 	{
-		UINT leftID = (*iter) >> 16;
-		UINT rightID = (*iter) & UINT_MAX;
+		COLLIDER_ID* id = (COLLIDER_ID*)&*iter;
+		// 컴퓨터마다 값 저장방법이 달라서 오류남 (리틀엔디안 / 빅엔디안)
+		//UINT leftID = (*iter) >> 32;
+		//UINT rightID = (*iter) & UINT_MAX;
 
-		if (obj->GetID() == leftID)
+		if (obj->GetID() == id->left)
 		{
-			GameObject* const other = LevelManager::GetInstance()->FindObject(rightID);
+			GameObject* const other = LevelManager::GetInstance()->FindObject(id->right);
 			if(other != nullptr) ChangeCollisionState(obj, other, false);
 			return;
 		}
-		else if(obj->GetID() == rightID)
+		else if(obj->GetID() == id->right)
 		{
-			GameObject* const other = LevelManager::GetInstance()->FindObject(leftID);
+			GameObject* const other = LevelManager::GetInstance()->FindObject(id->left);
 			if(other != nullptr) ChangeCollisionState(other, obj, false);
 			return;
 		}
