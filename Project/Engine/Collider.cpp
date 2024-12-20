@@ -49,6 +49,7 @@ void Collider::Init()
 
 void Collider::FinalTick()
 {
+	if (!m_isActive) return;
 	Matrix matScale = XMMatrixScaling(m_scale.x, m_scale.y, 1.f);
 	Matrix matTrans = XMMatrixTranslation(m_offset.x, m_offset.y, 0.f);
 	m_matWorld = matScale * matTrans * GetOwner()->GetTransform()->GetWorldMatrix();

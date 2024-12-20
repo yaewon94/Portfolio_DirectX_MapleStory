@@ -93,11 +93,11 @@ void CollisionManager::CheckCollision(OBJECT_TAG tagA, OBJECT_TAG tagB)
 {
 	for (const auto a : LevelManager::GetInstance()->GetObjects(tagA))
 	{
-		if (!a->IsActive()) continue;
+		if (!a->GetCollider()->IsActive()) continue;
 
 		for (const auto b : LevelManager::GetInstance()->GetObjects(tagB))
 		{
-			if (!b->IsActive()) continue;
+			if (!b->GetCollider()->IsActive()) continue;
 			CheckCollision(a, b);
 		}
 	}
