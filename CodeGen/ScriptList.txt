@@ -13,3 +13,5 @@ PlayerJumpState
 PlayerMoveState
 Skill
 SkillComponent
+SkillDefaultState
+SkillHitState

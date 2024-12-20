@@ -36,7 +36,3 @@ void Monster::Init()
 	GetOwner()->SetTag(OBJECT_TAG::TAG_MONSTER);
 	m_fsm->ChangeState(STATE_TYPE::DEFAULT);
 }
-
-void Monster::OnCollisionEnter(GameObject* other)
-{
-}
