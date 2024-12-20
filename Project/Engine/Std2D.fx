@@ -89,7 +89,7 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
                 discard;
         }
     }
-   else
+    else
     {
         if (vs.uv.x >= 0.f)
         {
@@ -116,6 +116,9 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
             discard;
     }
 
-        return g_flipbookTex.Sample(g_sampler0, spriteUV);
+    float4 color = g_flipbookTex.Sample(g_sampler0, spriteUV);
+    if (color.a == 0.f)
+        discard;
+    return color;
 }
 #endif
