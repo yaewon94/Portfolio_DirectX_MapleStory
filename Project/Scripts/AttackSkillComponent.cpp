@@ -1,12 +1,18 @@
 #include "pch.h"
 #include "AttackSkillComponent.h"
 #include "AliveObject.h"
-#include "AttackSkill.h"
+#include "SkillDefaultState.h"
+#include "SkillHitState.h"
 #include "Engine/FlipbookPlayer.h"
+#include "Engine/Collider.h"
 
 AttackSkillComponent::AttackSkillComponent(GameObject* const owner) 
 	: SkillComponent(owner)
 {
+	GetOwner()->AddComponent<Collider>();
+	FSM* fsm = GetOwner()->AddComponent<FSM>();
+	fsm->AddState<SkillDefaultState>(STATE_TYPE::DEFAULT);
+	fsm->AddState<SkillHitState>(STATE_TYPE::HIT);
 }
 
 AttackSkillComponent::AttackSkillComponent(const AttackSkillComponent& origin, GameObject* const newOwner) 

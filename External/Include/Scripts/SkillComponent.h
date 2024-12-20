@@ -1,9 +1,8 @@
 #pragma once
 #include "Engine/Script.h"
-#include "IMovable.h"
+#include "AliveObject.h"
 
 class Skill;
-class AliveObject;
 
 // 스킬 컴포넌트 최상위 클래스
 class SkillComponent : public Script, public IMovable
@@ -26,9 +25,8 @@ public:
 	void SetCaster(AliveObject* const caster) { m_caster = caster; }
 
 protected:
-	AliveObject* const GetCaster() { return m_caster; }
+	AliveObject* const GetCaster() const { return m_caster; }
 
-	FlipbookPlayer* const GetFlipbookPlayer() { return m_flipbookPlayer; }
 	void SetSkill(SharedPtr<Skill> skill)
 	{
 		m_flipbookPlayer->Clear();
