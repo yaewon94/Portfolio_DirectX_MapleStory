@@ -186,6 +186,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillComponent.h" />
+    <ClInclude Include="SkillDefaultState.h" />
+    <ClInclude Include="SkillHitState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AliveObject.cpp" />
@@ -210,6 +212,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillComponent.cpp" />
+    <ClCompile Include="SkillDefaultState.cpp" />
+    <ClCompile Include="SkillHitState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Player.inl" />

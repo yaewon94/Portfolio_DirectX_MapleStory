@@ -83,6 +83,7 @@ int AssetManager::Init()
 			shader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 			shader->SetBlendType(BLEND_TYPE::ALPHABLEND);
 			shader->SetShaderDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+			shader->SetDepthStencilType(DEPTH_STENCIL_TYPE::LESS_EQUAL);
 			if (FAILED(shader->CreateVertexShader("VS_Std2D"))) return E_FAIL;
 			if (FAILED(shader->CreatePixelShader("PS_Std2D_AlphaBlend"))) return E_FAIL;
 		}

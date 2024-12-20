@@ -9,6 +9,9 @@ FlipbookPlayer::FlipbookPlayer(GameObject* const owner)
 	, m_term(1.f / 6.f)
 	, m_isRepeat(true), m_isFinish(false), m_isAdjustObjSize(false)
 {
+	// 에셋 초기화
+	SetMesh(AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh"));
+	SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
 }
 
 FlipbookPlayer::FlipbookPlayer(const FlipbookPlayer& origin, GameObject* const newOwner) 
@@ -25,10 +28,6 @@ FlipbookPlayer::~FlipbookPlayer()
 
 void FlipbookPlayer::Init()
 {
-	// 에셋 초기화
-	SetMesh(AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh"));
-	SetMaterial(AssetManager::GetInstance()->FindAsset<Material>("Std2D_Material"));
-
 	// Flipbook 재생 관련 초기화
 	m_playAccTime = 0.f;
 	m_curFrameIndex = 0;
