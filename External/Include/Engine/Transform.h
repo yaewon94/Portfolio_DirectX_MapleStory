@@ -49,19 +49,22 @@ public:
 public:
 	const Matrix& GetWorldMatrix() const { return m_matWorld; }
 
-	Vec3 GetLocalPos() const { return m_localPos; }
+	const Vec3& GetLocalPos() const { return m_localPos; }
+	//const Vec3& GetWorldPos() const { return m_matWorld.Translation(); } // 참조변수로 받을때 이상한 값이 대입됨
+	Vec3 GetWorldPos() const { return m_matWorld.Translation(); }
 	void SetLocalPos(const Vec3& pos) { m_localPos = pos; OnChangeWorldMatrix(); }
 	void SetLocalPosX(float x) { m_localPos.x = x; OnChangeWorldMatrix(); }
 	void SetLocalPosY(float y) { m_localPos.y = y; OnChangeWorldMatrix(); }
 	void SetLocalPosZ(float z) { m_localPos.z = z; OnChangeWorldMatrix(); }
 
-	Vec3 GetLocalScale() const { return m_localScale; }
+	const Vec3& GetLocalScale() const { return m_localScale; }
+	Vec3 GetWorldScale() const { return Vec3(m_matWorld._11, m_matWorld._22, m_matWorld._33); }
 	void SetLocalScale(const Vec3& scale) { m_localScale = scale; OnChangeWorldMatrix(); }
 	void SetLocalScaleX(float x) { m_localScale.x = x; OnChangeWorldMatrix(); }
 	void SetLocalScaleY(float y) { m_localScale.y = y; OnChangeWorldMatrix(); }
 	void SetLocalScaleZ(float z) { m_localScale.z = z; OnChangeWorldMatrix(); }
 
-	Vec3 GetLocalRotation() const { return m_localRotation; }
+	const Vec3& GetLocalRotation() const { return m_localRotation; }
 	void SetLocalRotation(const Vec3& rotation) { m_localRotation = rotation; OnChangeWorldMatrix(true); }
 
 	const Vec3& GetWorldDirection(DIRECTION_TYPE type)
