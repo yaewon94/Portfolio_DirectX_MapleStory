@@ -38,6 +38,7 @@ private: // CollisionManager에서 호출
 
 public:
 	virtual void SetActive(bool flag) final;
+	bool IsActive() const { return m_isActive; }
 
 	Vec2 GetOffset() const { return m_offset; }
 	void SetOffset(Vec2 offset) { m_offset = offset; }

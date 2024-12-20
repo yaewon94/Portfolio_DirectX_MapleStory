@@ -22,7 +22,7 @@ private:
 	SharedPtr<Texture> m_atlas;
 	vector<Vec2> m_leftTopUV, m_sliceSizeUV;
 	vector<Vec2> m_backgroundSizeUV, m_offsetUV;
-	byte m_frameCount;
+	size_t m_frameCount;
 
 public:
 	Flipbook(const string& Key, const string& relativePath);
@@ -35,9 +35,10 @@ private: // FlipbookPlayer 에서 호출
 	void Bind(size_t frameIndex);
 	void Clear(size_t frameIndex);
 
-public:
-	byte GetFrameCount() const { return m_frameCount; }
+	size_t GetFrameCount() const { return m_frameCount; }
+	void AdjustObjSize(GameObject* const obj, size_t frameIndex);
 
+public:
 	SharedPtr<Texture> GetAtlasTexture() const { return m_atlas; }
 	// 자동으로 uv 값들 설정해줌
 	void SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount);

@@ -7,7 +7,7 @@
 FlipbookPlayer::FlipbookPlayer(GameObject* const owner) 
 	: MeshRender(owner)
 	, m_term(1.f / 6.f)
-	, m_isRepeat(true), m_isFinish(false)
+	, m_isRepeat(true), m_isFinish(false), m_isAdjustObjSize(false)
 {
 }
 
@@ -15,7 +15,7 @@ FlipbookPlayer::FlipbookPlayer(const FlipbookPlayer& origin, GameObject* const n
 	: MeshRender(origin, newOwner)
 	, m_curFlipbook(origin.m_curFlipbook)
 	, m_term(origin.m_term)
-	, m_isRepeat(origin.m_isRepeat), m_isFinish(origin.m_isFinish)
+	, m_isRepeat(origin.m_isRepeat), m_isFinish(origin.m_isFinish), m_isAdjustObjSize(origin.m_isAdjustObjSize)
 {
 }
 
@@ -47,6 +47,10 @@ void FlipbookPlayer::FinalTick()
 		{
 			m_curFrameIndex = 0;
 			if (!m_isRepeat) m_isFinish = true;
+		}
+		else
+		{
+			if (m_isAdjustObjSize) m_curFlipbook->AdjustObjSize(GetOwner(), m_curFrameIndex);
 		}
 	}
 	else

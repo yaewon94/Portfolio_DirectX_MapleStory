@@ -21,7 +21,7 @@ void AttackSkill::Execute(AliveObject* const caster, GameObject* const skillObj)
 {
 	if (caster->GetFSM()->GetCurrentState() == STATE_TYPE::ATTACK) return;
 	
-	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey);
+	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey, true);
 	caster->GetFlipbookPlayer()->SetRepeat(false);
 	caster->GetFSM()->ChangeState(STATE_TYPE::ATTACK);
 

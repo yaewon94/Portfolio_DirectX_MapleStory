@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Flipbook.h"
 #include "Device.h"
+#include "GameObject.h"
 #include "Transform.h"
 #include "FileManager.h"
 #include "AssetManager.h"
@@ -118,6 +119,18 @@ void Flipbook::Clear(size_t frameIndex)
 	cb->Binding_GS();
 
 	m_atlas->Clear_GS();
+}
+
+void Flipbook::AdjustObjSize(GameObject* const obj, size_t frameIndex)
+{
+#ifdef _DEBUG
+	if (m_atlas == nullptr) assert(nullptr);
+	if (frameIndex >= m_frameCount) assert(nullptr);
+#endif // _DEBUG
+
+	obj->GetTransform()->SetLocalScale(Vec3(m_atlas->GetWidth() * m_sliceSizeUV[frameIndex].x
+											, m_atlas->GetHeight() * m_sliceSizeUV[frameIndex].y
+											, 1.f));
 }
 
 void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount)

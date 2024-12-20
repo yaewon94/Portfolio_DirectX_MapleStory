@@ -23,6 +23,6 @@ void MonsterDeadState::OnStateEnter()
 	GetFSM()->GetOwner()->GetCollider()->SetActive(false);
 
 	FlipbookPlayer* flipbookPlayer = GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>();
-	flipbookPlayer->ChangeFlipbook("Dead");
+	flipbookPlayer->ChangeFlipbook("Dead", true);
 	flipbookPlayer->SetRepeat(false);
 }

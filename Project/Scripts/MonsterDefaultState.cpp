@@ -21,6 +21,6 @@ MonsterDefaultState::~MonsterDefaultState()
 void MonsterDefaultState::OnStateEnter()
 {
 	FlipbookPlayer* flipbookPlayer = GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>();
-	flipbookPlayer->ChangeFlipbook("Idle");
+	flipbookPlayer->ChangeFlipbook("Idle", true);
 	flipbookPlayer->SetRepeat(true);
 }

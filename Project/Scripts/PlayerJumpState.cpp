@@ -20,5 +20,5 @@ PlayerJumpState::~PlayerJumpState()
 
 void PlayerJumpState::OnStateEnter()
 {
-	GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>()->ChangeFlipbook("Jump");
+	GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>()->ChangeFlipbook("Jump", false);
 }

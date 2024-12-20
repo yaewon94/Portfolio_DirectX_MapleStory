@@ -13,9 +13,10 @@ private:
 	SharedPtr<Flipbook> m_curFlipbook;
 	float m_term; // 다음 프레임으로 넘어가기까지 시간
 	float m_playAccTime; // 재생 누적시간 (프레임 전환될 때마다 초기화됨)
-	byte m_curFrameIndex; // 현재 재생중인 프레임 인덱스
+	size_t m_curFrameIndex; // 현재 재생중인 프레임 인덱스
 	bool m_isRepeat;
 	bool m_isFinish;
+	bool m_isAdjustObjSize;
 
 public:
 	FlipbookPlayer(GameObject* const owner);
@@ -65,10 +66,11 @@ public:
 			return;
 		}
 		m_flipbookMap.insert(make_pair(key, flipbook));
-		if(m_curFlipbook == nullptr) ChangeFlipbook(key);
+		if(m_curFlipbook == nullptr) ChangeFlipbook(key, false);
 	}
 
-	void ChangeFlipbook(const string& key)
+	// @ isChangeObjSize : Flipbook 프레임 사이즈에 맞게 게임오브젝트 크기를 변경시킬 것인지 여부
+	void ChangeFlipbook(const string& key, bool isAdjustObjSize)
 	{
 		unordered_map<string, SharedPtr<Flipbook>>::const_iterator iter = m_flipbookMap.find(key);
 		if (iter == m_flipbookMap.end())
@@ -82,6 +84,7 @@ public:
 		m_curFlipbook = iter->second;
 		m_curFrameIndex = 0;
 		m_isFinish = false;
+		m_isAdjustObjSize = isAdjustObjSize;
 	}
 
 private: // GameObject::복사생성자 에서 호출

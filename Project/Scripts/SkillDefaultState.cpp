@@ -28,6 +28,6 @@ void SkillDefaultState::Init()
 
 void SkillDefaultState::OnStateEnter()
 {
-	m_flipbookPlayer->ChangeFlipbook(m_skillComponent->GetSkill()->GetFlipbook()->GetKey());
+	m_flipbookPlayer->ChangeFlipbook(m_skillComponent->GetSkill()->GetFlipbook()->GetKey(), true);
 	m_flipbookPlayer->SetRepeat(true);
 }
