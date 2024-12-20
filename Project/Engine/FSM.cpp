@@ -29,6 +29,14 @@ FSM::~FSM()
 	}
 }
 
+void FSM::Init()
+{
+	for (const auto& pair : m_stateMap)
+	{
+		pair.second->Init();
+	}
+}
+
 void FSM::FinalTick()
 {
 	if (m_curState == nullptr)
