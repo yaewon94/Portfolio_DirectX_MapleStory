@@ -31,6 +31,7 @@ public:
 
 public:
 	void ResetCollisionState(GameObject* const obj);
+	bool IsPerfectOverlapped(GameObject* const a, GameObject* const b);
 
 private:
 	void InitCollisionCheckTag(OBJECT_TAG a, OBJECT_TAG b);

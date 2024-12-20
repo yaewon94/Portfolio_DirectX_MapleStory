@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "LevelManager.h"
 #include "GameObject.h"
+#include "Transform.h"
 
 CollisionManager::CollisionManager()
 {
@@ -58,6 +59,17 @@ void CollisionManager::ResetCollisionState(GameObject* const obj)
 			return;
 		}
 	}
+}
+
+bool CollisionManager::IsPerfectOverlapped(GameObject* const a, GameObject* const b)
+{
+	auto A = a->GetTransform()->GetWorldPos() - 0.5 * a->GetTransform()->GetWorldScale();
+	auto B = b->GetTransform()->GetWorldPos() - 0.5 * b->GetTransform()->GetWorldScale();
+	auto xDiff = A.x - B.x;
+	auto yDiff = A.y - B.y;
+
+	if (xDiff*xDiff < 1.f || yDiff*yDiff < 1.f) return true;
+	return false;
 }
 
 void CollisionManager::InitCollisionCheckTag(OBJECT_TAG a, OBJECT_TAG b)
