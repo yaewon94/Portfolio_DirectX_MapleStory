@@ -19,6 +19,7 @@ private:
 	Vec2 m_offset;
 	Vec2 m_scale; // 게임오브젝트 크기에 대한 비율
 	Matrix m_matWorld;
+	bool m_isActive;
 
 public:
 	Collider(GameObject* const owner);
@@ -28,7 +29,6 @@ public:
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 	virtual void FinalTick() final;
-	virtual void SetActive(bool flag) final;
 
 private: // CollisionManager에서 호출
 	void OnCollisionEnter(GameObject* const other);
@@ -37,6 +37,8 @@ private: // CollisionManager에서 호출
 	const Matrix& GetWorldMatrix() const { return m_matWorld; }
 
 public:
+	virtual void SetActive(bool flag) final;
+
 	Vec2 GetOffset() const { return m_offset; }
 	void SetOffset(Vec2 offset) { m_offset = offset; }
 

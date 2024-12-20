@@ -16,12 +16,14 @@
 Collider::Collider(GameObject* const owner) 
 	: Component(owner)
 	, m_offset(Vec2(0.f, 0.f)), m_scale(Vec2(1.f, 1.f))
+	, m_isActive(true)
 {
 }
 
 Collider::Collider(const Collider& origin, GameObject* const newOwner) 
 	: Component(origin, newOwner)
 	, m_offset(origin.m_offset), m_scale(origin.m_scale)
+	, m_isActive(origin.m_isActive)
 {
 }
 
@@ -54,7 +56,8 @@ void Collider::FinalTick()
 
 void Collider::SetActive(bool flag)
 {
-	if (!flag)
+	m_isActive = flag;
+	if (!m_isActive)
 	{
 		CollisionManager::GetInstance()->ResetCollisionState(GetOwner());
 	}
@@ -84,7 +87,7 @@ void Collider::OnCollisionExit(GameObject* const other)
 
 void Collider::Render()
 {
-	if (!GetOwner()->IsActive()) return;
+	if (!m_isActive) return;
 
 	// 좌표, 크기 바인딩
 	ConstBuffer* cb = Device::GetInstance()->GetConstBuffer(CONST_BUFFER_TYPE::TRANSFORM);
