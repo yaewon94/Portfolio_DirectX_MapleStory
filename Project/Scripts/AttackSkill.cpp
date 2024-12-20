@@ -20,7 +20,7 @@ AttackSkill::~AttackSkill()
 void AttackSkill::Execute(AliveObject* const caster, GameObject* const skillObj)
 {
 	if (caster->GetFSM()->GetCurrentState() == STATE_TYPE::ATTACK) return;
-
+	
 	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey);
 	caster->GetFlipbookPlayer()->SetRepeat(false);
 	caster->GetFSM()->ChangeState(STATE_TYPE::ATTACK);
@@ -52,6 +52,9 @@ int AttackSkill::Load()
 
 	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Velocity_Z", buff))) return E_FAIL;
 	m_velocity.z = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Coefficient", buff))) return E_FAIL;
+	m_coefficient = ToFloat(buff);
 
 	FileManager::GetInstance()->Close();
 

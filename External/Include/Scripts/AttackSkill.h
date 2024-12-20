@@ -9,6 +9,7 @@ class AttackSkill final : public Skill
 private:
 	float m_maxDistance;
 	Vec3 m_velocity;
+	float m_coefficient; // 데미지 계수
 
 public:
 	AttackSkill(const string& Key, const string& relativePath);
@@ -23,4 +24,5 @@ private: // AssetManager에서 Asset* 으로 호출
 public:
 	float GetMaxDistance() const { return m_maxDistance; }
 	const Vec3& GetVelocity() const { return m_velocity; }
+	float GetCoefficient() const { return m_coefficient; }
 };
