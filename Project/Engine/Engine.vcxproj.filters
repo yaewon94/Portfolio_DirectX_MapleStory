@@ -190,6 +190,9 @@
     <ClInclude Include="FileManager.h">
       <Filter>99.Util</Filter>
     </ClInclude>
+    <ClInclude Include="RandomManager.h">
+      <Filter>99.Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -297,6 +300,9 @@
       <Filter>99.Util</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
+      <Filter>99.Util</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomManager.cpp">
       <Filter>99.Util</Filter>
     </ClCompile>
   </ItemGroup>
