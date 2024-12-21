@@ -36,7 +36,7 @@ Player::Player(GameObject* const owner)
 	m_fsm->AddState<PlayerAttackState>(STATE_TYPE::ATTACK);
 
 	// 에셋 추가
-	m_skillMap.insert(make_pair(KEY_LSHIFT, AssetManager::GetInstance()->FindOrAddAsset<AttackSkill>("Skill_ChainLightening", "Skill\\ArchMage_IceLightening\\skills.skill").ptr_dynamic_cast<Skill>()));
+	m_skillMap.insert(make_pair(KEY_LSHIFT, AssetManager::GetInstance()->FindOrAddAsset<AttackSkill>("Skill_ChainLightening", "Job\\ArchMage_IceLightening\\Skill\\skills.skill").ptr_dynamic_cast<Skill>()));
 
 	// KeyManager에 플레이어가 사용할 키값 등록
 	KeyManager::GetInstance()->AddKey(KEY_LEFT, this);
