@@ -128,8 +128,8 @@ void Flipbook::AdjustObjSize(GameObject* const obj, size_t frameIndex)
 	if (frameIndex >= m_frameCount) assert(nullptr);
 #endif // _DEBUG
 
-	obj->GetTransform()->SetLocalScale(Vec3(m_atlas->GetWidth() * m_sliceSizeUV[frameIndex].x
-											, m_atlas->GetHeight() * m_sliceSizeUV[frameIndex].y
+	obj->GetTransform()->SetLocalScale(Vec3(m_atlas->GetWidth() * m_backgroundSizeUV[frameIndex].x
+											, m_atlas->GetHeight() * m_backgroundSizeUV[frameIndex].y
 											, 1.f));
 }
 
