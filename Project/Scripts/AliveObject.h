@@ -17,6 +17,7 @@ private:
 protected:
 	class FlipbookPlayer* m_flipbookPlayer;
 	class FSM* m_fsm;
+	GameObject* m_skillObj;
 
 protected:
 	AliveObject(GameObject* const owner);
@@ -29,6 +30,7 @@ protected: // GameObject : Component* 를 통해 호출
 public:
 	FSM* const GetFSM() const { return m_fsm; }
 	FlipbookPlayer* const GetFlipbookPlayer() const { return m_flipbookPlayer; }
+	GameObject* const GetSkillObject() const { return m_skillObj; }
 	Power GetPower() const { return m_power; }
 
 protected:

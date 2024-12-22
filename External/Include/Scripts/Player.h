@@ -32,7 +32,6 @@ private:
 	PLAYER_KEY_STATES m_keyStates;
 	
 	unordered_map<KEY_CODE, SharedPtr<class Skill>> m_skillMap;
-	GameObject* m_skillObj;
 	
 public:
 	Player(GameObject* const owner);

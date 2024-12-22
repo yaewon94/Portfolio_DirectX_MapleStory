@@ -7,4 +7,5 @@ ChainLightening
 	Velocity_Y:0
 	Velocity_Z:0
 	Coefficient:1
+	Delay:0
 }

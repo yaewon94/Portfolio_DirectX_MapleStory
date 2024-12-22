@@ -5,6 +5,10 @@ class Monster final : public AliveObject
 {
 	NO_COPY_MOVE(Monster)
 
+private:
+	vector<SharedPtr<Skill>> m_skills;
+	float m_accTime; // 시간 누적 용도
+
 public:
 	Monster(GameObject* const owner);
 	Monster(const Monster& origin, GameObject* const newOwner);
@@ -12,8 +16,20 @@ public:
 
 private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
-
+	virtual void Tick() final;
 	virtual void OnCollisionTick(GameObject* other) final;
+
+public:
+	void AddSkill(SharedPtr<Skill> skill)
+	{
+#ifdef _DEBUG
+		for (const auto& _skill : m_skills)
+		{
+			if (_skill == skill) assert(nullptr);
+		}
+#endif // _DEBUG
+		m_skills.push_back(skill);
+	}
 
 private:
 	virtual void Move(MOVE_DIRECTION) final {}

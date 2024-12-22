@@ -175,6 +175,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterAttackState.h" />
     <ClInclude Include="MonsterDeadState.h" />
     <ClInclude Include="MonsterDefaultState.h" />
     <ClInclude Include="pch.h" />
@@ -195,6 +196,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="AttackSkillComponent.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterAttackState.cpp" />
     <ClCompile Include="MonsterDeadState.cpp" />
     <ClCompile Include="MonsterDefaultState.cpp" />
     <ClCompile Include="pch.cpp">

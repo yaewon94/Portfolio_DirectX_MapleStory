@@ -1,0 +1,11 @@
+FairyDust
+{
+	FlipbookPath:Monster\\Lucid\\FairyDust.flipbook
+	CasterFlipbookKey:Attack0
+	MaxDistance:500
+	Velocity_X:500
+	Velocity_Y:0
+	Velocity_Z:0
+	Coefficient:1
+	Delay:4
+}

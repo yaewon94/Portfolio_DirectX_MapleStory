@@ -91,6 +91,9 @@
     <ClInclude Include="SkillHitState.h">
       <Filter>Scripts\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterAttackState.h">
+      <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -147,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="SkillHitState.cpp">
       <Filter>Scripts\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttackState.cpp">
+      <Filter>Scripts\AliveObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
