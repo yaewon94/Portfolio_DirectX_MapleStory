@@ -50,7 +50,7 @@ void FSM::FinalTick()
 	m_curState->OnStateTick();
 }
 
-void FSM::ChangeState(STATE_TYPE type)
+void FSM::ChangeState(STATE_TYPE type, void* data)
 {
 	unordered_map<STATE_TYPE, State*>::const_iterator iter = m_stateMap.find(type);
 	if (iter == m_stateMap.end())
@@ -64,5 +64,6 @@ void FSM::ChangeState(STATE_TYPE type)
 	if (m_curState) m_curState->OnStateExit();
 	m_curStateType = type;
 	m_curState = iter->second;
+	m_stateData = data;
 	m_curState->OnStateEnter();
 }

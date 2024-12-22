@@ -21,12 +21,9 @@ void AttackSkill::Execute(AliveObject* const caster, GameObject* const skillObj)
 {
 	if (caster->GetFSM()->GetCurrentState() == STATE_TYPE::ATTACK) return;
 	
-	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey, false);
+	caster->GetFlipbookPlayer()->ChangeFlipbook(m_casterFlipbookKey, true);
 	caster->GetFlipbookPlayer()->SetRepeat(false);
-	caster->GetFSM()->ChangeState(STATE_TYPE::ATTACK);
-
-	skillObj->GetComponent<AttackSkillComponent>()->SetSkill(SharedPtr<AttackSkill>(this));
-	skillObj->SetActive(true);
+	caster->GetFSM()->ChangeState(STATE_TYPE::ATTACK, this);
 }
 
 int AttackSkill::Load()
@@ -55,6 +52,9 @@ int AttackSkill::Load()
 
 	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Coefficient", buff))) return E_FAIL;
 	m_coefficient = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("Delay", buff))) return E_FAIL;
+	m_delay = ToFloat(buff);
 
 	FileManager::GetInstance()->Close();
 
