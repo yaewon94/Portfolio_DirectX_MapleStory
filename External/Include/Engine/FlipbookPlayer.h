@@ -85,6 +85,7 @@ public:
 		m_curFrameIndex = 0;
 		m_isFinish = false;
 		m_isAdjustObjSize = isAdjustObjSize;
+		if (m_isAdjustObjSize) m_curFlipbook->AdjustObjSize(GetOwner(), m_curFrameIndex);
 	}
 
 private: // GameObject::복사생성자 에서 호출
