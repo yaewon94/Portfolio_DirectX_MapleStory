@@ -46,7 +46,7 @@ inline float4 PS_Std2D(VS_OUT vs) : SV_Target
     float4 color = (float4) 0.f;
     
     vs.uv.x *= g_inst_dir;
-    
+
     if (g_bTex_0)
         color = g_tex_0.Sample(g_sampler0, vs.uv);
     else if(g_bFlipbook)
@@ -66,45 +66,59 @@ float4 PS_Std2D_AlphaBlend(VS_OUT vs) : SV_Target
 
 float4 PS_Flipbook(VS_OUT vs) : SV_Target
 {
+    float4 color;
     float2 bgrLeftTop = g_leftTopUV + (g_sliceSizeUV - g_bgrSizeUV) / 2.f;
-    float2 spriteUV;
+    float2 spriteUV = bgrLeftTop + (vs.uv * g_bgrSizeUV) - g_offsetUV;
     
-    // X축
-    if (vs.uv.x >= 0.f)
-        spriteUV.x = bgrLeftTop.x + (vs.uv.x * g_bgrSizeUV.x) - g_offsetUV.x;
-    else
-        spriteUV.x = bgrLeftTop.x + (vs.uv.x * g_bgrSizeUV.x) + g_offsetUV.x;
-
+    // 스프라이트 영역 계산
+    //if (g_inst_dir > 0.f)
+    //{
+    //    bgrLeftTop = g_leftTopUV + (g_sliceSizeUV - g_bgrSizeUV) / 2.f;
+    //    spriteUV = bgrLeftTop + (vs.uv * g_bgrSizeUV) - g_offsetUV;
+    //}
+    //else if (g_inst_dir < 0.f)
+    if(g_inst_dir < 0.f)
+    {
+        //bgrLeftTop.x = 1.f - g_leftTopUV.x - (g_sliceSizeUV.x + g_bgrSizeUV.x) / 2.f;
+        //spriteUV.x = -bgrLeftTop.x + (vs.uv.x * g_bgrSizeUV.x) - g_offsetUV.x;
+        spriteUV.x += g_bgrSizeUV.x - 1.f;
+    }
+    //bgrLeftTop.y = g_leftTopUV.y + (g_sliceSizeUV.y - g_bgrSizeUV.y) / 2.f;
+    
+    // 알파값 0인 픽셀 무시
+    color = g_flipbookTex.Sample(g_sampler0, spriteUV);
+    if (color.a == 0.f)
+        discard;
+    
     // X축
     if (g_bgrSizeUV.x >= g_sliceSizeUV.x)
     {
-        if (vs.uv.x >= 0.f)
+        if (g_inst_dir > 0.f)
         {
             if (spriteUV.x < g_leftTopUV.x || spriteUV.x > g_leftTopUV.x + g_sliceSizeUV.x)
                 discard;
         }
         else
         {
-            if (spriteUV.x > g_leftTopUV.x || spriteUV.x < g_leftTopUV.x - g_sliceSizeUV.x)
+            if (spriteUV.x < g_leftTopUV.x - 1.f || spriteUV.x > g_leftTopUV.x + g_sliceSizeUV.x - 1.f)
                 discard;
         }
     }
     else
     {
-        if (vs.uv.x >= 0.f)
+        if (g_inst_dir > 0.f)
         {
             if (spriteUV.x < bgrLeftTop.x || spriteUV.x > bgrLeftTop.x + g_bgrSizeUV.x)
                 discard;
         }
         else
         {
-            if (spriteUV.x > g_leftTopUV.x || spriteUV.x < bgrLeftTop.x - g_bgrSizeUV.x)
+            if (spriteUV.x < g_leftTopUV.x - 1.f || spriteUV.x > g_leftTopUV.x + g_bgrSizeUV.x - 1.f)
                 discard;
         }
     }
             
     // Y축
-    spriteUV.y = bgrLeftTop.y + (vs.uv.y * g_bgrSizeUV.y) - g_offsetUV.y;
     if (g_bgrSizeUV.y >= g_sliceSizeUV.y)
     {
         if (spriteUV.y < g_leftTopUV.y || spriteUV.y > g_leftTopUV.y + g_sliceSizeUV.y)
@@ -116,9 +130,6 @@ float4 PS_Flipbook(VS_OUT vs) : SV_Target
             discard;
     }
 
-    float4 color = g_flipbookTex.Sample(g_sampler0, spriteUV);
-    if (color.a == 0.f)
-        discard;
     return color;
 }
 #endif
