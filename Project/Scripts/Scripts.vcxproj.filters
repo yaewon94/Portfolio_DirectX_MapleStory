@@ -94,6 +94,9 @@
     <ClInclude Include="MonsterAttackState.h">
       <Filter>Scripts\AliveObject\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerDeadState.h">
+      <Filter>Scripts\AliveObject\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="MonsterAttackState.cpp">
       <Filter>Scripts\AliveObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeadState.cpp">
+      <Filter>Scripts\AliveObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
