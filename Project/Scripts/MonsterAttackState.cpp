@@ -32,7 +32,9 @@ void MonsterAttackState::OnStateTick()
 {
 	if (m_isSkillUsed)
 	{
-		//if (!m_skillObj->IsActive()) GetFSM()->ChangeState(STATE_TYPE::DEFAULT);
+		if (!m_skillObj->IsActive() 
+			&& GetFSM()->GetOwner()->GetComponent<FlipbookPlayer>()->IsFinish())
+			GetFSM()->ChangeState(STATE_TYPE::DEFAULT);
 	}
 	else
 	{
