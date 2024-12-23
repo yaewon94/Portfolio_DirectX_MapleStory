@@ -3,7 +3,7 @@
 using std::ios_base;
 
 FileManager::FileManager() 
-	: m_curKey(nullptr), m_curIndex(0)
+	: m_curIndex(0)
 {
 }
 
@@ -47,7 +47,7 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 	ifstream& stream = m_ifstreamStack.top();
 	if (isReadFromBegin) stream.seekg(ios_base::beg);
 
-	if (m_curKey == nullptr || m_curKey != Key) m_curIndex = 0;
+	if (m_curKey != Key) m_curIndex = 0;
 	//else if(index <= m_curIndex) stream.seekg(ios_base::beg);
 
 	// 토큰 분리
@@ -63,14 +63,14 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 			else // 이전까지 value를 저장한 경우
 			{
 				*c = '\0';
-				if (m_curKey != nullptr && m_curKey == Key && m_curIndex++ == index) return S_OK;
+				if (m_curKey == Key && m_curIndex++ == index) return S_OK;
 				else c = (char*)data;
 			}
 		}
 		else if (*c == ':')
 		{
 			*c = '\0';
-			if ((char*)data == Key) m_curKey = Key.c_str();
+			if ((char*)data == Key) m_curKey = Key;
 			c = (char*)data;
 		}
 		else if (*c == '\t' || *c == '{' || *c == '}')
@@ -83,7 +83,7 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 
 	if (stream.eof())
 	{
-		if (m_curKey != nullptr && m_curKey == Key && m_curIndex++ == index)
+		if (m_curKey == Key && m_curIndex == index)
 		{
 			*c = '\0';
 			return S_OK;

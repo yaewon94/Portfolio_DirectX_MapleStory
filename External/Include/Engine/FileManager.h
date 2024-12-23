@@ -18,7 +18,7 @@ class FileManager final : public Singleton<FileManager>
 
 private:
 	stack<ifstream> m_ifstreamStack;
-	const char* m_curKey;
+	string m_curKey;
 	size_t m_curIndex;
 
 public:
