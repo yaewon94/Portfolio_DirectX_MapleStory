@@ -52,7 +52,6 @@ int FileManager::ReadJsonValue(const string& Key, void* const data, size_t index
 
 	// 토큰 분리
 	char* c = (char*)data;
-	*c = '\0';
 	while (stream.get(*c))
 	{
 		if (*c == '\n')
