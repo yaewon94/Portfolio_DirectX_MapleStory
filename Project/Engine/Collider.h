@@ -54,6 +54,7 @@ private:
 	SharedPtr<class Material> m_material;
 	SharedPtr<class Mesh> m_mesh;
 	Vec4 m_dbgColor;
+	int m_collisionCount;
 	virtual void Render() final;
 #endif // _DEBUG
 };

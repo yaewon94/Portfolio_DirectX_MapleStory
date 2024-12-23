@@ -43,6 +43,7 @@ void Collider::Init()
 	m_mesh = AssetManager::GetInstance()->FindAsset<Mesh>("RectMesh_D");
 	m_material = AssetManager::GetInstance()->FindAsset<Material>("Debug_Material");
 	m_dbgColor = COLOR_DEFAULT;
+	m_collisionCount = 0;
 	RenderManager::GetInstance()->AddDebugRender(this);
 #endif // _DEBUG
 }
@@ -67,7 +68,7 @@ void Collider::SetActive(bool flag)
 void Collider::OnCollisionEnter(GameObject* const other)
 {
 #ifdef _DEBUG
-	m_dbgColor = COLOR_COLLISION;
+	if(++m_collisionCount > 0) m_dbgColor = COLOR_COLLISION;
 #endif // DEBUG
 
 	GetOwner()->OnCollisionEnter(other);
@@ -81,7 +82,7 @@ void Collider::OnCollisionTick(GameObject* const other)
 void Collider::OnCollisionExit(GameObject* const other)
 {
 #ifdef _DEBUG
-	m_dbgColor = COLOR_DEFAULT;
+	if(--m_collisionCount == 0) m_dbgColor = COLOR_DEFAULT;
 #endif // DEBUG
 	GetOwner()->OnCollisionExit(other);
 }
