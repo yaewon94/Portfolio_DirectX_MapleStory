@@ -5,11 +5,13 @@
 #include "Engine/Transform.h"
 #include "Engine/FSM.h"
 #include "Engine/TimeManager.h"
+#include "Engine/CollisionManager.h"
 #include "AttackSkill.h"
+#include "AttackSkillComponent.h"
 
 inline void Player::OnCollisionEnter(GameObject* other)
 {
-	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
+	if (other->GetTag() & OBJECT_TAG::TAG_GROUND)
 	{
 		m_jumpStates = CAN_SINGLE_JUMP;
 		m_rigidbody->UseGravity(false);
@@ -17,9 +19,23 @@ inline void Player::OnCollisionEnter(GameObject* other)
 	}
 }
 
+inline void Player::OnCollisionTick(GameObject* other)
+{
+	if (other->GetTag() & OBJECT_TAG::TAG_MONSTER_SKILL)
+	{
+		if (CollisionManager::GetInstance()->IsPerfectOverlapped(GetOwner(), other))
+		{
+			other->GetComponent<FSM>()->ChangeState(STATE_TYPE::HIT);
+			ChangeHP(other->GetComponent<AttackSkillComponent>()->GetDamage());
+		}
+	}
+}
+
 inline void Player::OnCollisionExit(GameObject* other)
 {
-	if (other->GetTag() == OBJECT_TAG::TAG_GROUND)
+	if (m_fsm->GetCurrentState() == STATE_TYPE::DEAD) return;
+
+	if (other->GetTag() & OBJECT_TAG::TAG_GROUND)
 	{
 		m_jumpStates = 0;
 		m_rigidbody->UseGravity(true);

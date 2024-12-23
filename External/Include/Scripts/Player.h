@@ -42,6 +42,7 @@ private: // GameObject : Component* 를 통해 호출
 	virtual void Init() final;
 
 	virtual void OnCollisionEnter(GameObject* other) final;
+	virtual void OnCollisionTick(GameObject* other) final;
 	virtual void OnCollisionExit(GameObject* other) final;
 
 private: // KeyManager : IKeyEvent* 를 통해 호출

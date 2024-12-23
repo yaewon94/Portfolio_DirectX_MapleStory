@@ -9,6 +9,7 @@ MonsterDeadState
 MonsterDefaultState
 Player
 PlayerAttackState
+PlayerDeadState
 PlayerDefaultState
 PlayerJumpState
 PlayerMoveState

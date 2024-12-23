@@ -9,9 +9,9 @@
 #include "PlayerMoveState.h"
 #include "PlayerJumpState.h"
 #include "PlayerAttackState.h"
+#include "PlayerDeadState.h"
 #include "Engine/Collider.h"
 #include "Engine/FlipbookPlayer.h"
-#include "AttackSkillComponent.h"
 
 Player::Player(GameObject* const owner) 
 	: AliveObject(owner)
@@ -27,6 +27,8 @@ Player::Player(GameObject* const owner)
 	m_flipbookPlayer->AddFlipbook("Jump", flipbook);
 	flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerAttack0", "Player\\PlayerAttack0.flipbook");
 	m_flipbookPlayer->AddFlipbook("Attack0", flipbook);
+	flipbook = AssetManager::GetInstance()->AddAsset<Flipbook>("PlayerDead", "Player\\PlayerDead.flipbook");
+	m_flipbookPlayer->AddFlipbook("Dead", flipbook);
 	GetOwner()->AddComponent<Rigidbody>();
 	GetOwner()->AddComponent<Collider>()->SetScale(Vec2(0.2f, 0.3f));
 	m_fsm = GetOwner()->AddComponent<FSM>();
@@ -34,6 +36,7 @@ Player::Player(GameObject* const owner)
 	m_fsm->AddState<PlayerMoveState>(STATE_TYPE::MOVE);
 	m_fsm->AddState<PlayerJumpState>(STATE_TYPE::JUMP);
 	m_fsm->AddState<PlayerAttackState>(STATE_TYPE::ATTACK);
+	m_fsm->AddState<PlayerDeadState>(STATE_TYPE::DEAD);
 
 	// 에셋 추가
 	m_skillMap.insert(make_pair(KEY_LSHIFT, AssetManager::GetInstance()->FindOrAddAsset<AttackSkill>("Skill_ChainLightening", "Job\\ArchMage_IceLightening\\Skill\\skills.skill").ptr_dynamic_cast<Skill>()));

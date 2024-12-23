@@ -15,6 +15,7 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::Init()
 {
+	InitCollisionCheckTag(OBJECT_TAG::TAG_PLAYER, OBJECT_TAG::TAG_MONSTER_SKILL);
 	InitCollisionCheckTag(OBJECT_TAG::TAG_PLAYER, OBJECT_TAG::TAG_GROUND);
 	InitCollisionCheckTag(OBJECT_TAG::TAG_PLAYER_SKILL, OBJECT_TAG::TAG_MONSTER);
 }
