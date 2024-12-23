@@ -264,3 +264,9 @@ OffsetUV_Y:
 0
 0
 0
+ObjSize_X:512
+ObjSize_Y:572
+ColliderOffset_X:0
+ColliderOffset_Y:0
+ColliderScale_X:0
+ColliderScale_Y:0

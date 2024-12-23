@@ -16,7 +16,6 @@ private:
 	size_t m_curFrameIndex; // 현재 재생중인 프레임 인덱스
 	bool m_isRepeat;
 	bool m_isFinish;
-	bool m_isAdjustObjSize;
 
 public:
 	FlipbookPlayer(GameObject* const owner);
@@ -84,8 +83,7 @@ public:
 		m_curFlipbook = iter->second;
 		m_curFrameIndex = 0;
 		m_isFinish = false;
-		m_isAdjustObjSize = isAdjustObjSize;
-		if (m_isAdjustObjSize) m_curFlipbook->AdjustObjSize(GetOwner(), m_curFrameIndex);
+		if (isAdjustObjSize) m_curFlipbook->AdjustObjSize(GetOwner());
 	}
 
 private: // GameObject::복사생성자 에서 호출

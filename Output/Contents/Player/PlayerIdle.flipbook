@@ -32,3 +32,9 @@ OffsetUV_Y:
 0.12
 0.12
 0.12
+ObjSize_X:150
+ObjSize_Y:180
+ColliderOffset_X:0
+ColliderOffset_Y:0
+ColliderScale_X:1
+ColliderScale_Y:1

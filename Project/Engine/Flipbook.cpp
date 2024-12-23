@@ -3,6 +3,7 @@
 #include "Device.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Collider.h"
 #include "FileManager.h"
 #include "AssetManager.h"
 
@@ -88,6 +89,24 @@ int Flipbook::Load()
 		m_offsetUV[i].y = ToFloat(buff);
 	}
 
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ObjSize_X", buff))) return E_FAIL;
+	m_objSize.x = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ObjSize_Y", buff))) return E_FAIL;
+	m_objSize.y = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ColliderOffset_X", buff))) return E_FAIL;
+	m_colliderOffset.x = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ColliderOffset_Y", buff))) return E_FAIL;
+	m_colliderOffset.y = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ColliderScale_X", buff))) return E_FAIL;
+	m_colliderScale.x = ToFloat(buff);
+
+	if (FAILED(FileManager::GetInstance()->ReadJsonValue("ColliderScale_Y", buff))) return E_FAIL;
+	m_colliderScale.y = ToFloat(buff);
+
 	FileManager::GetInstance()->Close();
 
 	return S_OK;
@@ -121,16 +140,16 @@ void Flipbook::Clear(size_t frameIndex)
 	m_atlas->Clear_GS();
 }
 
-void Flipbook::AdjustObjSize(GameObject* const obj, size_t frameIndex)
+void Flipbook::AdjustObjSize(GameObject* const obj)
 {
-#ifdef _DEBUG
-	if (m_atlas == nullptr) assert(nullptr);
-	if (frameIndex >= m_frameCount) assert(nullptr);
-#endif // _DEBUG
+	obj->GetTransform()->SetLocalScale(Vec3(m_objSize.x, m_objSize.y, 1.f)); // TODO : 월드크기를 기준으로 바꿀 것
 
-	obj->GetTransform()->SetLocalScale(Vec3(m_atlas->GetWidth() * m_backgroundSizeUV[frameIndex].x
-											, m_atlas->GetHeight() * m_backgroundSizeUV[frameIndex].y
-											, 1.f));
+	Collider* collider = obj->GetCollider();
+	if (collider != nullptr)
+	{
+		collider->SetOffset(m_colliderOffset);
+		collider->SetScale(m_colliderScale);
+	}
 }
 
 void Flipbook::SetAtlasTexture(SharedPtr<Texture> atlasTex, UINT sliceRowCount, UINT sliceColCount)

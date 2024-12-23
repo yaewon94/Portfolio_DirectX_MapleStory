@@ -23,6 +23,7 @@ private:
 	vector<Vec2> m_leftTopUV, m_sliceSizeUV;
 	vector<Vec2> m_backgroundSizeUV, m_offsetUV;
 	size_t m_frameCount;
+	Vec2 m_objSize, m_colliderOffset, m_colliderScale; // Flipbook 크기에 맞게 변경할 게임오브젝트 사이즈, 콜라이더 오프셋, 콜라이더 배율
 
 public:
 	Flipbook(const string& Key, const string& relativePath);
@@ -34,9 +35,9 @@ private: // AssetManager 에서 Asset* 으로 호출
 private: // FlipbookPlayer 에서 호출
 	void Bind(size_t frameIndex);
 	void Clear(size_t frameIndex);
+	void AdjustObjSize(GameObject* const obj);
 
 	size_t GetFrameCount() const { return m_frameCount; }
-	void AdjustObjSize(GameObject* const obj, size_t frameIndex);
 
 public:
 	SharedPtr<Texture> GetAtlasTexture() const { return m_atlas; }
